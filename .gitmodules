@@ -1,0 +1,8 @@
+[submodule "doc"]
+	path = doc
+	url = https://github.com/xszo/etc.wiki
+	branch = master
+[submodule "out"]
+	path = out
+	url = https://github.com/xszo/etc
+	branch = etc

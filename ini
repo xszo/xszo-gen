@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+OptNot=false
+OptRmt=false
+while getopts "nr:" opt; do
+  case ${opt} in
+    n ) OptNot=true ;;
+    r ) OptRmt=true
+        ArgRmt=${OPTARG} ;;
+  esac; done
+
+if [ ${OptNot} = false ]; then
+
+  sudo apt install zsh python3
+  python3 -m pip install --upgrade pip
+  python3 -m pip install pyyaml requests
+
+  if [ ${OptRmt} = true ]; then
+    git submodule set-url out ${ArgRmt}
+  fi
+
+  git submodule update --init --recursive
+
+fi
+
+cd doc
+git checkout master
+cd ../out
+git checkout etc

@@ -1,0 +1,30 @@
+#!/bin/zsh
+
+ListGen=(net net/filter)
+
+./ini -n
+# get option
+OptOut=false
+OptDeb=false
+while getopts "do" opt; do
+  case ${opt} in
+    d ) OptDeb=true ;;
+    o ) OptOut=true ;;
+  esac; done
+# generate files
+cp -Rf var/out/* out
+cp -f LICENSE out/LICENSE
+for item in ${ListGen[@]}; do
+  python3 src/${item}/main.py
+done
+# release
+cd out
+git checkout etc
+git add -A
+if [ ${OptOut} = true ]; then
+  git commit -qm gen --amend --reset-author
+  git push -f
+fi
+cd ..
+# clean up
+rm -Rf tmp
