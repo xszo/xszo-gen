@@ -19,12 +19,8 @@ for item in ${ListGen[@]}; do
 done
 # release
 cd out
-git checkout etc
 git add -A
 if [ ${OptOut} = true ]; then
   git commit -qm gen --amend --reset-author
-  git push -f
+  git push -qf
 fi
-cd ..
-# clean up
-rm -Rf tmp
