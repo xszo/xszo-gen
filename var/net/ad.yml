@@ -1,0 +1,58 @@
+gen:
+  id: "ad-"
+  tar:
+    - clash
+meta:
+  dns:
+    - "223.5.5.5"
+    - "223.6.6.6"
+    - "[2400:3200::1]"
+    - "[2400:3200:baba::1]"
+  doh: https://dns.alidns.com/dns-query
+filter:
+  - type: gen
+    name: direct
+    dest: DIRECT
+  - type: gen
+    name: system
+    dest: SYSTEM
+  - type: gen
+    name: global
+    dest: DEFAULT
+  - type: gen
+    name: stream
+    dest: STREAM
+  - type: gen
+    name: specfi
+    dest: SPECFI
+  - type: gen
+    name: r-cn
+    dest: R-CN
+  - type: ipgeo
+    name: cn
+    dest: R-CN
+  - type: gen
+    name: r-jp
+    dest: R-JP
+  - type: ipgeo
+    name: jp
+    dest: R-JP
+  - type: gen
+    name: r-tw
+    dest: R-TW
+  - type: ipgeo
+    name: tw
+    dest: R-TW
+  - type: gen
+    name: r-us
+    dest: R-US
+  - type: pre
+    name:
+      clash: ad-b.yml
+    dest: DEFAULT
+  - type: pre
+    name:
+      clash: ad-a.yml
+    dest: REJECT
+  - type: main
+    dest: DEFAULT

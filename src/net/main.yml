@@ -1,0 +1,16 @@
+script:
+  quantumult:
+    - a quantumult/profile.conf
+    - a quantumult/filter.txt
+    - r quantumult/parser.js https://cdn.jsdelivr.net/gh/KOP-XIAO/QuantumultX@master/Scripts/resource-parser.js
+  clash:
+    - a clash/config.yaml
+    - a clash/scv.ini
+    - a clash/scv.yml
+  surge:
+    - a surge/base.conf
+    - a surge/Profile.conf
+    - a surge/Server.conf
+    - i other/scv.ini
+  shadowrocket:
+    - a other/shadowrocket.conf

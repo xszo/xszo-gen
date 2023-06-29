@@ -1,0 +1,14 @@
+domain:
+  # Netflix
+  - fast.com
+  - netflix.com
+  - netflix.net
+  - nflxext.com
+  - nflxso.net
+  - nflxvideo.com
+  - nflxvideo.net
+  # Disney
+  - dssott.com
+  # DAZN
+  - dazn-api.com
+  - dazn.com

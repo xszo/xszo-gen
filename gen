@@ -12,6 +12,7 @@ while getopts "do" opt; do
     o ) OptOut=true ;;
   esac; done
 # generate files
+cp -Rf src/out/* out
 cp -Rf var/out/* out
 cp -f LICENSE out/LICENSE
 for item in ${ListGen[@]}; do

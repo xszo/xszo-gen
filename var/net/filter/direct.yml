@@ -1,0 +1,20 @@
+domain:
+  # Host
+  - -localhost
+  - lan # local
+  - local
+  # Time
+  - time.apple.com
+  - time.google.com
+  - time.windows.com
+  - pool.ntp.org
+ipcidr:
+  - 10.0.0.0/8 # lan
+  - 100.64.0.0/10 # lan
+  - 169.254.0.0/16
+  - 172.16.0.0/12 # lan
+  - 192.168.0.0/16 # lan
+  - "[fc00::/7]" # lan
+  - "[fe80::/64]"
+port:
+  - 123

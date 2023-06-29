@@ -1,0 +1,32 @@
+redir-port: 8421
+mixed-port: 8422
+allow-lan: true
+bind-address: "*"
+mode: rule
+log-level: warning
+external-controller: 0.0.0.0:8420
+secret: "00000000"
+profile:
+  store-selected: true
+  store-fake-ip: true
+  tracing: false
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  use-hosts: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - +.lan
+    - +.local
+  default-nameserver: [1.1.1.1]
+  nameserver: [1.1.1.1]
+  nameserver-policy:
+    captive.apple.com: 1.1.1.1
+tun:
+  enable: true
+  stack: system
+  dns-hijack: [any:53]
+  auto-route: true
+  auto-redir: true
+  auto-detect-interface: true

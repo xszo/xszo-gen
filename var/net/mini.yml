@@ -1,0 +1,54 @@
+gen:
+  id: ""
+  tar:
+    - shadowrocket
+meta:
+  dns:
+    - "223.5.5.5"
+    - "223.6.6.6"
+    - "[2400:3200::1]"
+    - "[2400:3200:baba::1]"
+  doh: https://dns.alidns.com/dns-query
+node:
+  - type: test
+    name: JP
+    list: \b(JPN?|Japan|Tokyo|Osaka)\b|(?<!尼)日
+  - type: test
+    name: TW
+    list: \b(TWN?|Taiwan|Taipei)\b|台|臺
+  - type: test
+    name: US
+    list: \b(USA?|United ?States|NY|LA)\b|美
+filter:
+  - type: gen
+    name: direct
+    dest: DIRECT
+  - type: gen
+    name: system
+    dest: DIRECT
+  - type: gen
+    name: global
+    dest: PROXY
+  - type: gen
+    name: r-cn
+    dest: DIRECT
+  - type: ipgeo
+    name: cn
+    dest: DIRECT
+  - type: gen
+    name: r-jp
+    dest: JP
+  - type: ipgeo
+    name: jp
+    dest: JP
+  - type: gen
+    name: r-tw
+    dest: TW
+  - type: ipgeo
+    name: tw
+    dest: TW
+  - type: gen
+    name: r-us
+    dest: US
+  - type: main
+    dest: PROXY

@@ -1,0 +1,13 @@
+domain:
+  # Apple
+  - apple.com
+  - cdn-apple.com
+  - mzstatic.com # itunes
+  - me.com # mail
+  # Microsoft
+  - msftconnecttest.com
+  - msftncsi.com
+  # Other
+  - synology.com
+ipcidr:
+  - 17.0.0.0/8 # apple

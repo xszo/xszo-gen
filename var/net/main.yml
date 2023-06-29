@@ -1,0 +1,5 @@
+base: base.yml
+list:
+  - profile.yml
+  - ad.yml
+  - mini.yml

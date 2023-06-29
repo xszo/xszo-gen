@@ -3,16 +3,11 @@ import re
 import requests
 import yaml
 
-if not os.path.exists("out/net/filter"):
-    os.makedirs("out/net/filter")
-if not os.path.exists("tmp/net/filter"):
-    os.makedirs("tmp/net/filter")
-
 # load data
-with open("etc/net/filter.yml", "tr", encoding="utf-8") as file:
+with open("var/net/filter/main.yml", "tr", encoding="utf-8") as file:
     Data = yaml.safe_load(file)
 
-# no match
+# variables
 NoMc = {}
 
 # start
@@ -21,9 +16,9 @@ for Filter in Data:
     # load patterns and out
     Pattern = []
     Out = {}
-    for keyLs in Filter["sub"].keys():
+    for keyLs in Filter["sub"]:
         Out[keyLs] = []
-        for keyRe in Filter["sub"][keyLs].keys():
+        for keyRe in Filter["sub"][keyLs]:
             Pattern.append((re.compile(Filter["sub"][keyLs][keyRe]), keyLs, keyRe))
     # get filter
     for item in requests.get(Filter["uri"], timeout=1000).text.split("\n"):
@@ -47,5 +42,7 @@ for Filter in Data:
     NoMc[Filter["id"]] = LoNo
 
 # no match
+if not os.path.exists("tmp/net/filter"):
+    os.makedirs("tmp/net/filter")
 with open("tmp/net/filter/no.yml", "tw", encoding="utf-8") as file:
     yaml.safe_dump(NoMc, file)
