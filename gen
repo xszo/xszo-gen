@@ -4,24 +4,24 @@ ListGen=(net net/filter)
 
 ./ini -n
 # get option
-OptOut=false
-OptDeb=false
-while getopts "do" opt; do
-  case ${opt} in
-    d ) OptDeb=true ;;
-    o ) OptOut=true ;;
-  esac; done
+while getopts "ao" opt; do
+  case $opt {
+  a ) OptAct=true ;;
+  o ) OptOut=true ;;
+  }
+done
 # generate files
 cp -Rf src/out/* out
-cp -Rf var/out/* out
 cp -f LICENSE out/LICENSE
-for item in ${ListGen[@]}; do
+for item in ${ListGen[@]}; {
   python3 src/${item}/main.py
-done
-# release
-cd out
-git add -A
-if [ ${OptOut} = true ]; then
-  git commit -qm gen --amend --reset-author
-  git push -qf
-fi
+}
+if [[ -z $OptAct ]] {
+  # release
+  if [[ -n $OptOut ]] {
+    cd out
+    git add -qA
+    git commit -qm gen --amend --reset-author
+    git push -qf
+  }
+}
