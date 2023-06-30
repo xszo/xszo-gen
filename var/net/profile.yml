@@ -1,9 +1,11 @@
 gen:
   id: ""
+  # target software
   tar:
     - quantumult
     - clash
     - surge
+# override base
 meta:
   dns:
     - "223.5.5.5"

@@ -1,5 +1,7 @@
 gen:
+  # text prepended to file name
   id: ""
+  # variables refered with '='
   var:
     NodeList:
       - DIRECT
@@ -15,22 +17,30 @@ gen:
       - SG
       - TW
       - US
-      - NodeS
+      - Node
       - N-JMS
+# misc data
 meta:
+  # lag test http link
   test: http://1.1.1.1/
+  # plain dns server
   dns:
     - "1.1.1.1"
     - "1.0.0.1"
     - "[2606:4700:4700::1111]"
     - "[2606:4700:4700::1001]"
+  # dns over https
   doh: https://cloudflare-dns.com/dns-query
+# node info
 node:
   - type: static
+    # group name
     name: DEFAULT
+    # group children, use '=' to insert predefined var
     list:
       - REJECT
       - =NodeList
+    # group icon for ios
     ico-sf: arrow.left.arrow.right.system
   - type: static
     name: SYSTEM
@@ -76,6 +86,7 @@ node:
     ico-sf: arrow.left.and.right.system
   - type: static
     name: Node0
+    # group children filter, use '=' to refer var/pattern:region
     list: .*
     ico-sf: arrow.triangle.branch.system
   - type: static
@@ -92,46 +103,48 @@ node:
     ico-sf: arrow.triangle.branch.system
   - type: test
     name: CN
-    list: \b(CH?N|China)\b|中
+    list: =cn
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: DE
-    list: \b(DEU?|Deutschland|Germany?|Berlin)\b|德
+    list: =de
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: GB
-    list: \b(GBR?|Britain|UK|United ?Kingdom|London)\b|英
+    list: =gb
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: HK
-    list: \b(HKG?|Hong ?Kong)|港
+    list: =hk
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: JP
-    list: \b(JPN?|Japan|Tokyo|Osaka)\b|(?<!尼)日
+    list: =jp
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: SG
-    list: \b(SGP?|Singapore)\b|新(?!西)|獅城|狮城
+    list: =sg
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: TW
-    list: \b(TWN?|Taiwan|Taipei)\b|台|臺
+    list: =tw
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: US
-    list: \b(USA?|United ?States|NY|LA)\b|美
+    list: =us
     ico-sf: arrow.triangle.swap.system
   - type: test
-    name: NodeS
+    name: Node
     list: .*
     ico-sf: arrow.triangle.swap.system
   - type: test
     name: N-JMS
     list: ^JMS-\d+@\w+s\d{1,2}\.\w+\.\w+:\d+
     ico-sf: arrow.triangle.swap.system
+# filter info
 filter:
   - type: gen
+    # type gen will look into filter/ and call script to generate
     name: direct
     dest: DIRECT
   - type: gen
@@ -168,4 +181,5 @@ filter:
     name: r-us
     dest: R-US
   - type: main
+    # type main is the default dest and only the latter is valid
     dest: DEFAULT

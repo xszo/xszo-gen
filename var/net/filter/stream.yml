@@ -12,3 +12,8 @@ domain:
   # DAZN
   - dazn-api.com
   - dazn.com
+  # BBC
+  - acast.com
+  - bbc.co.uk
+  - bbc.com
+  - bbci.co.uk

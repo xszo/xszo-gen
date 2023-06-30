@@ -163,8 +163,10 @@ domain:
   - doubanio.com
   - jianshu.com
   - sspai.com
-  - taptap.com
   - tapimg.com
+  - taptap.com
+  - xhscdn.com
+  - xiaohongshu.com
   - zhihu.com
   - zhimg.com
   # Media

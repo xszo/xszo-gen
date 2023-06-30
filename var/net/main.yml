@@ -1,4 +1,6 @@
+# default data
 base: base.yml
+# profile list
 list:
   - profile.yml
   - ad.yml

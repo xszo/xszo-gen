@@ -12,13 +12,13 @@ meta:
 node:
   - type: test
     name: JP
-    list: \b(JPN?|Japan|Tokyo|Osaka)\b|(?<!尼)日
+    list: =jp
   - type: test
     name: TW
-    list: \b(TWN?|Taiwan|Taipei)\b|台|臺
+    list: =tw
   - type: test
     name: US
-    list: \b(USA?|United ?States|NY|LA)\b|美
+    list: =us
 filter:
   - type: gen
     name: direct
@@ -28,6 +28,12 @@ filter:
     dest: DIRECT
   - type: gen
     name: global
+    dest: PROXY
+  - type: gen
+    name: stream
+    dest: PROXY
+  - type: gen
+    name: specfi
     dest: PROXY
   - type: gen
     name: r-cn

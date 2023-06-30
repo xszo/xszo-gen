@@ -1,0 +1,10 @@
+# match patterns
+region:
+  cn: \b(CH?N|China)\b|中
+  de: \b(DEU?|Deutschland|Germany?|Berlin)\b|德
+  gb: \b(GBR?|Britain|UK|United ?Kingdom|London)\b|英
+  hk: \b(HKG?|Hong ?Kong)|港
+  jp: \b(JPN?|Japan|Tokyo|Osaka)\b|(?<!尼)日
+  sg: \b(SGP?|Singapore)\b|新(?!西)|獅城|狮城
+  tw: \b(TWN?|Taiwan|Taipei)\b|台|臺
+  us: \b(USA?|United ?States|NY|LA)\b|美

@@ -41,6 +41,8 @@ def LoadFile(File):
 
 def LoadNode(ListNode):
     """load node section in file"""
+    with open("var/pattern.yml", "tr", encoding="utf-8") as file:
+        Pat = yaml.safe_load(file)["region"]
     Res = []
     for item in ListNode:
         # load list
@@ -54,7 +56,10 @@ def LoadNode(ListNode):
                     lols.append(line)
             item["list"] = lols
         else:
-            item["regex"] = item["list"]
+            if item["list"][0] == "=":
+                item["regex"] = Pat[item["list"][1:]]
+            else:
+                item["regex"] = item["list"]
             del item["list"]
         Res.append(item)
     return Res

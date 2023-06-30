@@ -19,10 +19,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-### External
+## External
 
-- out/net/clash/ad-\*  
-  AdGuard DNS Filter https://adguard.com/kb/  
-  GNU GPL 3.0
-- out/net/quantumult/parser.js  
-  KOP-XIAO https://cdn.jsdelivr.net/gh/KOP-XIAO/QuantumultX@master/Scripts/resource-parser.js
+- AdGuard DNS Filter, GNU GPL 3.0, https://adguard.com/kb/  
+  ./out/net/clash/ad-a.yml  
+  ./out/net/clash/ad-b.yml  
+  https://xszo.github.io/etc/net/clash/ad-a.yml  
+  https://xszo.github.io/etc/net/clash/ad-b.yml
+- KOP-XIAO, https://cdn.jsdelivr.net/gh/KOP-XIAO/QuantumultX@master/Scripts/resource-parser.js  
+  ./out/net/quantumult/parser.js  
+  https://xszo.github.io/etc/net/quantumult/parser.js

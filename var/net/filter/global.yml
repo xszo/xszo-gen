@@ -1,8 +1,6 @@
 domain:
   # Apple
   - apple
-  - icloud-content.com
-  - icloud.com
   # Google
   - ampproject.org
   - android.com
@@ -201,7 +199,7 @@ domain:
   - telesco.pe
   # Steam
   - steamcommunity.com
-  - steamcontent.com
+  - steamcontent.com # dl
   - steampowered.com
   - steamserver.net
   - steamstatic.com
@@ -210,11 +208,6 @@ domain:
   - spoti.fi
   - spotify.com
   - spotifycdn.com
-  # BBC
-  - acast.com
-  - bbc.co.uk
-  - bbc.com
-  - bbci.co.uk
 
   # System
   - gnome.org

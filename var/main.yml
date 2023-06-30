@@ -1,4 +1,7 @@
+# release base uri
 uri: https://xszo.github.io/etc/
 # uri: https://raw.githubusercontent.com/xszo/etc/etc/
+# project icon
 ico: https://avatars.githubusercontent.com/u/97667708
+# update interval of managed files
 int: 604800
