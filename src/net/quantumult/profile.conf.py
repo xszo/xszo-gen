@@ -9,9 +9,11 @@ o("network_check_url = " + src["meta"]["test"])
 o("server_check_url = " + src["meta"]["test"])
 o()
 o("[dns]")
-for item in src["meta"]["dns"]:
-    o("server = " + item)
-o("doh-server = " + src["meta"]["doh"])
+if "dns" in src["meta"]:
+    for item in src["meta"]["dns"]:
+        o("server = " + item)
+if "doh" in src["meta"]:
+    o("doh-server = " + src["meta"]["doh"])
 o()
 o("[mitm]")
 o()
@@ -29,7 +31,9 @@ for item in src["node"]:
             line += ", " + val
     elif "regx" in item:
         line += ", server-tag-regex=" + item["regx"]
-    o(line + ", img-url=" + item["ico-sf"])
+    if "ico-sf" in item:
+        line += ", img-url=" + item["ico-sf"]
+    o(line)
 o()
 o("[filter_local]")
 o("final, " + src["filter"]["main"])

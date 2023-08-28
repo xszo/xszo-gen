@@ -73,9 +73,9 @@ def RunFile(Base, Ovrd):
     else:
         Res["meta"] = deepcopy(Base["meta"])
     if "node" in Ovrd:
-        Res["node"] = LoadNode(Insert(deepcopy(Base["node"]), Ovrd["node"]))
+        Res["node"] = LoadNode(Insert(Base["node"], Ovrd["node"]))
     else:
-        Res["node"] = LoadNode(deepcopy(Base["node"]))
+        Res["node"] = LoadNode(Base["node"])
     if "filter" in Ovrd:
         Res["filter"] = LoadFilter(Insert(Base["filter"], Ovrd["filter"]))
     else:
@@ -87,36 +87,41 @@ def RunFile(Base, Ovrd):
 
 def LoadNode(ListNode):
     """ins inline var, format list val"""
+    Res = []
     # get data
     with open("var/pattern.yml", "tr", encoding="utf-8") as file:
         Pat = yaml.safe_load(file)["region"]
     for item in ListNode:
+        line = {"name": item["name"], "type": item["type"]}
+        if "ico-sf" in item:
+            line["ico-sf"] = item["ico-sf"]
         # load list val
         if isinstance(item["list"], list):
             # plain list
-            tmp = []
-            for line in item["list"]:
+            line["list"] = []
+            for sth in item["list"]:
                 # replace variable
-                if line[0] == "=":
-                    tmp.extend(Gen["var"][line[1:]])
+                if sth[0] == "=":
+                    line["list"].extend(Gen["var"][sth[1:]])
                 else:
-                    tmp.append(line)
-            item["list"] = tmp
+                    line["list"].append(sth)
         else:
             # regex match
             if item["list"][0] == "=":
-                item["regx"] = Pat[item["list"][1:]]
+                line["regx"] = Pat[item["list"][1:]]
             else:
-                item["regx"] = item["list"]
-            del item["list"]
-    return ListNode
+                line["regx"] = item["list"]
+        Res.append(line)
+    return Res
 
 
 def LoadFilter(ListFilter):
     """get filter content from file and optimize"""
-    Res = {"domain": [], "ipcidr": [], "ipgeo": [], "port": []}
+    Res = {"domain": [], "ipcidr": []}
     tmpDomain = [[], [], [], [], [], [], [], []]
     tmpIpcidr = [[], []]
+    tmpIpgeo = []
+    tmpPort = []
     tmpPre = {}
     for item in ListFilter:
         # type gen
@@ -143,7 +148,7 @@ def LoadFilter(ListFilter):
             if "port" in raw:
                 for line in raw["port"]:
                     # convert to (type, match, dest)
-                    Res["port"].append((1, str(line), item["dest"]))
+                    tmpPort.append((1, str(line), item["dest"]))
         # type pre
         elif item["type"] == "pre":
             for unit in Gen["tar"]:
@@ -165,15 +170,19 @@ def LoadFilter(ListFilter):
                     )
         # type other
         elif item["type"] == "ipgeo":
-            Res["ipgeo"].append((1, item["name"].upper(), item["dest"]))
+            tmpIpgeo.append((1, item["name"].upper(), item["dest"]))
         elif item["type"] == "main":
             Res["main"] = item["dest"]
     # merge domain in order
     for item in reversed(tmpDomain):
-        Res["domain"] += item
+        Res["domain"] += sorted(item, key=lambda v: ".".join(reversed(v[1].split("."))))
     # copy into Res
     for item in tmpIpcidr:
-        Res["ipcidr"] += item
+        Res["ipcidr"] += sorted(item, key=lambda v: v[1])
+    if len(tmpIpgeo) > 0:
+        Res["ipgeo"] = sorted(tmpIpgeo, key=lambda v: v[1])
+    if len(tmpPort) > 0:
+        Res["port"] = sorted(tmpPort, key=lambda v: int(v[1]))
     if len(tmpPre) > 0:
         Res["pre"] = tmpPre
     return Res

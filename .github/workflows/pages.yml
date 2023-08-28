@@ -21,8 +21,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       # gen
-      - uses: actions/checkout@v3
-      - run: sudo apt install -y zsh
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"

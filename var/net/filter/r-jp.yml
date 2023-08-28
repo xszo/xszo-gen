@@ -10,6 +10,8 @@ domain:
   - abema.io
   - abematv.akamaized.net
   - vod-abematv.akamaized.net
+  - ds-vod-abematv.akamaized.net
+  - linear-abematv.akamaized.net
   - ds-linear-abematv.akamaized.net
   # Pixiv
   - fanbox.cc
@@ -19,9 +21,11 @@ domain:
 
   # Social
   - 5ch.net
+  - misskey.io
   # Media
-  - dmc.nico
   - nico.ms
+  - dmc.nico
+  - dlsite.com
   - syosetu.com
   # Game
   - colorfulpalette.org

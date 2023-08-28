@@ -56,7 +56,7 @@ for unit in Data["list"]:
             LoNoMc.append(item)
     # drop dupl
     for key in Out:
-        Out[key] = list(set(Out[key]))
+        Out[key] = list(dict.fromkeys(Out[key]))
     # output
     for key, con in Out.items():
         # clash

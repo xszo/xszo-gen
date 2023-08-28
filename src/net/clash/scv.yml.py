@@ -3,7 +3,10 @@ import yaml
 with open("src/net/clash/base.yml", "tr", encoding="utf-8") as file:
     raw = yaml.safe_load(file)
 raw["dns"]["default-nameserver"] = [item + ":53" for item in src["meta"]["dns"]]
-raw["dns"]["nameserver"] = [src["meta"]["doh"]]
+if "doh" in src["meta"]:
+    raw["dns"]["nameserver"] = [src["meta"]["doh"]]
+else:
+    raw["dns"]["nameserver"] = raw["dns"]["default-nameserver"]
 
 if "pre" in src["filter"]:
     raw["rule-providers"] = {}
