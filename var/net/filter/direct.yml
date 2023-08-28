@@ -1,3 +1,4 @@
+# '' gen DOMAIN-SUFFIX,''    -'' gen DOMAIN,''
 domain:
   # Host
   - -localhost
@@ -7,6 +8,7 @@ domain:
   - time.google.com
   - time.windows.com
   - pool.ntp.org
+# '' gen IP-CIDR,''    [''] gen IP6-CIDR,''
 ipcidr:
   - 10.0.0.0/8 # lan
   - 100.64.0.0/10
@@ -15,5 +17,6 @@ ipcidr:
   - 192.168.0.0/16 # lan
   - "[fc00::/7]" # lan
   - "[fe80::/64]"
+# '' gen DST-PORT,''
 port:
   - 123

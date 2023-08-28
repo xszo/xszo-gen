@@ -8,34 +8,41 @@ while getopts "aigo" opt; do
   a) OptAct=true ;; # run once
   i) OptIni=true ;; # install
   g) OptGen=true ;; # generate
-  o) OptOut=true ;; # output
+  o) OptOut=true ;; # publish
   }
 done
 
 # install dependencies
 if [[ -n $OptIni || -n $OptAct ]] {
-  varPkg=(zsh git python3)
-  varPip=(pyyaml requests)
-  # linux
+  # install linux packages
+  varPkg=(zsh git python3 python3-pip)
   if [[ -x $(command -v brew) ]]; then
     brew install -y $varPkg
   elif [[ -x $(command -v apt-get) ]]; then
     sudo apt install -y $varPkg
   elif [[ -x $(command -v dnf) ]]; then
     sudo dnf install -y $varPkg
+  elif [[ -x $(command -v yum) ]]; then
+    sudo yum install -y $varPkg
   else
     echo $varPkg
   fi
-  # python
-  python3 -m pip install $varPip
+  # install python packages
+  python3 -m pip install -r src/env/pip
 }
 
 # install git config
 if [[ -n $OptIni && -z $OptAct ]] {
+  # init submodule
   git submodule update --init --recursive
-  git worktree add out etc
+  # init worktree
+  if ! git worktree list | grep -q "out"; then
+    if [[ -e out ]] { rm -rf out; }
+    git worktree add out etc
+  fi
+  # init branch
   wait
-  # check branch
+  git checkout -qf main
   cd doc
   git checkout -qf master
   cd ../out
@@ -44,7 +51,7 @@ if [[ -n $OptIni && -z $OptAct ]] {
   cd ..
 }
 
-# generate files
+# generate output
 if [[ -n $OptGen || -n $OptAct ]] {
   cp -rf src/out .
   cp -f LICENSE out/LICENSE
@@ -53,7 +60,7 @@ if [[ -n $OptGen || -n $OptAct ]] {
   }
 }
 
-# release output
+# publish output
 if [[ -n $OptOut && -z $OptAct ]]  {
   cd out
   git add --all

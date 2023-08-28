@@ -1,6 +1,6 @@
 # xszo/etc
 
-Documents at https://github.com/xszo/etc/wiki
+Documents in doc/ at https://github.com/xszo/etc/wiki
 
 ## License
 
@@ -21,11 +21,16 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 ## External
 
+- xszo/etc.wiki, GNU GPL 3.0 & CC BY-SA 4.0
+  ./doc
 - AdGuard DNS Filter, GNU GPL 3.0, https://adguard.com/kb/  
   ./out/net/clash/ad-a.yml  
   ./out/net/clash/ad-b.yml  
   https://xszo.github.io/etc/net/clash/ad-a.yml  
   https://xszo.github.io/etc/net/clash/ad-b.yml
+- GFW list, GNU LGPL 2.1, https://cdn.jsdelivr.net/gh/gfwlist/gfwlist@master/gfwlist.txt  
+  ./out/net/clash/gfw-a.yml  
+  https://xszo.github.io/etc/net/clash/gfw-a.yml
 - KOP-XIAO, https://cdn.jsdelivr.net/gh/KOP-XIAO/QuantumultX@master/Scripts/resource-parser.js  
   ./out/net/quantumult/parser.js  
   https://xszo.github.io/etc/net/quantumult/parser.js

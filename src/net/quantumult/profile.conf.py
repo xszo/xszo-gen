@@ -3,7 +3,7 @@ def o(line=""):
 
 
 o("[general]")
-o("profile_img_url = " + src["meta"]["ico"])
+o("profile_img_url = " + src["meta"]["icon"])
 o("resource_parser_url = " + src["meta"]["path"] + "quantumult/parser.js")
 o("network_check_url = " + src["meta"]["test"])
 o("server_check_url = " + src["meta"]["test"])
@@ -27,8 +27,8 @@ for item in src["node"]:
     if "list" in item:
         for val in item["list"]:
             line += ", " + val
-    elif "regex" in item:
-        line += ", server-tag-regex=" + item["regex"]
+    elif "regx" in item:
+        line += ", server-tag-regex=" + item["regx"]
     o(line + ", img-url=" + item["ico-sf"])
 o()
 o("[filter_local]")
@@ -39,21 +39,18 @@ o(
     + "quantumult/"
     + src["id"]
     + "filter.txt, update-interval="
-    + str(src["meta"]["int"])
+    + str(src["meta"]["interval"])
 )
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["quantumult"]:
-        match item[0]:
-            case 1:
-                o(
-                    src["meta"]["path"]
-                    + "quantumult/"
-                    + item[1]
-                    + ", force-policy="
-                    + item[2]
-                    + ", update-interval="
-                    + str(src["meta"]["int"])
-                )
+        if item[0] == 1:
+            o(
+                item[1]
+                + ", force-policy="
+                + item[2]
+                + ", update-interval="
+                + str(src["meta"]["interval"])
+            )
 o()
 o("[rewrite_local]")
 o("[rewrite_remote]")

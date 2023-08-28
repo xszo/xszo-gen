@@ -8,14 +8,13 @@ raw["dns"]["nameserver"] = [src["meta"]["doh"]]
 if "pre" in src["filter"]:
     raw["rule-providers"] = {}
     for item in src["filter"]["pre"]["clash"]:
-        match item[0]:
-            case 1:
-                raw["rule-providers"][item[1]] = {
-                    "behavior": "domain",
-                    "type": "http",
-                    "interval": src["meta"]["int"],
-                    "url": src["meta"]["path"] + "clash/" + item[1],
-                    "path": "./filter/" + item[1],
-                }
+        if item[0] == 1:
+            raw["rule-providers"][item[3]] = {
+                "behavior": "domain",
+                "type": "http",
+                "interval": src["meta"]["interval"],
+                "url": item[1],
+                "path": "./filter/" + item[3],
+            }
 
 yaml.safe_dump(raw, out)

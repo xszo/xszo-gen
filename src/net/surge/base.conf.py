@@ -9,7 +9,7 @@ o(
     + src["id"]
     + "base.conf"
     + " interval="
-    + str(src["meta"]["int"])
+    + str(src["meta"]["interval"])
     + " strict=false"
 )
 o()
@@ -21,7 +21,6 @@ o("ipv6 = true")
 o("ipv6-vif = auto")
 o("udp-priority = true")
 o("udp-policy-not-supported-behaviour = REJECT")
-o("exclude-simple-hostnames = true")
 o("hijack-dns = *:53")
 line = "dns-server = "
 for item in src["meta"]["dns"]:
@@ -41,43 +40,29 @@ for item in src["node"]:
     if "list" in item:
         for val in item["list"]:
             line += ", " + val
-    if "regex" in item:
-        line += (
-            ', include-all-proxies=true, policy-regex-filter="' + item["regex"] + '"'
-        )
+    if "regx" in item:
+        line += ', include-all-proxies=true, policy-regex-filter="' + item["regx"] + '"'
     o(line)
 o()
 o("[Rule]")
 for item in src["filter"]["port"]:
-    match item[0]:
-        case 1:
-            o("DEST-PORT," + item[1] + "," + item[2])
+    if item[0] == 1:
+        o("DEST-PORT," + item[1] + "," + item[2])
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["surge"]:
-        match item[0]:
-            case 1:
-                o(
-                    "DOMAIN-SET,"
-                    + src["meta"]["path"]
-                    + "surge/"
-                    + item[1]
-                    + ","
-                    + item[2]
-                )
+        if item[0] == 1:
+            o("DOMAIN-SET," + item[1] + "," + item[2])
 for item in src["filter"]["domain"]:
-    match item[0]:
-        case 1:
-            o("DOMAIN-SUFFIX," + item[1] + "," + item[2])
-        case 2:
-            o("DOMAIN," + item[1] + "," + item[2])
+    if item[0] == 1:
+        o("DOMAIN-SUFFIX," + item[1] + "," + item[2])
+    elif item[0] == 2:
+        o("DOMAIN," + item[1] + "," + item[2])
 for item in src["filter"]["ipcidr"]:
-    match item[0]:
-        case 1:
-            o("IP-CIDR," + item[1] + "," + item[2])
-        case 2:
-            o("IP-CIDR6," + item[1] + "," + item[2])
+    if item[0] == 1:
+        o("IP-CIDR," + item[1] + "," + item[2])
+    elif item[0] == 2:
+        o("IP-CIDR6," + item[1] + "," + item[2])
 for item in src["filter"]["ipgeo"]:
-    match item[0]:
-        case 1:
-            o("GEOIP," + item[1] + "," + item[2])
+    if item[0] == 1:
+        o("GEOIP," + item[1] + "," + item[2])
 o("FINAL, " + src["filter"]["main"] + ", dns-failed")

@@ -1,7 +1,9 @@
 gen:
-  # text prepended to file name
-  id: ""
-  # variables refered with '='
+  id: s
+  tar:
+    - quantumult
+    - clash
+    - surge
   var:
     NodeList:
       - DIRECT
@@ -19,74 +21,48 @@ gen:
       - US
       - Node
       - N-JMS
-# misc data
 meta:
-  # lag test http link
-  test: http://1.1.1.1/
-  # plain dns server
   dns:
-    - "1.1.1.1"
-    - "1.0.0.1"
-    - "[2606:4700:4700::1111]"
-    - "[2606:4700:4700::1001]"
-  # dns over https
-  doh: https://cloudflare-dns.com/dns-query
-# node info
+    - "223.5.5.5"
+    - "223.6.6.6"
+    - "[2400:3200::1]"
+    - "[2400:3200:baba::1]"
+  doh: https://dns.alidns.com/dns-query
 node:
-  - type: static
-    # group name
-    name: DEFAULT
-    # group children, use '=' to insert predefined var
-    list:
-      - REJECT
-      - =NodeList
-    # group icon for ios
+  - name: DEFAULT
+    type: static
+    list: [DIRECT, REJECT, =NodeList]
     ico-sf: arrow.left.arrow.right.system
   - type: static
     name: SYSTEM
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: STREAM
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: SPECFI
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: R-CN
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: R-JP
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: R-TW
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: R-US
-    list:
-      - DEFAULT
-      - =NodeList
+    list: [DEFAULT, DIRECT, =NodeList]
     ico-sf: arrow.left.and.right.system
   - type: static
     name: Node0
-    # group children filter, use '=' to refer var/pattern:region
     list: .*
     ico-sf: arrow.triangle.branch.system
   - type: static
@@ -141,10 +117,8 @@ node:
     name: N-JMS
     list: ^JMS-\d+@\w+s\d{1,2}\.\w+\.\w+:\d+
     ico-sf: arrow.triangle.swap.system
-# filter info
 filter:
   - type: gen
-    # type gen will look into filter/ and call script to generate
     name: direct
     dest: DIRECT
   - type: gen
@@ -181,5 +155,4 @@ filter:
     name: r-us
     dest: R-US
   - type: main
-    # type main is the default dest and only the latter is valid
     dest: DEFAULT

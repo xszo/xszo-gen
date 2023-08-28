@@ -1,58 +1,26 @@
 gen:
-  id: "ad-"
+  id: ad
   tar:
     - clash
+    - surge
 meta:
   dns:
-    - "223.5.5.5"
-    - "223.6.6.6"
-    - "[2400:3200::1]"
-    - "[2400:3200:baba::1]"
-  doh: https://dns.alidns.com/dns-query
+    - "94.140.14.14"
+    - "94.140.15.15"
+    - "[2a10:50c0::ad1:ff]"
+    - "[2a10:50c0::ad2:ff]"
+  doh: https://dns.adguard-dns.com/dns-query
 filter:
-  - type: gen
-    name: direct
-    dest: DIRECT
-  - type: gen
-    name: system
-    dest: SYSTEM
-  - type: gen
-    name: global
-    dest: DEFAULT
-  - type: gen
-    name: stream
-    dest: STREAM
-  - type: gen
-    name: specfi
-    dest: SPECFI
-  - type: gen
-    name: r-cn
-    dest: R-CN
-  - type: ipgeo
-    name: cn
-    dest: R-CN
-  - type: gen
-    name: r-jp
-    dest: R-JP
-  - type: ipgeo
-    name: jp
-    dest: R-JP
-  - type: gen
-    name: r-tw
-    dest: R-TW
-  - type: ipgeo
-    name: tw
-    dest: R-TW
-  - type: gen
-    name: r-us
-    dest: R-US
   - type: pre
-    name:
-      clash: ad-b.yml
+    name: adb
+    link:
+      clash: -clash/f-adb.yml
+      surge: -surge/f-adb.txt
     dest: DEFAULT
   - type: pre
-    name:
-      clash: ad-a.yml
+    name: ada
+    link:
+      clash: -clash/f-ada.yml
+      surge: -surge/f-ada.txt
     dest: REJECT
-  - type: main
-    dest: DEFAULT
+  - "="

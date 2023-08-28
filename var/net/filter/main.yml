@@ -1,9 +1,40 @@
-- id: ad
-  uri: https://filters.adtidy.org/ios/filters/15.txt
-  sub:
-    a:
-      ds: ^\|\|(([a-z0-9\-\*]+\.)+([a-z]+|xn--[a-z0-9]+))\^
-      dn: ^\|(([a-z0-9\-\*]+\.)+([a-z]+|xn--[a-z0-9]+))\^
-    b:
-      ds: ^@@\|\|(([a-z0-9\-\*]+\.)+([a-z]+|xn--[a-z0-9]+))\^
-      dn: ^@@\|(([a-z0-9\-\*]+\.)+([a-z]+|xn--[a-z0-9]+))\^
+# variables refered with '\=name\'
+var:
+  dn: ((?:[A-Za-z0-9\-\*]+\.)+(?:[A-Za-z]+|xn--[A-Za-z0-9]+))
+  dl: ((?:[A-Za-z0-9\-\*]+\.)+)\*?
+  ed: (?:$|\^|\$|#|/|%)
+list:
+  - id: ad # adguard list
+    # link to source file
+    uri: https://filters.adtidy.org/ios/filters/15.txt
+    # use preprocessor
+    pre: []
+    # use regular expression to convert
+    reg:
+      # into sublist
+      a:
+        # match pattern, expand pattern
+        - ^(?:\|\||\.)\=dn\\=ed\ +.\1
+        - ^(?:\|\||\.)\=dl\\=ed\ +.\1*
+        - ^(?:\||\|?[a-z]*://|-?)\=dn\\=ed\ \1
+        - ^(?:\||\|?[a-z]*://|-?)\=dl\\=ed\ \1*
+      b:
+        - ^@@(?:\|\||\.)\=dn\\=ed\ +.\1
+        - ^@@(?:\|\||\.)\=dl\\=ed\ +.\1*
+        - ^@@(?:\||\|?[a-z]*://|-?)\=dn\\=ed\ \1
+        - ^@@(?:\||\|?[a-z]*://|-?)\=dl\\=ed\ \1*
+
+  - id: gfw # gfw list
+    uri: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+    pre: [b64]
+    reg:
+      a:
+        - ^(?:\|\||\.)\=dn\\=ed\ +.\1
+        - ^(?:\|\||\.)\=dl\\=ed\ +.\1*
+        - ^(?:\||\|?[a-z]*://|-?)\=dn\\=ed\ \1
+        - ^(?:\||\|?[a-z]*://|-?)\=dl\\=ed\ \1*
+      b:
+        - ^@@(?:\|\||\.)\=dn\\=ed\ +.\1
+        - ^@@(?:\|\||\.)\=dl\\=ed\ +.\1*
+        - ^@@(?:\||\|?[a-z]*://|-?)\=dn\\=ed\ \1
+        - ^@@(?:\||\|?[a-z]*://|-?)\=dl\\=ed\ \1*

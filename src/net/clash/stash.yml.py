@@ -23,50 +23,44 @@ for item in src["node"]:
         continue
     if "list" in item:
         line["proxies"] = item["list"]
-    if "regex" in item:
+    if "regx" in item:
         line["include-all"] = True
-        line["filter"] = item["regex"]
+        line["filter"] = item["regx"]
     raw["proxy-groups"].append(line)
 
 raw["rules"] = []
 for item in src["filter"]["port"]:
-    match item[0]:
-        case 1:
-            raw["rules"].append("DST-PORT," + item[1] + "," + item[2])
+    if item[0] == 1:
+        raw["rules"].append("DST-PORT," + item[1] + "," + item[2])
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["clash"]:
-        match item[0]:
-            case 1:
-                raw["rules"].append("RULE-SET," + item[1] + "," + item[2])
+        if item[0] == 1:
+            raw["rules"].append("RULE-SET," + item[3] + "," + item[2])
 for item in src["filter"]["domain"]:
-    match item[0]:
-        case 1:
-            raw["rules"].append("DOMAIN-SUFFIX," + item[1] + "," + item[2])
-        case 2:
-            raw["rules"].append("DOMAIN," + item[1] + "," + item[2])
+    if item[0] == 1:
+        raw["rules"].append("DOMAIN-SUFFIX," + item[1] + "," + item[2])
+    elif item[0] == 2:
+        raw["rules"].append("DOMAIN," + item[1] + "," + item[2])
 for item in src["filter"]["ipcidr"]:
-    match item[0]:
-        case 1:
-            raw["rules"].append("IP-CIDR," + item[1] + "," + item[2])
-        case 2:
-            raw["rules"].append("IP-CIDR6," + item[1] + "," + item[2])
+    if item[0] == 1:
+        raw["rules"].append("IP-CIDR," + item[1] + "," + item[2])
+    elif item[0] == 2:
+        raw["rules"].append("IP-CIDR6," + item[1] + "," + item[2])
 for item in src["filter"]["ipgeo"]:
-    match item[0]:
-        case 1:
-            raw["rules"].append("GEOIP," + item[1] + "," + item[2])
+    if item[0] == 1:
+        raw["rules"].append("GEOIP," + item[1] + "," + item[2])
 raw["rules"].append("MATCH, " + src["filter"]["main"])
 
 if "pre" in src["filter"]:
     raw["rule-providers"] = {}
     for item in src["filter"]["pre"]["clash"]:
-        match item[0]:
-            case 1:
-                raw["rule-providers"][item[1]] = {
-                    "behavior": "domain",
-                    "type": "http",
-                    "interval": src["meta"]["int"],
-                    "url": src["meta"]["path"] + "clash/" + item[1],
-                    "path": "./filter/" + item[1],
-                }
+        if item[0] == 1:
+            raw["rule-providers"][item[3]] = {
+                "behavior": "domain",
+                "type": "http",
+                "interval": src["meta"]["interval"],
+                "url": item[1],
+                "path": "./filter/" + item[3],
+            }
 
 yaml.safe_dump(raw, out)

@@ -1,15 +1,5 @@
 gen:
-  id: ""
-  # target software
   tar:
     - quantumult
     - clash
     - surge
-# override base
-meta:
-  dns:
-    - "223.5.5.5"
-    - "223.6.6.6"
-    - "[2400:3200::1]"
-    - "[2400:3200:baba::1]"
-  doh: https://dns.alidns.com/dns-query

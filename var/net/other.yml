@@ -1,0 +1,54 @@
+gen:
+  tar:
+    - shadowrocket
+    # - loon
+node:
+  - name: CN
+    type: static
+    list: [DIRECT]
+  - name: JP
+    type: test
+    list: =jp
+  - name: TW
+    type: test
+    list: =tw
+  - name: US
+    type: test
+    list: =us
+filter:
+  - name: direct
+    type: gen
+    dest: DIRECT
+  - name: system
+    type: gen
+    dest: DIRECT
+  - name: global
+    type: gen
+    dest: PROXY
+  - name: stream
+    type: gen
+    dest: PROXY
+  - name: r-cn
+    type: gen
+    dest: CN
+  - name: cn
+    type: ipgeo
+    dest: CN
+  - name: r-jp
+    type: gen
+    dest: JP
+  - name: jp
+    type: ipgeo
+    dest: JP
+  - name: r-tw
+    type: gen
+    dest: TW
+  - name: tw
+    type: ipgeo
+    dest: TW
+  - name: r-us
+    type: gen
+    dest: US
+  - name: main
+    type: main
+    dest: PROXY
