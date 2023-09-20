@@ -30,24 +30,20 @@ def Insert(ls1, ls2):
 
 
 # load data
-with open("src/net/main.yml", "tr", encoding="utf-8") as file:
+with open("src/net/run.yml", "tr", encoding="utf-8") as file:
     Data = yaml.safe_load(file)
-with open("var/net/main.yml", "tr", encoding="utf-8") as file:
-    Base = yaml.safe_load(file)
-Data["list"] = Base.pop("list")
-with open("var/main.yml", "tr", encoding="utf-8") as file:
+with open("var/net/list.yml", "tr", encoding="utf-8") as file:
+    Data.update(yaml.safe_load(file))
+with open("var/base.yml", "tr", encoding="utf-8") as file:
     raw = yaml.safe_load(file)
     Data["path"] = raw["uri"] + "net/"
-    Merge(
-        Base,
-        {
-            "meta": {
-                "path": Data["path"],
-                "interval": raw["int"],
-                "icon": raw["ico"],
-            }
-        },
-    )
+    Base = {
+        "misc": {
+            "path": Data["path"],
+            "interval": raw["int"],
+            "icon": raw["ico"],
+        }
+    }
 
 # shared variables
 Gen = {}
@@ -56,74 +52,103 @@ Gen = {}
 # modules
 def RunFile(Base, Ovrd):
     """load data from file and call output"""
-    Res = {}
-    # store options in var Gen
     global Gen
-    Gen = deepcopy(Base["gen"])
-    if "gen" in Ovrd:
-        Merge(Gen, Ovrd["gen"])
-    # normalize id
-    if "id" in Gen:
-        Gen["id"] += "-"
-    else:
-        Gen["id"] = ""
+    Gen = deepcopy(Base)
     # load sections
-    if "meta" in Ovrd:
-        Res["meta"] = Merge(deepcopy(Base["meta"]), Ovrd["meta"])
-    else:
-        Res["meta"] = deepcopy(Base["meta"])
+    if not "tar" in Ovrd:
+        return
+    Gen["tar"] = Ovrd["tar"]
+    if "id" in Ovrd:
+        Gen["id"] = Ovrd["id"]
+        if not Gen["id"] == "":
+            Gen["id"] += "-"
+    if "var" in Ovrd:
+        Gen["var"].update(Ovrd["var"])
+    if "misc" in Ovrd:
+        Merge(Gen["misc"], Ovrd["misc"])
+    if "route" in Ovrd:
+        Gen["route"] = Insert(Gen["route"], Ovrd["route"])
     if "node" in Ovrd:
-        Res["node"] = LoadNode(Insert(Base["node"], Ovrd["node"]))
-    else:
-        Res["node"] = LoadNode(Base["node"])
-    if "filter" in Ovrd:
-        Res["filter"] = LoadFilter(Insert(Base["filter"], Ovrd["filter"]))
-    else:
-        Res["filter"] = LoadFilter(Base["filter"])
+        Gen["node"] = Insert(Gen["node"], Ovrd["node"])
+    # load
+    LoadNode()
+    LoadRoute()
+    LoadFilter()
     # call script to output
-    CallScript(Res)
-    return Res
+    CallScript()
 
 
-def LoadNode(ListNode):
+def LoadRoute():
+    """convert route list to node and filter"""
+    global Gen
+    tmpNode = []
+    tmpFilter = []
+    for item in Gen["route"]:
+        if "icon" in item:
+            item["node"]["icon"] = item["icon"]
+        if item["node"]["type"] == "static":
+            tmpNode.append(LoadNodeLine(item["node"]))
+        for idx, line in enumerate(item["filter"]):
+            loFilter = {
+                "type": line["type"],
+                "dest": item["node"]["name"],
+            }
+            if line["type"] == "pre":
+                loFilter.update(
+                    {
+                        "name": item["id"] + str(idx),
+                        "link": line["list"],
+                    }
+                )
+            elif line["type"] == "gen" or "list" in line:
+                loFilter["name"] = line["list"]
+            tmpFilter.append(loFilter)
+    Gen["node"] = tmpNode + Gen["node"]
+    Gen["filter"] = tmpFilter
+
+
+def LoadNode():
     """ins inline var, format list val"""
-    Res = []
-    # get data
-    with open("var/pattern.yml", "tr", encoding="utf-8") as file:
-        Pat = yaml.safe_load(file)["region"]
-    for item in ListNode:
-        line = {"name": item["name"], "type": item["type"]}
-        if "ico-sf" in item:
-            line["ico-sf"] = item["ico-sf"]
-        # load list val
-        if isinstance(item["list"], list):
-            # plain list
-            line["list"] = []
-            for sth in item["list"]:
-                # replace variable
-                if sth[0] == "=":
-                    line["list"].extend(Gen["var"][sth[1:]])
-                else:
-                    line["list"].append(sth)
-        else:
-            # regex match
-            if item["list"][0] == "=":
-                line["regx"] = Pat[item["list"][1:]]
+    global Gen
+    for item in Gen["node"]:
+        LoadNodeLine(item)
+
+
+# pre LoadNodeLine
+with open("var/pattern.yml", "tr", encoding="utf-8") as file:
+    Pat = yaml.safe_load(file)["region"]
+
+
+def LoadNodeLine(item):
+    """load list val"""
+    if isinstance(item["list"], list):
+        # plain list
+        tmp = []
+        for sth in item["list"]:
+            # replace variable
+            if sth[0] == "=":
+                tmp.extend(Gen["var"][sth[1:]])
             else:
-                line["regx"] = item["list"]
-        Res.append(line)
-    return Res
+                tmp.append(sth)
+        item["list"] = tmp
+    else:
+        # regex match
+        if item["list"][0] == "=":
+            item["regx"] = Pat[item.pop("list")[1:]]
+        else:
+            item["regx"] = item.pop("list")
+    return item
 
 
-def LoadFilter(ListFilter):
+def LoadFilter():
     """get filter content from file and optimize"""
-    Res = {"domain": [], "ipcidr": []}
+    global Gen
     tmpDomain = [[], [], [], [], [], [], [], []]
     tmpIpcidr = [[], []]
     tmpIpgeo = []
     tmpPort = []
     tmpPre = {}
-    for item in ListFilter:
+    for item in Gen["filter"]:
         # type gen
         if item["type"] == "gen":
             # read filter file
@@ -172,23 +197,24 @@ def LoadFilter(ListFilter):
         elif item["type"] == "ipgeo":
             tmpIpgeo.append((1, item["name"].upper(), item["dest"]))
         elif item["type"] == "main":
-            Res["main"] = item["dest"]
+            tmpMain = item["dest"]
     # merge domain in order
+    Res = {"domain": [], "ipcidr": [], "main": tmpMain}
     for item in reversed(tmpDomain):
         Res["domain"] += sorted(item, key=lambda v: ".".join(reversed(v[1].split("."))))
     # copy into Res
     for item in tmpIpcidr:
-        Res["ipcidr"] += sorted(item, key=lambda v: v[1])
+        Res["ipcidr"] += sorted(item, key=lambda v: v[1].split("/")[0] + "." + v[1])
     if len(tmpIpgeo) > 0:
         Res["ipgeo"] = sorted(tmpIpgeo, key=lambda v: v[1])
     if len(tmpPort) > 0:
         Res["port"] = sorted(tmpPort, key=lambda v: int(v[1]))
     if len(tmpPre) > 0:
         Res["pre"] = tmpPre
-    return Res
+    Gen["filter"] = Res
 
 
-# pre callscript
+# pre CallScript
 for item in Data["script"]:
     tmp = []
     for unit in Data["script"][item]:
@@ -200,9 +226,8 @@ for item in Data["script"]:
     Data["script"][item] = tmp
 
 
-def CallScript(Info):
+def CallScript():
     """call script to generate output from object"""
-    Info["id"] = Gen["id"]
     # loop targets
     for item in Gen["tar"]:
         for unit in Data["script"][item]:
@@ -215,7 +240,18 @@ def CallScript(Info):
                 )
                 out = open(outPath, "tw", encoding="utf-8")
                 with open("src/net/" + unit[1] + ".py", "tr", encoding="utf-8") as file:
-                    exec(file.read(), {"out": out, "src": Info})
+                    exec(
+                        file.read(),
+                        {
+                            "out": out,
+                            "src": {
+                                "id": Gen["id"],
+                                "meta": Gen["misc"],
+                                "node": Gen["node"],
+                                "filter": Gen["filter"],
+                            },
+                        },
+                    )
                 out.close()
                 continue
             if "r" in unit[0]:
@@ -224,11 +260,12 @@ def CallScript(Info):
                     file.write(requests.get(unit[2], timeout=1000).text)
                 continue
             # copy file
-            os.system("cp -f src/net/" + unit[1] + " " + outPath)
+            os.system("cp -f src/net/" + unit[1] + " out/net/" + unit[1])
 
 
 # run scripts
-RunFile(Base, {})
+with open("var/net/" + Data["base"], "tr", encoding="utf-8") as file:
+    Merge(Base, yaml.safe_load(file))
 for item in Data["list"]:
     with open("var/net/" + item, "tr", encoding="utf-8") as file:
         RunFile(Base, yaml.safe_load(file))

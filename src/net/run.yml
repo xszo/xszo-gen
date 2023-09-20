@@ -11,9 +11,11 @@ script:
     - g clash/scv.yml
     - g clash/stash.yml
   surge:
-    - g surge/base.conf
     - g surge/Profile.conf
     - g surge/Server.conf
+    - g surge/base.conf
     - a other/scv.ini
   shadowrocket:
     - g other/shadowrocket.conf
+  loon:
+    - r other/loon-parser.js https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-parser.loon.min.js

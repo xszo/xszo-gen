@@ -31,8 +31,8 @@ for item in src["node"]:
             line += ", " + val
     elif "regx" in item:
         line += ", server-tag-regex=" + item["regx"]
-    if "ico-sf" in item:
-        line += ", img-url=" + item["ico-sf"]
+    if "icon" in item:
+        line += ", img-url=" + item["icon"]["sf"]
     o(line)
 o()
 o("[filter_local]")
@@ -42,7 +42,7 @@ o(
     src["meta"]["path"]
     + "quantumult/"
     + src["id"]
-    + "filter.txt, update-interval="
+    + "filter.txt, tag=filter, update-interval="
     + str(src["meta"]["interval"])
 )
 if "pre" in src["filter"]:

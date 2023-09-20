@@ -22,17 +22,14 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 ## External
 
 - xszo/etc.wiki, GNU GPL 3.0 & CC BY-SA 4.0  
-  ./doc
-- AdGuard DNS Filter, GNU GPL 3.0, https://adguard.com/kb/  
-  ./out/net/*/f-ada.yml  
-  ./out/net/*/f-adb.yml  
-  https://xszo.github.io/etc/net/*/f-ada.yml  
-  https://xszo.github.io/etc/net/*/f-adb.yml
-- GFW list, GNU LGPL 2.1, https://cdn.jsdelivr.net/gh/gfwlist/gfwlist@master/gfwlist.txt  
-  ./out/net/*/f-gfwa.yml  
-  ./out/net/*/f-gfwb.yml  
-  https://xszo.github.io/etc/net/*/f-gfwa.yml
-  https://xszo.github.io/etc/net/*/f-gfwb.yml
-- KOP-XIAO, https://cdn.jsdelivr.net/gh/KOP-XIAO/QuantumultX@master/Scripts/resource-parser.js  
-  ./out/net/quantumult/parser.js  
-  https://xszo.github.io/etc/net/quantumult/parser.js
+  doc/
+- AdGuard Filter, GNU GPL 3.0, https://adguard.com/kb/  
+  out/net/\*/f-ada.yml  
+  out/net/\*/f-adb.yml
+- GFW list, GNU LGPL 2.1, https://github.com/gfwlist/gfwlist  
+  out/net/\*/f-gfwa.yml  
+  out/net/\*/f-gfwb.yml
+- KOP-XIAO, https://github.com/KOP-XIAO/QuantumultX  
+  out/net/quantumult/parser.js
+- Sub Store Parser, GNU AGPL 3.0, https://github.com/sub-store-org/Sub-Store  
+  out/net/other/loon-parser.js

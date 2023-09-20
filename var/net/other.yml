@@ -1,7 +1,37 @@
-gen:
-  tar:
-    - shadowrocket
-    # - loon
+tar:
+  - shadowrocket
+  - loon
+route:
+  - id: direct
+    node: { name: DIRECT, type: pre }
+    filter:
+      - { type: gen, list: direct }
+      - { type: gen, list: system }
+  - id: proxy
+    node: { name: PROXY, type: pre }
+    filter:
+      - { type: main }
+      - { type: gen, list: global }
+      - { type: gen, list: stream }
+  - id: rcn
+    node: { name: CN, type: pre }
+    filter:
+      - { type: gen, list: r-cn }
+      - { type: ipgeo, list: cn }
+  - id: rjp
+    node: { name: JP, type: pre }
+    filter:
+      - { type: gen, list: r-jp }
+      - { type: ipgeo, list: jp }
+  - id: rtw
+    node: { name: TW, type: pre }
+    filter:
+      - { type: gen, list: r-tw }
+      - { type: ipgeo, list: tw }
+  - id: rus
+    node: { name: US, type: pre }
+    filter:
+      - { type: gen, list: r-us }
 node:
   - name: CN
     type: static
@@ -15,40 +45,3 @@ node:
   - name: US
     type: test
     list: =us
-filter:
-  - name: direct
-    type: gen
-    dest: DIRECT
-  - name: system
-    type: gen
-    dest: DIRECT
-  - name: global
-    type: gen
-    dest: PROXY
-  - name: stream
-    type: gen
-    dest: PROXY
-  - name: r-cn
-    type: gen
-    dest: CN
-  - name: cn
-    type: ipgeo
-    dest: CN
-  - name: r-jp
-    type: gen
-    dest: JP
-  - name: jp
-    type: ipgeo
-    dest: JP
-  - name: r-tw
-    type: gen
-    dest: TW
-  - name: tw
-    type: ipgeo
-    dest: TW
-  - name: r-us
-    type: gen
-    dest: US
-  - name: main
-    type: main
-    dest: PROXY

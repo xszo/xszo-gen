@@ -1,0 +1,172 @@
+# base profile
+id: ""
+# variables refered with '=name'
+var:
+  NodeList:
+    - Node0
+    - Node1
+    - Node2
+    - Node3
+    - CN
+    - DE
+    - GB
+    - HK
+    - JP
+    - SG
+    - TW
+    - US
+    - Node
+    - N-JMS
+# target software
+tar:
+  # - quantumult
+  # - clash
+  # - surge
+  # - shadowrocket
+  # - loon
+# misc options
+misc:
+  # lag test http link
+  test: http://bing.com/
+  # dns over udp on port 53
+  dns:
+    - "223.5.5.5"
+    - "223.6.6.6"
+    - "[2400:3200::1]"
+    - "[2400:3200:baba::1]"
+    # - "1.1.1.1"
+    # - "1.0.0.1"
+    # - "[2606:4700:4700::1111]"
+    # - "[2606:4700:4700::1001]"
+  # dns over https
+  doh: https://dns.alidns.com/dns-query
+  # doh: https://cloudflare-dns.com/dns-query
+# routing info
+route:
+  - id: direct
+    # user selector
+    node:
+      name: DIRECT
+      type: pre
+    # package filter
+    filter:
+      - { type: gen, list: direct }
+  - id: main
+    icon:
+      emoji: null
+      sf: arrow.left.arrow.right.system
+    node:
+      name: DEFAULT
+      type: static
+      list: [DIRECT, REJECT, =NodeList]
+    filter:
+      - { type: main }
+      - { type: gen, list: global }
+  - id: system
+    icon:
+      emoji: null
+      sf: arrow.left.and.right.system
+    node:
+      name: SYSTEM
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: system }
+  - id: stream
+    icon:
+      emoji: null
+      sf: arrow.left.and.right.system
+    node:
+      name: STREAM
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: stream }
+  - id: rcn
+    icon:
+      emoji: null
+      sf: arrow.left.and.right.system
+    node:
+      name: R-CN
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: r-cn }
+      - { type: ipgeo, list: cn }
+  - id: rjp
+    icon:
+      emoji: null
+      sf: arrow.left.and.right.system
+    node:
+      name: R-JP
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: r-jp }
+      - { type: ipgeo, list: jp }
+  - id: rtw
+    icon:
+      emoji: null
+      sf: arrow.left.and.right.system
+    node:
+      name: R-TW
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: r-tw }
+      - { type: ipgeo, list: tw }
+  - id: rus
+    icon:
+      emoji: null
+      sf: arrow.left.and.right.system
+    node:
+      name: R-US
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: r-us }
+node:
+  - name: Node0
+    # type, static manual set dest, test set based on lag test
+    type: static
+    # include proxy
+    list: .*
+  - name: Node1
+    type: static
+    list: .*
+  - name: Node2
+    type: static
+    list: .*
+  - name: Node3
+    type: static
+    list: .*
+  - name: CN
+    type: test
+    list: =cn
+  - name: DE
+    type: test
+    list: =de
+  - name: GB
+    type: test
+    list: =gb
+  - name: HK
+    type: test
+    list: =hk
+  - name: JP
+    type: test
+    list: =jp
+  - name: SG
+    type: test
+    list: =sg
+  - name: TW
+    type: test
+    list: =tw
+  - name: US
+    type: test
+    list: =us
+  - name: Node
+    type: test
+    list: .*
+  - name: N-JMS
+    type: test
+    list: ^JMS-\d+@\w+s\d{1,2}\.\w+\.\w+:\d+

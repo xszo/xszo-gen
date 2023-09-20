@@ -1,19 +1,20 @@
-gen:
-  id: ad
-  tar:
-    - clash
-    - surge
-filter:
-  - type: pre
-    name: adb
-    link:
-      clash: -clash/f-adb.yml
-      surge: -surge/f-adb.txt
-    dest: DEFAULT
-  - type: pre
-    name: ada
-    link:
-      clash: -clash/f-ada.yml
-      surge: -surge/f-ada.txt
-    dest: REJECT
+id: ad
+tar:
+  - clash
+  - surge
+route:
+  - id: adb
+    node: { name: DEFAULT, type: pre }
+    filter:
+      - type: pre
+        list:
+          clash: -clash/f-adb.yml
+          surge: -surge/f-adb.txt
+  - id: ada
+    node: { name: REJECT, type: pre }
+    filter:
+      - type: pre
+        list:
+          clash: -clash/f-ada.yml
+          surge: -surge/f-ada.txt
   - "="

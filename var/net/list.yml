@@ -1,0 +1,11 @@
+base: base.yml
+# profile list
+list:
+  - profile.yml
+  - other.yml
+  - ad.yml
+# data for proxy section
+proxy:
+  # flag path, p local file, l link
+  - p proxy.yml
+  - l https://xszo.github.io/etc/net/proxy.yml

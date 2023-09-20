@@ -5,13 +5,13 @@ from base64 import b64decode
 from pathlib import Path
 
 # load data
-with open("var/net/filter/main.yml", "tr", encoding="utf-8") as file:
+with open("var/net/filter/list.yml", "tr", encoding="utf-8") as file:
     Data = yaml.safe_load(file)
-tmpVar = []
 # compile variable pattern
+ReVar = []
 for name, line in Data["var"].items():
-    tmpVar.append((re.compile("\\\\=" + name + "\\\\"), line))
-Data["var"] = tmpVar + [(re.compile("\\\\=\\w+\\\\"), "")]
+    ReVar.append((re.compile("\\\\=" + name + "\\\\"), line))
+Data["var"] = ReVar + [(re.compile("\\\\=\\w+\\\\"), "")]
 # path of tmp file
 ccPath = Path("tmp/net/filter")
 ccPath.mkdir(parents=True, exist_ok=True)
@@ -59,16 +59,40 @@ for unit in Data["list"]:
         Out[key] = list(dict.fromkeys(Out[key]))
     # output
     for key, con in Out.items():
-        # clash
-        with open(
-            "out/net/clash/f-" + unit["id"] + key + ".yml", "tw", encoding="utf-8"
-        ) as file:
-            yaml.safe_dump({"payload": con}, file)
-        # surge
-        with open(
-            "out/net/surge/f-" + unit["id"] + key + ".txt", "tw", encoding="utf-8"
-        ) as file:
-            file.writelines([x[1:] + "\n" if x[0] == "+" else x + "\n" for x in con])
+        if "gen" in Data["tar"]:
+            with open(
+                ccPath / (unit["id"] + key + ".yml"), "tw", encoding="utf-8"
+            ) as file:
+                yaml.safe_dump(
+                    {"domain": [x[2:] if x[0] == "+" else "-" + x for x in con]},
+                    file,
+                )
+        if "clash" in Data["tar"]:
+            with open(
+                "out/net/clash/f-" + unit["id"] + key + ".yml", "tw", encoding="utf-8"
+            ) as file:
+                yaml.safe_dump({"payload": con}, file)
+        if "surge" in Data["tar"]:
+            with open(
+                "out/net/surge/f-" + unit["id"] + key + ".txt", "tw", encoding="utf-8"
+            ) as file:
+                file.writelines(
+                    [x[1:] + "\n" if x[0] == "+" else x + "\n" for x in con]
+                )
+        if "quantumult" in Data["tar"]:
+            with open(
+                "out/net/quantumult/f-" + unit["id"] + key + ".txt",
+                "tw",
+                encoding="utf-8",
+            ) as file:
+                file.writelines(
+                    [
+                        "host-suffix," + x[2:] + ",o\n"
+                        if x[0] == "+"
+                        else "host," + x + ",o\n"
+                        for x in con
+                    ]
+                )
     # log not matched ones
     NoMc[unit["id"]] = LoNoMc
 with open(ccPath / "no.yml", "tw", encoding="utf-8") as file:

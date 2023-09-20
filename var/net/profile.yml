@@ -1,5 +1,4 @@
-gen:
-  tar:
-    - quantumult
-    - clash
-    - surge
+tar:
+  - quantumult
+  - clash
+  - surge

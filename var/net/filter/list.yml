@@ -3,6 +3,13 @@ var:
   dn: ((?:[A-Za-z0-9\-\*]+\.)+(?:[A-Za-z]+|xn--[A-Za-z0-9]+))
   dl: ((?:[A-Za-z0-9\-\*]+\.)+)\*?
   ed: (?:$|\^|\$|#|/|%)
+# target list
+tar:
+  # - gen
+  - clash
+  - surge
+  - quantumult
+# list
 list:
   - id: ad # adguard list
     # link to source file
