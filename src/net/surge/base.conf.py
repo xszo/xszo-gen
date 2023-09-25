@@ -50,7 +50,7 @@ o()
 o("[Rule]")
 for item in src["filter"]["port"]:
     if item[0] == 1:
-        o("DEST-PORT," + item[1] + "," + item[2])
+        o("DEST-PORT," + str(item[1]) + "," + item[2])
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["surge"]:
         if item[0] == 1:

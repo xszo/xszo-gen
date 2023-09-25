@@ -47,7 +47,6 @@ route:
     # user selector
     node:
       name: DIRECT
-      type: pre
     # package filter
     filter:
       - { type: gen, list: direct }
@@ -57,7 +56,6 @@ route:
       sf: arrow.left.arrow.right.system
     node:
       name: DEFAULT
-      type: static
       list: [DIRECT, REJECT, =NodeList]
     filter:
       - { type: main }
@@ -68,7 +66,6 @@ route:
       sf: arrow.left.and.right.system
     node:
       name: SYSTEM
-      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: system }
@@ -78,7 +75,6 @@ route:
       sf: arrow.left.and.right.system
     node:
       name: STREAM
-      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: stream }
@@ -88,7 +84,6 @@ route:
       sf: arrow.left.and.right.system
     node:
       name: R-CN
-      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-cn }
@@ -99,7 +94,6 @@ route:
       sf: arrow.left.and.right.system
     node:
       name: R-JP
-      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-jp }
@@ -110,7 +104,6 @@ route:
       sf: arrow.left.and.right.system
     node:
       name: R-TW
-      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-tw }
@@ -121,7 +114,6 @@ route:
       sf: arrow.left.and.right.system
     node:
       name: R-US
-      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-us }

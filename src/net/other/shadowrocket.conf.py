@@ -24,7 +24,7 @@ o()
 o("[Rule]")
 for item in src["filter"]["port"]:
     if item[0] == 1:
-        o("DEST-PORT," + item[1] + "," + item[2])
+        o("DEST-PORT," + str(item[1]) + "," + item[2])
 for item in src["filter"]["domain"]:
     if item[0] == 1:
         o("DOMAIN-SUFFIX," + item[1] + "," + item[2])

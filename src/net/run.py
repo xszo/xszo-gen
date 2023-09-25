@@ -71,8 +71,8 @@ def RunFile(Base, Ovrd):
     if "node" in Ovrd:
         Gen["node"] = Insert(Gen["node"], Ovrd["node"])
     # load
-    LoadNode()
     LoadRoute()
+    LoadNode()
     LoadFilter()
     # call script to output
     CallScript()
@@ -84,60 +84,58 @@ def LoadRoute():
     tmpNode = []
     tmpFilter = []
     for item in Gen["route"]:
-        if "icon" in item:
-            item["node"]["icon"] = item["icon"]
-        if item["node"]["type"] == "static":
-            tmpNode.append(LoadNodeLine(item["node"]))
+        # node
+        if "list" in item["node"]:
+            loNode = {
+                "type": "static",
+                "name": item["node"]["name"],
+                "list": item["node"]["list"],
+            }
+            if "icon" in item:
+                loNode["icon"] = item["icon"]
+            tmpNode.append(loNode)
+        # filter
         for idx, line in enumerate(item["filter"]):
             loFilter = {
+                "id": item["id"] + str(idx),
                 "type": line["type"],
-                "dest": item["node"]["name"],
+                "node": item["node"]["name"],
             }
             if line["type"] == "pre":
-                loFilter.update(
-                    {
-                        "name": item["id"] + str(idx),
-                        "link": line["list"],
-                    }
-                )
-            elif line["type"] == "gen" or "list" in line:
-                loFilter["name"] = line["list"]
+                loFilter["link"] = line["list"]
+            elif "list" in line:
+                loFilter["list"] = line["list"]
             tmpFilter.append(loFilter)
     Gen["node"] = tmpNode + Gen["node"]
     Gen["filter"] = tmpFilter
+    del Gen["route"]
+
+
+# pre LoadNode
+with open("var/pattern.yml", "tr", encoding="utf-8") as file:
+    Pat = yaml.safe_load(file)["region"]
 
 
 def LoadNode():
     """ins inline var, format list val"""
     global Gen
     for item in Gen["node"]:
-        LoadNodeLine(item)
-
-
-# pre LoadNodeLine
-with open("var/pattern.yml", "tr", encoding="utf-8") as file:
-    Pat = yaml.safe_load(file)["region"]
-
-
-def LoadNodeLine(item):
-    """load list val"""
-    if isinstance(item["list"], list):
-        # plain list
-        tmp = []
-        for sth in item["list"]:
-            # replace variable
-            if sth[0] == "=":
-                tmp.extend(Gen["var"][sth[1:]])
-            else:
-                tmp.append(sth)
-        item["list"] = tmp
-    else:
-        # regex match
-        if item["list"][0] == "=":
-            item["regx"] = Pat[item.pop("list")[1:]]
+        if isinstance(item["list"], list):
+            # plain list
+            tmp = []
+            for sth in item["list"]:
+                # replace variable
+                if sth[0] == "=":
+                    tmp.extend(Gen["var"][sth[1:]])
+                else:
+                    tmp.append(sth)
+            item["list"] = tmp
         else:
-            item["regx"] = item.pop("list")
-    return item
+            # regex match
+            if item["list"][0] == "=":
+                item["regx"] = Pat[item.pop("list")[1:]]
+            else:
+                item["regx"] = item.pop("list")
 
 
 def LoadFilter():
@@ -153,27 +151,27 @@ def LoadFilter():
         if item["type"] == "gen":
             # read filter file
             with open(
-                "var/net/filter/" + item["name"] + ".yml", "tr", encoding="utf-8"
+                "var/net/filter/" + item["list"] + ".yml", "tr", encoding="utf-8"
             ) as file:
                 raw = yaml.safe_load(file)
             if "domain" in raw:
                 # divide domain by level
                 for line in raw["domain"]:
                     if line[0] == "-":
-                        tmpDomain[line.count(".")].append((2, line[1:], item["dest"]))
+                        tmpDomain[line.count(".")].append((2, line[1:], item["node"]))
                     else:
-                        tmpDomain[line.count(".")].append((1, line, item["dest"]))
+                        tmpDomain[line.count(".")].append((1, line, item["node"]))
             if "ipcidr" in raw:
                 # sepatate 4 and 6
                 for line in raw["ipcidr"]:
                     if line[0] == "[":
-                        tmpIpcidr[1].append((2, line[1:-1], item["dest"]))
+                        tmpIpcidr[1].append((2, line[1:-1], item["node"]))
                     else:
-                        tmpIpcidr[0].append((1, line, item["dest"]))
+                        tmpIpcidr[0].append((1, line, item["node"]))
             if "port" in raw:
                 for line in raw["port"]:
                     # convert to (type, match, dest)
-                    tmpPort.append((1, str(line), item["dest"]))
+                    tmpPort.append((1, line, item["node"]))
         # type pre
         elif item["type"] == "pre":
             for unit in Gen["tar"]:
@@ -185,30 +183,30 @@ def LoadFilter():
                         (
                             1,
                             Data["path"] + item["link"][unit][1:],
-                            item["dest"],
-                            item["name"],
+                            item["node"],
+                            item["id"],
                         )
                     )
                 else:
                     tmpPre[unit].append(
-                        (1, item["link"][unit], item["dest"], item["name"])
+                        (1, item["link"][unit], item["node"], item["id"])
                     )
         # type other
         elif item["type"] == "ipgeo":
-            tmpIpgeo.append((1, item["name"].upper(), item["dest"]))
+            tmpIpgeo.append((1, item["list"].upper(), item["node"]))
         elif item["type"] == "main":
-            tmpMain = item["dest"]
+            tmpMain = item["node"]
     # merge domain in order
     Res = {"domain": [], "ipcidr": [], "main": tmpMain}
     for item in reversed(tmpDomain):
         Res["domain"] += sorted(item, key=lambda v: ".".join(reversed(v[1].split("."))))
     # copy into Res
     for item in tmpIpcidr:
-        Res["ipcidr"] += sorted(item, key=lambda v: v[1].split("/")[0] + "." + v[1])
-    if len(tmpIpgeo) > 0:
-        Res["ipgeo"] = sorted(tmpIpgeo, key=lambda v: v[1])
-    if len(tmpPort) > 0:
-        Res["port"] = sorted(tmpPort, key=lambda v: int(v[1]))
+        Res["ipcidr"] += sorted(
+            item, reverse=True, key=lambda v: int((v[1].split("/"))[1])
+        )
+    Res["ipgeo"] = sorted(tmpIpgeo, key=lambda v: v[1])
+    Res["port"] = sorted(tmpPort, key=lambda v: v[1])
     if len(tmpPre) > 0:
         Res["pre"] = tmpPre
     Gen["filter"] = Res

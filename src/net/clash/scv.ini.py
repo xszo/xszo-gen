@@ -24,7 +24,7 @@ o("enable_rule_generator=true")
 o("overwrite_original_rules=true")
 for item in src["filter"]["port"]:
     if item[0] == 1:
-        o("ruleset=" + item[2] + ",[]DST-PORT," + item[1])
+        o("ruleset=" + item[2] + ",[]DST-PORT," + str(item[1]))
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["clash"]:
         if item[0] == 1:

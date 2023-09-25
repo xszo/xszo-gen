@@ -34,7 +34,7 @@ for item in src["node"]:
 raw["rules"] = []
 for item in src["filter"]["port"]:
     if item[0] == 1:
-        raw["rules"].append("DST-PORT," + item[1] + "," + item[2])
+        raw["rules"].append("DST-PORT," + str(item[1]) + "," + item[2])
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["clash"]:
         if item[0] == 1:

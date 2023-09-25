@@ -1,7 +1,8 @@
+# '' gen DST-PORT,''
+# port:
+#   - 123
 # '' gen DOMAIN-SUFFIX,''    -'' gen DOMAIN,''
 domain:
-  # Host
-  - -localhost
   - local
   # Time
   - time.apple.com
@@ -10,13 +11,8 @@ domain:
   - pool.ntp.org
 # '' gen IP-CIDR,''    [''] gen IP6-CIDR,''
 ipcidr:
-  - 10.0.0.0/8 # lan
+  - 10.0.0.0/8
   - 100.64.0.0/10
-  - 169.254.0.0/16
-  - 172.16.0.0/12 # lan
-  - 192.168.0.0/16 # lan
-  - "[fc00::/7]" # lan
-  - "[fe80::/64]"
-# '' gen DST-PORT,''
-port:
-  - 123
+  - 172.16.0.0/12
+  - 192.168.0.0/16
+  - "[fc00::/7]"
