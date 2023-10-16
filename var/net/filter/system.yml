@@ -2,15 +2,14 @@ domain:
   # Apple
   - apple.com
   - cdn-apple.com
+  - mzstatic.com # itunes
   - icloud.com
   - me.com # mail
   - icloud-content.com
-  - mzstatic.com # itunes
-  # Microsoft
-  - msftncsi.com
-  - msftconnecttest.com
+
   # Other
   - synology.com
   - qnap.com
+
 ipcidr:
   - 17.0.0.0/8 # apple

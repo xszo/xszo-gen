@@ -1,31 +1,23 @@
 domain:
   - jp
-  # DMM
-  - dmm.com
-  - dmmapis.com
-  - dmm-extension.com
+
   # Abema
   - abema.tv
   - abema-tv.com
-  - abema.io
   - abematv.akamaized.net
   - vod-abematv.akamaized.net
-  - ds-vod-abematv.akamaized.net
-  - linear-abematv.akamaized.net
-  - ds-linear-abematv.akamaized.net
-  # Pixiv
-  - fanbox.cc
-  - pixiv.me
-  - pixiv.net
-  - pximg.net
+
+  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
   # Social
-  - 5ch.net
   - misskey.io
+
   # Media
   - nico.ms
-  - dmc.nico
+  - pixiv.net
+  - pximg.net
   - dlsite.com
   - syosetu.com
+
   # Game
   - colorfulpalette.org

@@ -2,18 +2,8 @@ domain:
   # Netflix
   - fast.com
   - netflix.com
-  - netflix.net
-  - nflxext.com
-  - nflxso.net
-  - nflxvideo.com
   - nflxvideo.net
+  - nflxso.net
+
   # Disney
   - dssott.com
-  # DAZN
-  - dazn.com
-  - dazn-api.com
-  # BBC
-  - bbc.com
-  - bbc.co.uk
-  - bbci.co.uk
-  - acast.com

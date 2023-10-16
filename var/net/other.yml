@@ -3,45 +3,48 @@ tar:
   - loon
 route:
   - id: direct
-    node: { name: DIRECT }
+    node:
+      name: DIRECT
+      type: pre
     filter:
       - { type: gen, list: direct }
       - { type: gen, list: system }
   - id: proxy
-    node: { name: PROXY }
+    node:
+      name: PROXY
+      type: pre
     filter:
       - { type: main }
       - { type: gen, list: global }
       - { type: gen, list: stream }
   - id: rcn
-    node: { name: CN }
+    node:
+      name: DIRECT
+      type: pre
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
   - id: rjp
-    node: { name: JP }
+    node:
+      name: JP
+      type: test
+      list: =jp
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
   - id: rtw
-    node: { name: TW }
+    node:
+      name: TW
+      type: test
+      list: =tw
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
   - id: rus
-    node: { name: US }
+    node:
+      name: US
+      type: test
+      list: =us
     filter:
       - { type: gen, list: r-us }
-node:
-  - name: CN
-    type: static
-    list: [DIRECT]
-  - name: JP
-    type: test
-    list: =jp
-  - name: TW
-    type: test
-    list: =tw
-  - name: US
-    type: test
-    list: =us
+node: []

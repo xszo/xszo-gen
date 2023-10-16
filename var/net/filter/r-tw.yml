@@ -1,15 +1,15 @@
 domain:
   - tw
+
   # Bahamut
   - hinet.net
   - bahamut.akamaized.net
+
   # Content
   - lightnovel.us
-  - linovelib.com
   - esjzone.cc
   - masiro.me
-  - manhuagui.com
-  - hamreus.com # mhg
-  - hanime1.me
+  - linovelib.com
+
   # Game
   - gamon.net

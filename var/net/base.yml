@@ -16,7 +16,6 @@ var:
     - TW
     - US
     - Node
-    - N-JMS
 # target software
 tar:
   # - quantumult
@@ -47,73 +46,81 @@ route:
     # user selector
     node:
       name: DIRECT
+      type: pre
     # package filter
     filter:
       - { type: gen, list: direct }
   - id: main
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.arrow.right.system
     node:
       name: DEFAULT
+      type: static
       list: [DIRECT, REJECT, =NodeList]
     filter:
       - { type: main }
       - { type: gen, list: global }
   - id: system
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
     node:
       name: SYSTEM
+      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: system }
   - id: stream
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
     node:
       name: STREAM
+      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: stream }
   - id: rcn
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
     node:
       name: R-CN
+      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
   - id: rjp
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
     node:
       name: R-JP
+      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
   - id: rtw
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
     node:
       name: R-TW
+      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
   - id: rus
     icon:
-      emoji: null
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
     node:
       name: R-US
+      type: static
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: r-us }
@@ -131,6 +138,9 @@ node:
     list: .*
   - name: Node3
     type: static
+    list: .*
+  - name: Node
+    type: test
     list: .*
   - name: CN
     type: test
@@ -156,9 +166,3 @@ node:
   - name: US
     type: test
     list: =us
-  - name: Node
-    type: test
-    list: .*
-  - name: N-JMS
-    type: test
-    list: ^JMS-\d+@\w+s\d{1,2}\.\w+\.\w+:\d+

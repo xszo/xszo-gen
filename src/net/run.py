@@ -85,9 +85,9 @@ def LoadRoute():
     tmpFilter = []
     for item in Gen["route"]:
         # node
-        if "list" in item["node"]:
+        if item["node"]["type"] != "pre":
             loNode = {
-                "type": "static",
+                "type": item["node"]["type"],
                 "name": item["node"]["name"],
                 "list": item["node"]["list"],
             }

@@ -4,14 +4,18 @@ tar:
   - surge
 route:
   - id: adb
-    node: { name: DEFAULT }
+    node:
+      name: DEFAULT
+      type: pre
     filter:
       - type: pre
         list:
           clash: -clash/f-adb.yml
           surge: -surge/f-adb.txt
   - id: ada
-    node: { name: REJECT }
+    node:
+      name: REJECT
+      type: pre
     filter:
       - type: pre
         list:

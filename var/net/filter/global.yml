@@ -1,305 +1,183 @@
 domain:
   # Apple
   - apple
+
   # Google
-  - ampproject.org
-  - android.com
-  - app-measurement.com
-  - blogspot.com
-  - chrome.com
-  - crashlytics.com # firebase
-  - doubleclick.net
-  - firebaseio.com
-  - g.co
-  - gcr.io
-  - ggpht.com # avatar
-  - gle
-  - gmail.com
-  - gmodules.com
-  - goo
-  - goog
   - google
   - google.com
-  - googleadservices.com
-  - google-analytics.com
+  # - gmail.com
+  # - blogspot.com
+  - g.co
   - googleapis.com
-  - googlesyndication.com
-  - googletagmanager.com
-  - googleusercontent.com # cloud
-  - googlevideo.com
   - gstatic.com
-  - gvt0.com
-  - gvt1.com
-  - gvt2.com
-  - gvt3.com
-  - page.link # firebase
-  - recaptcha.net
-  - youtu.be
+  - ggpht.com # avatar
+  - goog # pki.goog
+  - googletagmanager.com
+  - google-analytics.com
+  - app-measurement.com # firebase
+  - doubleclick.net
+  # - googlesyndication.com # ad
+  # - googleadservices.com # ad
+  # - page.link # firebase
+  - gcr.io
+  # - googleusercontent.com
+
+  # G Youtube
   - youtube.com
   - youtubekids.com
-  - yt.be
   - ytimg.com
+  - googlevideo.com # yt
+  - youtu.be
+  # - yt.be
+
   # Microsoft
   - ms # some
-  - bing.com
-  - bing.net
-  - bingapis.com
-  - hotmail.com # mobile outlook
-  - licdn.com
-  - linkedin.com
   - live.com
   - live.net
+  # - outlook.com
+  - hotmail.com # mobile outlook
+  # - office365.com
+  # - onenote.com
+  - office.com
+  # - office.net
+  - onedrive.com
+  - openai.com
+  - bing.com
+  # - bing.net
+  # - bingapis.com
+  - linkedin.com
+  # - licdn.com
+  - skype.com
+  # - skypeassets.com
   - microsoft.com
   - microsoftonline.com
-  - msauth.net
-  - msecnd.net
-  - msedge.net
-  - msftauth.net
-  - msftstatic.com
-  - msn.com
-  - office.com
-  - office.net
-  - onedrive.com
-  - onenote.com
-  - openai.com
-  - outlook.com
-  - sharepoint.com
-  - sharepointonline.com
-  - skype.com
-  - skypeassets.com
-  - virtualearth.net # maps
+  # - msftstatic.com
+  # - sharepoint.com
+  # - sharepointonline.com
+  # - msauth.net
+  # - msftauth.net
+  # - msedge.net
+  # - msecnd.net
   - windows.com
-  - windows.net
+  # - windows.net
   - windowsupdate.com
-  # Azure
-  - aspnetcdn.com
-  - azure
-  - azure.com
-  - azure.net
-  - azureedge.net
-  - azurewebsites.net
-  - cloudapp.net
+  # - msftncsi.com
+  # - msftconnecttest.com
+  # - msn.com
+  # - virtualearth.net # maps
+
+  # MS Azure
+  # - azure
+  # - azure.com
+  # - azure.net
+  # - azureedge.net
+  # - azurewebsites.net
   - trafficmanager.net
+  - cloudapp.net
   - unity3d.com
-  # VS & GitHub
+  # - aspnetcdn.com
+
+  # MS Dev
   - ghcr.io
   - github.com
   - github.dev
   - github.io
   - githubassets.com
   - githubusercontent.com
-  - visualstudio.com
-  - vscode-cdn.net # web
-  - vscode.dev
-  # Xbox
-  - gamepass.com
-  - xbox.com
-  - xboxlive.com
-  - xboxservices.com
-  # Akamai
-  - akadns.net
-  - akamai.net
-  - akamaiedge.net
-  - akamaihd.net
-  - akamaized.net
-  - edgekey.net
-  - edgesuite.net
+  # - visualstudio.com
+  # - vscode.dev
+  # - vscode-cdn.net # web
+  # - exp-tas.com
+  # - vsassets.io
+
   # Cloudflare
-  - cloudflare-dns.com
   - cloudflare.com
-  - cloudflare.net
-  - cloudflareinsights.com
-  - hcaptcha.com
+  - cloudflare-dns.com
   - pages.dev
-  - workers.dev
-  # Adobe
-  - adobe.com
-  - adobe.io
-  - adobedtm.com
-  - adobelogin.com
-  - omtrdc.net
-  - typekit.net
-  # Amazon
-  - amazon.com
-  - amazonaws.com
-  - amazontrust.com
-  - amazonvideo.com
-  - awsstatic.com
-  - cloudfront.net
-  - images-amazon.com
-  - llnwd.net
-  - media-amazon.com
-  - primevideo.com
-  - twitch.tv
-  - twitchcdn.net
-  # Rakuten
-  - kobo.com
-  - kobobooks.com
-  - rakuten.com
-  # Wordpress
-  - crowdsignal.com
-  - gravatar.com
-  - home.blog
-  - wordpress.com
-  - wp.com
-  # Mozilla
-  - firefox.com
-  - firefoxusercontent.com
-  - mozilla.net
-  - mozilla.org
-  # Sony
-  - playstation.com
-  - playstation.net
-  - playstationnetwork.com
-  - sony.com
-  - sony.net
-  - sonyentertainmentnetwork.com
-  # Wikimedia
-  - wikibooks.org
-  - wikimedia.org
-  - wikipedia.org
-  - wiktionary.org
-  # StackExchange
-  - sstatic.net
-  - stackauth.com
-  - stackexchange.com
-  - stackoverflow.com
-  # Discord
-  - discord.com
-  - discord.gg
-  - discord.media
-  - discordapp.com
-  - discordapp.net
-  # LINE
-  - fivecdm.com
-  - lin.ee
-  - line-apps.com
-  - line-cdn.net
-  - line-scdn.net
-  - line.me
-  - line.naver.jp
-  - linecorp.com
+
   # Facebook
-  - meta.com
+  # - meta.com
   - facebook.com
-  - facebook.net
+  # - facebook.net
+  # - fb.com
   - fbcdn.net
-  - messenger.com
+  # - messenger.com
   - instagram.com
   - cdninstagram.com
   - threads.net
-  # Telegram
-  - t.me
-  - telegra.ph
-  - telegram.org
-  - telesco.pe
-  # Steam
-  - steamcommunity.com
-  - steamcontent.com # dl
-  - steampowered.com
-  - steamserver.net
-  - steamstatic.com
-  # Spotify
-  - scdn.co
-  - spoti.fi
-  - spotify.com
-  - spotifycdn.com
+
+  # Adobe
+  - adobe.com
+  - adobe.io
+
+  # Wikimedia
+  - wikipedia.org
+  # - wikimedia.org
+  # - wikibooks.org
+  # - wiktionary.org
+
+  # StackExchange
+  - stackexchange.com
+  - sstatic.net
+  # - stackauth.com
+  - stackoverflow.com
+
+  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
   # System
   - gnome.org
   - ubuntu.com
+
   # Trust
-  - digicert.com
-  - digitalcertvalidation.com
-  - entrust.net
-  - geotrust.com
-  - globalsign.com
   - lencr.org
-  - ocsp-certum.com
-  - omniroot.com
-  - secomtrust.net
-  - sectigo.com
-  - usertrust.com
-  - verisign.net
+  - digicert.com
+
   # CDN
-  - fontawesome.com
-  - imgur.com
   - jsdelivr.net
-  - loli.net
   - unpkg.com
+
   # Services
   - adjust.com
-  - amplitude.com
-  - bit.ly
-  - linkfire.com
-  - linktr.ee
-  - lnk.to
-  - nelreports.net
-  - twilio.com
-  - zdassets.com
-  - zendesk.com
-  # Social
-  - mastodon.social
-  - signal.org
-  - twitter.com
-  - t.co
-  - twimg.com
-  - medium.com
-  - pinterest.com
-  - pinimg.com
-  - quora.com
-  - quoracdn.net
-  - poe.com
-  - reddit.com
-  - redditmedia.com
-  - redditstatic.com
-  # Media
-  - genius.com
-  - onlyfans.com
-  - patreon.com
-  - tidal.com
-  # Game
-  - battle.net
-  - battlenet.com
-  - blizzard.com
-  - clashroyale.com
-  - clashroyaleapp.com
-  - ea.com
-  - supercell.com
-  # Porn
-  - pornhub.com
-  - phncdn.com
-  - xhamster.com
-  - xhcdn.com
-  - xvideos.com
-  - xvideos-cdn.com
-  - 1ka.com # xvideos
-  # Content
-  - hath.network # eh cdn
-  # Live
-  - airbnb.com
-  - booking.com
-  - bstatic.com
-  - feedly.com
-  - weather.com
-  - yahoo.com
-  - yimg.com # yahoo
-  # Payment
-  - paddle.com
-  - paddleapi.com
-  - paypal.com
-  - paypalobjects.com
-  - stripe.com
-  - stripe.network
+  - wp.com
+  - wordpress.com
+  - gravatar.com
+
   # Tools
   - proton.me
-  - tutanota.com
+  # - tutanota.com
+  - firefox.com
   - duckduckgo.com
-  - gitpod.io
-  - heroku.com
-  - mega.nz
-  - dropbox.com
-  - dropboxapi.com
-  - dropboxusercontent.com
-  - macpaw.com
-  - readdle.com
+  # - mega.nz
+
+  # Social
+  - line.naver.jp
+  - discord.com
+  - discordapp.com
+  - mastodon.social
+  - signal.org
+  # - twitter.com
+  # - twimg.com
+  # - t.co
+  # - x.com
+
+  # Media
+  - kobo.com
+  - spotify.com
+  - spotifycdn.com
+  - trakt.tv
+
+  # Game
+  # - gamepass.com
+  # - xbox.com
+  # - xboxlive.com
+  # - xboxservices.com
+  # - sony.com
+  # - sony.net
+  # - playstation.com
+  # - playstation.net
+  # - playstationnetwork.com
+  # - sonyentertainmentnetwork.com
+  # - steampowered.com
+  # - steamcommunity.com
+  # - steamstatic.com
+  # - steamcontent.com # dl

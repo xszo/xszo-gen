@@ -42,18 +42,22 @@ o(
     src["meta"]["path"]
     + "quantumult/"
     + src["id"]
-    + "filter.txt, tag=filter, update-interval="
+    + "filter.txt, tag=Filter, update-interval="
     + str(src["meta"]["interval"])
+    + ", opt-parser=false, enabled=true"
 )
 if "pre" in src["filter"]:
     for item in src["filter"]["pre"]["quantumult"]:
         if item[0] == 1:
             o(
                 item[1]
+                + ", tag="
+                + item[3]
                 + ", force-policy="
                 + item[2]
                 + ", update-interval="
                 + str(src["meta"]["interval"])
+                + ", opt-parser=false, enabled=true"
             )
 o()
 o("[rewrite_local]")

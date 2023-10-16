@@ -1,187 +1,37 @@
 domain:
   - cn
-  # Alibaba
-  - aliapp.org
-  - alibaba.com
-  - alibabachengdun.com
-  - alibabacloud.com
-  - alibabausercontent.com
+
+  # System
+  - mi.com
+  - mi-img.com
+  - miui.com
+
+  # Service
   - alicdn.com
-  - alicloud.com
-  - alicloudccp.com
-  - alidayu.com
-  - alidns.com
-  - aliexpress.com
-  - alikunlun.com
-  - alipay.com
-  - alipayobjects.com
-  - alitrip.com
-  - aliyun.com
-  - aliyuncdn.com
-  - aliyuncs.com
-  - aliyundrive.com
-  - aliyundrive.net
+  - mmstat.com
+  - tanx.com # mm
   - amap.com
   - autonavi.com
-  - cainiao.com
-  - cdngslb.com
-  - didialift.com
-  - didiglobal.com
-  - didistatic.com
-  - dingtalk.com
-  - ele.me
-  - elemecdn.com
-  - fliggy.com
-  - goofish.com
-  - hellobike.com
-  - hichina.com
-  - koubei.com
-  - mmstat.com
-  - tanx.com
-  - taobao.com
-  - tbcache.com
-  - tmall.com
-  - ucweb.com
-  - wandoujia.com
-  - ykimg.com
-  - youku.com
-  # Tencent
-  - 360buyimg.com
-  - cdntips.net
-  - gdtimg.com
-  - gtimg.com
-  - idqqimg.com
-  - imtmp.net
-  - jd.com
-  - kugou.com
-  - myapp.com
-  - myqcloud.com
-  - qcloud.com
+
+  # Social
   - qq.com
-  - servicewechat.com
-  - smtcdns.com
-  - sogou.com
-  - sogoucdn.com
-  - tencent-cloud.com
-  - tencent-cloud.net
-  - tencent.com
-  - tencentcloudapi.com
-  - tencentmusic.com
-  - tenpay.com
-  - voovmeeting.com
-  - webank.com
-  - wechat.com
-  - weixin.com
-  - weixinbridge.com
-  - weiyun.com
-  # NetEase
-  - 126.com
-  - 126.net
-  - 127.net
-  - 163.com
-  - icourse163.org
-  - netease.com
-  - netease.im
-  - netstatic.net
-  - ydstatic.com
-  - youdao.com
-  # XiaoMi
-  - duokan.com
-  - mi-img.com
-  - mi.com
-  - mipay.com
-  - miui.com
-  - xiaomi.com
-  - xiaomi.net
-  - xiaomiyoupin.com
-  # Baidu
-  - 71edge.com
-  - baidu.com
-  - baidupcs.com
-  - bcebos.com
-  - bdimg.com
-  - bdstatic.com
-  - gitv.tv
-  - iqiyi.com
-  - iqiyipic.com
-  - ssports.com
-  # Bilibili
-  - b23.tv
-  - biliapi.com
+  - xiaohongshu.com
+  - xhscdn.com
+
+  # Media
   - bilibili.com
+  - biliapi.com
   - bilivideo.com
   - hdslb.com
-  # ByteDance
-  - bytedance.com
-  # MeiTuan
+  - iqiyi.com
+  - gitv.tv # mi
+  - ximalaya.com
+  - xmcdn.com
+
+  # Live
+  - alipay.com
+  - taobao.com
+  - ele.me
   - dianping.com
   - meituan.com
   - meituan.net
-  # Sina
-  - weibo.com
-  - weibocdn.com
-
-  # System
-  - chinamobile.com
-  - cmpassport.com
-  - 139.com
-  - id6.me # ct
-  - huawei.com
-  - hicloud.com # hw
-  - apzones.com # gcbd
-  # CDN
-  - bsccdn.net
-  - chinanetcenter.com
-  - haplat.net
-  - ksapisrv.com
-  - ksyun.com
-  - ksyuncdn.com
-  - ksyunslb.com
-  - lxdns.com
-  - qtlcdn.com
-  - xycdn.com
-  # Services
-  - apicloud.com
-  - appadhoc.com
-  - cpatrk.net
-  - dutils.com
-  - easemob.com
-  - easytomessage.com
-  - effirst.com
-  - geetest.com
-  - getui.com
-  - jpush.io
-  - mob.com
-  - sobot.com
-  - umeng.com
-  - umengcloud.com
-  - umsns.com
-  - youzhiyun.com
-  # Social
-  - csdn.net
-  - douban.com
-  - doubanio.com
-  - jianshu.com
-  - sspai.com
-  - tapimg.com
-  - taptap.com
-  - xhscdn.com
-  - xiaohongshu.com
-  - zhihu.com
-  - zhimg.com
-  # Media
-  - acfun.com
-  - kuaishou.com
-  - ximalaya.com
-  - xmcdn.com
-  # Game
-  - bh3.com
-  - mihoyo.com
-  - yuanshen.com
-  # Live
-  - gotokeep.com
-  - keepcdn.com
-  # Tools
-  - jianguoyun.com
-  - mubu.com
-  - shimo.im
