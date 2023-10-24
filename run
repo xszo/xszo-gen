@@ -19,7 +19,7 @@ if [[ -n $OptIni || -n $OptAct ]]; then
   if [[ -x $(command -v xcode-select) ]]; then
     if ![[ -x $(command -v brew) ]]; then
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
+      wait; fi
     if [[ -x $(command -v brew) ]]; then
       brew install -y $varPkg
     elif [[ -d /opt/homebrew ]]; then
@@ -60,11 +60,11 @@ fi
 
 # generate output
 if [[ -n $OptGen || -n $OptAct ]]; then
-  cp -rf src/out .
-  cp -f LICENSE out/LICENSE
   for item in ${ListGen[@]}; do
     python3 src/$item/run.py
   done
+  cp -f LICENSE out/LICENSE
+  python3 src/out/run.py
 fi
 
 # publish output

@@ -27,6 +27,7 @@ tar:
 misc:
   # lag test http link
   test: http://bing.com/
+  t-dns: bing.com@1.1.1.1
   # dns over udp on port 53
   dns:
     - "223.5.5.5"

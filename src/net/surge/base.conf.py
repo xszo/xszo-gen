@@ -30,6 +30,7 @@ if "doh" in src["meta"]:
     o("encrypted-dns-server = " + src["meta"]["doh"])
 o("internet-test-url = " + src["meta"]["test"])
 o("proxy-test-url = " + src["meta"]["test"])
+o("proxy-test-udp = " + src["meta"]["t-dns"])
 o()
 o("[Proxy Group]")
 for item in src["node"]:
