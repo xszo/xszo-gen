@@ -82,6 +82,16 @@ route:
       list: [DEFAULT, DIRECT, =NodeList]
     filter:
       - { type: gen, list: stream }
+  - id: specfi
+    icon:
+      emoji: 🏳️‍🌈
+      sf: arrow.left.and.right.system
+    node:
+      name: SPECFI
+      type: static
+      list: [DEFAULT, DIRECT, =NodeList]
+    filter:
+      - { type: gen, list: specfi }
   - id: rcn
     icon:
       emoji: 🏳️‍🌈

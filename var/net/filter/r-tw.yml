@@ -1,8 +1,7 @@
 domain:
   - tw
 
-  # Bahamut
-  - hinet.net
+  # Media
   - bahamut.akamaized.net
 
   # Content

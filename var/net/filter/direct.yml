@@ -9,7 +9,7 @@ domain:
   - time.apple.com
   - time.google.com
   - time.windows.com
-  - pool.ntp.org
+  - ntp.org
 
 # '' gen IP-CIDR,''    [''] gen IP6-CIDR,''
 ipcidr:

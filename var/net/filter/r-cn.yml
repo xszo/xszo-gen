@@ -8,8 +8,6 @@ domain:
 
   # Service
   - alicdn.com
-  - mmstat.com
-  - tanx.com # mm
   - amap.com
   - autonavi.com
 
@@ -23,7 +21,6 @@ domain:
   - biliapi.com
   - bilivideo.com
   - hdslb.com
-  - iqiyi.com
   - gitv.tv # mi
   - ximalaya.com
   - xmcdn.com
@@ -31,7 +28,5 @@ domain:
   # Live
   - alipay.com
   - taobao.com
-  - ele.me
-  - dianping.com
   - meituan.com
   - meituan.net

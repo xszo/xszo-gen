@@ -13,9 +13,10 @@ domain:
   - misskey.io
 
   # Media
-  - nico.ms
+  - dmc.nico
   - pixiv.net
   - pximg.net
+  - dmm.com
   - dlsite.com
   - syosetu.com
 
