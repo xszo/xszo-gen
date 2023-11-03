@@ -5,8 +5,7 @@ tar:
 route:
   - id: adb
     node:
-      name: DEFAULT
-      type: pre
+      id: main
     filter:
       - type: pre
         list:
@@ -14,8 +13,7 @@ route:
           surge: -surge/f-adb.txt
   - id: ada
     node:
-      name: REJECT
-      type: pre
+      id: reject
     filter:
       - type: pre
         list:

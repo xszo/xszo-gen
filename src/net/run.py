@@ -38,11 +38,12 @@ with open("var/base.yml", "tr", encoding="utf-8") as file:
     raw = yaml.safe_load(file)
     Data["path"] = raw["uri"] + "net/"
     Base = {
+        "proxy": Data.pop("proxy"),
         "misc": {
             "path": Data["path"],
             "interval": raw["int"],
             "icon": raw["ico"],
-        }
+        },
     }
 
 # shared variables
@@ -74,6 +75,7 @@ def RunFile(Base, Ovrd):
     LoadRoute()
     LoadNode()
     LoadFilter()
+    LoadProxy()
     # call script to output
     CallScript()
 
@@ -85,21 +87,26 @@ def LoadRoute():
     tmpFilter = []
     for item in Gen["route"]:
         # node
-        if item["node"]["type"] != "pre":
-            loNode = {
-                "type": item["node"]["type"],
-                "name": item["node"]["name"],
-                "list": item["node"]["list"],
-            }
-            if "icon" in item:
-                loNode["icon"] = item["icon"]
-            tmpNode.append(loNode)
+        if "id" in item["node"]:
+            loId = item["node"]["id"]
+        else:
+            loId = item["id"]
+            if item["node"]["type"] != "pre":
+                loNode = {
+                    "id": item["id"],
+                    "type": item["node"]["type"],
+                    "name": item["node"]["name"],
+                    "list": item["node"]["list"],
+                }
+                if "icon" in item:
+                    loNode["icon"] = item["icon"]
+                tmpNode.append(loNode)
         # filter
         for idx, line in enumerate(item["filter"]):
             loFilter = {
                 "id": item["id"] + str(idx),
                 "type": line["type"],
-                "node": item["node"]["name"],
+                "node": loId,
             }
             if line["type"] == "pre":
                 loFilter["link"] = line["list"]
@@ -212,6 +219,16 @@ def LoadFilter():
     Gen["filter"] = Res
 
 
+def LoadProxy():
+    global Gen
+    tmpProxy = {"local": [], "link": []}
+    for item in Gen["proxy"]:
+        item = item.split(" ")
+        if "l" in item[0]:
+            tmpProxy["link"].append(item[1])
+    Gen["proxy"] = tmpProxy
+
+
 # pre CallScript
 for item in Data["script"]:
     tmp = []
@@ -245,8 +262,9 @@ def CallScript():
                             "src": {
                                 "id": Gen["id"],
                                 "meta": Gen["misc"],
-                                "node": Gen["node"],
+                                "node": deepcopy(Gen["node"]),
                                 "filter": Gen["filter"],
+                                "proxy": Gen["proxy"],
                             },
                         },
                     )

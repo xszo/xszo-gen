@@ -2,6 +2,11 @@ def o(line=""):
     out.write(line + "\n")
 
 
+MapNode = {"direct": "DIRECT", "reject": "REJECT"}
+for item in src["node"]:
+    if "id" in item:
+        MapNode[item["id"]] = item["name"]
+
 o("[general]")
 o("profile_img_url = " + src["meta"]["icon"])
 o("resource_parser_url = " + src["meta"]["path"] + "quantumult/parser.js")
@@ -36,7 +41,7 @@ for item in src["node"]:
     o(line)
 o()
 o("[filter_local]")
-o("final, " + src["filter"]["main"])
+o("final, " + MapNode[src["filter"]["main"]])
 o("[filter_remote]")
 o(
     src["meta"]["path"]
@@ -54,7 +59,7 @@ if "pre" in src["filter"]:
                 + ", tag="
                 + item[3]
                 + ", force-policy="
-                + item[2]
+                + MapNode[item[2]]
                 + ", update-interval="
                 + str(src["meta"]["interval"])
                 + ", opt-parser=false, enabled=true"
@@ -65,3 +70,10 @@ o("[rewrite_remote]")
 o()
 o("[server_local]")
 o("[server_remote]")
+for idx, item in enumerate(src["proxy"]["link"]):
+    o(
+        item
+        + ", tag=Proxy"
+        + str(idx)
+        + ", update-interval=86400, opt-parser=true, enabled=true"
+    )

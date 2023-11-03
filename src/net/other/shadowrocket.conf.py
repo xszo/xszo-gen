@@ -2,6 +2,11 @@ def o(line=""):
     out.write(line + "\n")
 
 
+MapNode = {"direct": "DIRECT", "proxy": "PROXY"}
+for item in src["node"]:
+    if "id" in item:
+        MapNode[item["id"]] = item["name"]
+
 o("[General]")
 o("update-url = " + src["meta"]["path"] + "other/" + src["id"] + "shadowrocket.conf")
 o()
@@ -24,18 +29,18 @@ o()
 o("[Rule]")
 for item in src["filter"]["port"]:
     if item[0] == 1:
-        o("DEST-PORT," + str(item[1]) + "," + item[2])
+        o("DEST-PORT," + str(item[1]) + "," + MapNode[item[2]])
 for item in src["filter"]["domain"]:
     if item[0] == 1:
-        o("DOMAIN-SUFFIX," + item[1] + "," + item[2])
+        o("DOMAIN-SUFFIX," + item[1] + "," + MapNode[item[2]])
     elif item[0] == 2:
-        o("DOMAIN," + item[1] + "," + item[2])
+        o("DOMAIN," + item[1] + "," + MapNode[item[2]])
 for item in src["filter"]["ipcidr"]:
     if item[0] == 1:
-        o("IP-CIDR," + item[1] + "," + item[2])
+        o("IP-CIDR," + item[1] + "," + MapNode[item[2]])
     elif item[0] == 2:
-        o("IP-CIDR6," + item[1] + "," + item[2])
+        o("IP-CIDR6," + item[1] + "," + MapNode[item[2]])
 for item in src["filter"]["ipgeo"]:
     if item[0] == 1:
-        o("GEOIP," + item[1] + "," + item[2])
-o("FINAL, " + src["filter"]["main"])
+        o("GEOIP," + item[1] + "," + MapNode[item[2]])
+o("FINAL, " + MapNode[src["filter"]["main"]])

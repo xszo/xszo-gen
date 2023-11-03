@@ -4,23 +4,20 @@ tar:
 route:
   - id: direct
     node:
-      name: DIRECT
-      type: pre
+      id: direct
     filter:
       - { type: gen, list: direct }
       - { type: gen, list: system }
   - id: proxy
     node:
-      name: PROXY
-      type: pre
+      id: proxy
     filter:
       - { type: main }
       - { type: gen, list: global }
       - { type: gen, list: stream }
   - id: rcn
     node:
-      name: DIRECT
-      type: pre
+      id: direct
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }

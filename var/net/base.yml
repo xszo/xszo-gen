@@ -46,14 +46,13 @@ route:
   - id: direct
     # user selector
     node:
-      name: DIRECT
-      type: pre
+      id: direct
     # package filter
     filter:
       - { type: gen, list: direct }
   - id: main
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.arrow.right.system
     node:
       name: DEFAULT
@@ -64,7 +63,7 @@ route:
       - { type: gen, list: global }
   - id: system
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: SYSTEM
@@ -74,7 +73,7 @@ route:
       - { type: gen, list: system }
   - id: stream
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: STREAM
@@ -84,7 +83,7 @@ route:
       - { type: gen, list: stream }
   - id: specfi
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: SPECFI
@@ -94,7 +93,7 @@ route:
       - { type: gen, list: specfi }
   - id: rcn
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: R-CN
@@ -105,7 +104,7 @@ route:
       - { type: ipgeo, list: cn }
   - id: rjp
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: R-JP
@@ -116,7 +115,7 @@ route:
       - { type: ipgeo, list: jp }
   - id: rtw
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: R-TW
@@ -127,7 +126,7 @@ route:
       - { type: ipgeo, list: tw }
   - id: rus
     icon:
-      emoji: 🏳️‍🌈
+      emoji: 🚩
       sf: arrow.left.and.right.system
     node:
       name: R-US
