@@ -33,7 +33,10 @@ for item in src["node"]:
     line += item["name"]
     if "list" in item:
         for val in item["list"]:
-            line += ", " + val
+            if val[0] == "-":
+                line += ", " + MapNode[val[1:]]
+            else:
+                line += ", " + val
     elif "regx" in item:
         line += ", server-tag-regex=" + item["regx"]
     if "icon" in item:

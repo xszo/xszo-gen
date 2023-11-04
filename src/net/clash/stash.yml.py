@@ -1,9 +1,8 @@
 import yaml
+from copy import deepcopy
 
 MapNode = {"direct": "DIRECT", "reject": "REJECT"}
 for item in src["node"]:
-    if "icon" in item:
-        item["name"] = item["icon"]["emoji"] + item["name"]
     if "id" in item:
         MapNode[item["id"]] = item["name"]
 
@@ -15,6 +14,13 @@ if "doh" in src["meta"]:
 else:
     raw["dns"]["nameserver"] = raw["dns"]["default-nameserver"]
 
+raw["proxy-providers"] = {}
+ListProxy = []
+for idx, item in enumerate(src["proxy"]["link"]):
+    loName = "Proxy" + str(idx)
+    ListProxy.append(loName)
+    raw["proxy-providers"][loName] = {"url": item, "interval": 86400}
+
 raw["proxy-groups"] = []
 for item in src["node"]:
     line = {"name": item["name"]}
@@ -25,16 +31,20 @@ for item in src["node"]:
             {
                 "type": "url-test",
                 "lazy": True,
+                "hidden": True,
                 "interval": 600,
                 "url": src["meta"]["test"],
             }
         )
     else:
         continue
+    if "icon" in item:
+        line["icon"] = item["icon"]["emoji"]
     if "list" in item:
-        line["proxies"] = item["list"]
+        line["proxies"] = [MapNode[x[1:]] if x[0] == "-" else x for x in item["list"]]
     if "regx" in item:
         line["include-all"] = True
+        line["use"] = deepcopy(ListProxy)
         line["filter"] = item["regx"]
     raw["proxy-groups"].append(line)
 
@@ -42,15 +52,15 @@ raw["rules"] = []
 for item in src["filter"]["port"]:
     if item[0] == 1:
         raw["rules"].append("DST-PORT," + str(item[1]) + "," + MapNode[item[2]])
-if "pre" in src["filter"]:
-    for item in src["filter"]["pre"]["clash"]:
-        if item[0] == 1:
-            raw["rules"].append("RULE-SET," + item[3] + "," + MapNode[item[2]])
 for item in src["filter"]["domain"]:
     if item[0] == 1:
         raw["rules"].append("DOMAIN-SUFFIX," + item[1] + "," + MapNode[item[2]])
     elif item[0] == 2:
         raw["rules"].append("DOMAIN," + item[1] + "," + MapNode[item[2]])
+if "pre" in src["filter"]:
+    for item in src["filter"]["pre"]["clash"]:
+        if item[0] == 1:
+            raw["rules"].append("RULE-SET," + item[3] + "," + MapNode[item[2]])
 for item in src["filter"]["ipcidr"]:
     if item[0] == 1:
         raw["rules"].append("IP-CIDR," + item[1] + "," + MapNode[item[2]])
@@ -72,9 +82,5 @@ if "pre" in src["filter"]:
                 "url": item[1],
                 "path": "./filter/" + item[3],
             }
-
-raw["proxy-providers"] = {}
-for idx, item in enumerate(src["proxy"]["link"]):
-    raw["proxy-providers"]["Proxy" + str(idx)] = {"url": item, "interval": 86400}
 
 yaml.safe_dump(raw, out)

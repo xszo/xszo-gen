@@ -20,3 +20,19 @@ route:
           clash: -clash/f-ada.yml
           surge: -surge/f-ada.txt
   - "="
+  - id: gfwa
+    node:
+      id: main
+    filter:
+      - type: pre
+        list:
+          clash: -clash/f-gfwa.yml
+          surge: -surge/f-gfwa.txt
+  - id: gfwb
+    node:
+      id: rcn
+    filter:
+      - type: pre
+        list:
+          clash: -clash/f-gfwb.yml
+          surge: -surge/f-gfwb.txt

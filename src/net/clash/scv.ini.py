@@ -21,7 +21,10 @@ for item in src["node"]:
         continue
     if "list" in item:
         for val in item["list"]:
-            line += "`[]" + val
+            if val[0] == "-":
+                line += "`[]" + MapNode[val[1:]]
+            else:
+                line += "`[]" + val
     if "regx" in item:
         line += "`" + item["regx"]
     if item["type"] == "test":
@@ -32,15 +35,15 @@ o("overwrite_original_rules=true")
 for item in src["filter"]["port"]:
     if item[0] == 1:
         o("ruleset=" + MapNode[item[2]] + ",[]DST-PORT," + str(item[1]))
-if "pre" in src["filter"]:
-    for item in src["filter"]["pre"]["clash"]:
-        if item[0] == 1:
-            o("ruleset=" + MapNode[item[2]] + ",[]RULE-SET," + item[3])
 for item in src["filter"]["domain"]:
     if item[0] == 1:
         o("ruleset=" + MapNode[item[2]] + ",[]DOMAIN-SUFFIX," + item[1])
     elif item[0] == 2:
         o("ruleset=" + MapNode[item[2]] + ",[]DOMAIN," + item[1])
+if "pre" in src["filter"]:
+    for item in src["filter"]["pre"]["clash"]:
+        if item[0] == 1:
+            o("ruleset=" + MapNode[item[2]] + ",[]RULE-SET," + item[3])
 for item in src["filter"]["ipcidr"]:
     if item[0] == 1:
         o("ruleset=" + MapNode[item[2]] + ",[]IP-CIDR," + item[1])

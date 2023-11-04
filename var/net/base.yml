@@ -57,7 +57,7 @@ route:
     node:
       name: DEFAULT
       type: static
-      list: [DIRECT, REJECT, =NodeList]
+      list: [-direct, -reject, =NodeList]
     filter:
       - { type: main }
       - { type: gen, list: global }
@@ -68,7 +68,7 @@ route:
     node:
       name: SYSTEM
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: system }
   - id: stream
@@ -78,7 +78,7 @@ route:
     node:
       name: STREAM
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: stream }
   - id: specfi
@@ -88,7 +88,7 @@ route:
     node:
       name: SPECFI
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: specfi }
   - id: rcn
@@ -98,7 +98,7 @@ route:
     node:
       name: R-CN
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
@@ -109,7 +109,7 @@ route:
     node:
       name: R-JP
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
@@ -120,7 +120,7 @@ route:
     node:
       name: R-TW
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
@@ -131,7 +131,7 @@ route:
     node:
       name: R-US
       type: static
-      list: [DEFAULT, DIRECT, =NodeList]
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-us }
 node:

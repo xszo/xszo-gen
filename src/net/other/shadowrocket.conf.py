@@ -12,16 +12,19 @@ o("update-url = " + src["meta"]["path"] + "other/" + src["id"] + "shadowrocket.c
 o()
 o("[Proxy Group]")
 for item in src["node"]:
-    line = item["name"] + " = "
+    line = item["name"]
     if item["type"] == "static":
-        line += "select"
+        line += " = select"
     elif item["type"] == "test":
-        line += "url-test, url=" + src["meta"]["test"]
+        line += " = url-test, url=" + src["meta"]["test"]
     else:
         continue
     if "list" in item:
         for val in item["list"]:
-            line += ", " + val
+            if val[0] == "-":
+                line += ", " + MapNode[val[1:]]
+            else:
+                line += ", " + val
     if "regx" in item:
         line += ", policy-regex-filter=" + item["regx"]
     o(line)
