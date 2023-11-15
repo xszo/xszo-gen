@@ -22,26 +22,18 @@ route:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
   - id: rjp
-    node:
-      name: JP
-      type: test
-      list: =jp
+    node: { name: JP, type: test, list: =jp }
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
   - id: rtw
-    node:
-      name: TW
-      type: test
-      list: =tw
+    node: { name: TW, type: test, list: =tw }
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
   - id: rus
-    node:
-      name: US
-      type: test
-      list: =us
+    node: { name: US, type: test, list: =us }
     filter:
       - { type: gen, list: r-us }
+      - { type: ipgeo, list: us }
 node: []

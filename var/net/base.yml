@@ -134,6 +134,7 @@ route:
       list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-us }
+      - { type: ipgeo, list: us }
 node:
   - name: Node0
     # type, static manual set dest, test set based on lag test

@@ -1,3 +1,5 @@
 /tmp
 /usr
 /out
+
+__pycache__

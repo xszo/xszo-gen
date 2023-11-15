@@ -1,8 +1,5 @@
-import yaml
 from subprocess import run
-
-with open("src/run/run.yml", "tr", encoding="utf-8") as file:
-    data = yaml.safe_load(file)
+from var import data
 
 for item in data["run-point"]:
     run([data["env-python"], "src/" + item + "/run.py"], check=True)

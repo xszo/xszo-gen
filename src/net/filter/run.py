@@ -1,8 +1,8 @@
 import re
-import requests
 import yaml
 from base64 import b64decode
 from pathlib import Path
+from requests import get as download
 
 # load data
 with open("var/net/filter/list.yml", "tr", encoding="utf-8") as file:
@@ -38,7 +38,7 @@ for unit in Data["list"]:
         # ini output obj
         Out[key] = []
     # get remote filter
-    Raw = requests.get(unit["uri"], timeout=1000).text
+    Raw = download(unit["uri"], timeout=1000).text
     if "b64" in unit["pre"]:
         Raw = b64decode(Raw).decode("utf-8")
     # loop lines

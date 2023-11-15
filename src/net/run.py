@@ -1,7 +1,7 @@
 import os
-import requests
 import yaml
 from copy import deepcopy
+from requests import get as download
 
 
 # utils
@@ -273,7 +273,7 @@ def CallScript():
             if "r" in unit[0]:
                 # fetch remote
                 with open(outPath, "tw", encoding="utf-8") as file:
-                    file.write(requests.get(unit[2], timeout=1000).text)
+                    file.write(download(unit[2], timeout=1000).text)
                 continue
             # copy file
             os.system("cp -f src/net/" + unit[1] + " out/net/" + unit[1])
