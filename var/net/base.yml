@@ -88,7 +88,7 @@ route:
     node:
       name: SPECFI
       type: static
-      list: [-main, -direct, =NodeList]
+      list: .*
     filter:
       - { type: gen, list: specfi }
   - id: rcn
@@ -134,7 +134,6 @@ route:
       list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-us }
-      - { type: ipgeo, list: us }
 node:
   - name: Node0
     # type, static manual set dest, test set based on lag test

@@ -3,13 +3,13 @@ script:
   # flag path [args]
   # g means run code, r means download remote, a means copy raw
   quantumult:
-    - g quantumult/profile.conf
+    - g quantumult/Profile.conf
     - g quantumult/filter.txt
     - r quantumult/parser.js https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/resource-parser.js
   clash:
     - g clash/scv.ini
     - g clash/scv.yml
-    - g clash/stash.yml
+    - g clash/Stash.yml
   surge:
     - g surge/Profile.conf
     - g surge/Server.conf

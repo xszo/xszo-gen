@@ -10,12 +10,11 @@ parsearg.add_argument("-o", dest="oO", action="store_true", help="output")
 args = parsearg.parse_args()
 
 if args.oA:
-    run([data["env-python"], "src/run/ini-python.py"], check=True)
+    run([data["env-python"], "src/run/ini-pip.py"], check=True)
     run([data["env-python"], "src/run/gen.py"], check=True)
 if args.oI:
-    run([data["env-python"], "src/run/ini-unix.py"], check=True)
-    run([data["env-python"], "src/run/ini-python.py"], check=True)
     run([data["env-python"], "src/run/ini-git.py"], check=True)
+    run([data["env-python"], "src/run/ini-pip.py"], check=True)
 if args.oG:
     run([data["env-python"], "src/run/gen.py"], check=True)
 if args.oO:

@@ -28,16 +28,19 @@ o("#!include proxy.conf")
 o()
 o("[Proxy Group]")
 for item in src["node"]:
-    line = item["name"] + " = "
+    line = item["name"]
     if item["type"] == "static":
-        line += "select"
+        line += " = select"
     elif item["type"] == "test":
-        line += "url-test, hidden=true"
+        line += " = url-test, hidden=true"
     else:
         continue
     if "list" in item:
         for val in item["list"]:
-            line += ", " + val
+            if val[0] == "-":
+                line += ", " + MapNode[val[1:]]
+            else:
+                line += ", " + val
     if "regx" in item:
         line += ', include-all-proxies=true, policy-regex-filter="' + item["regx"] + '"'
     o(line)

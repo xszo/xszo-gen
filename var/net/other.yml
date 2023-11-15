@@ -35,5 +35,4 @@ route:
     node: { name: US, type: test, list: =us }
     filter:
       - { type: gen, list: r-us }
-      - { type: ipgeo, list: us }
 node: []
