@@ -1,8 +1,8 @@
 # xszo/etc
 
-Documents in doc/ at https://github.com/xszo/etc/wiki
+Documents in `doc/` at <https://github.com/xszo/etc/wiki>
 
-## License
+## LICENSE
 
 Copyright (C) 2022 Xelios Zukto
 
@@ -21,15 +21,15 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 ## External
 
-- xszo/etc.wiki, GNU GPL 3.0 & CC BY-SA 4.0  
+- xszo/etc.wiki, _GNU GPL 3.0_ & _GNU FDL 1.3_  
   doc/
-- AdGuard Filter, GNU GPL 3.0, https://adguard.com/kb/  
+- AdGuard DNS Filter, _GNU GPL 3.0_, https://adguard.com/kb/  
   out/net/\*/f-ada.yml  
   out/net/\*/f-adb.yml
-- GFW list, GNU LGPL 2.1, https://github.com/gfwlist/gfwlist  
+- GFW List, _GNU LGPL 2.1_, https://github.com/gfwlist/gfwlist  
   out/net/\*/f-gfwa.yml  
   out/net/\*/f-gfwb.yml
 - KOP-XIAO, https://github.com/KOP-XIAO/QuantumultX  
   out/net/quantumult/parser.js
-- Sub Store Parser, GNU AGPL 3.0, https://github.com/sub-store-org/Sub-Store  
+- Sub Store Parser, _GNU AGPL 3.0_, https://github.com/sub-store-org/Sub-Store  
   out/net/other/loon-parser.js

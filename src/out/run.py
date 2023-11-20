@@ -14,14 +14,15 @@ htmlTail = "</body></html>"
 def show(dire: Path, dirl: str):
     htmlBody = "<ul>"
     for item in sorted(dire.iterdir(), key=lambda v: v.name):
-        if item.name[0] == "." or item.name.split(".")[-1] == "html":
+        loc = item.name
+        if loc[0] == "." or (len(loc) > 5 and loc[-5:] == ".html"):
             continue
         if item.is_file():
-            loc = dirl + item.name
+            loc = dirl + loc
             htmlBody += '<li><a href="' + uri + loc + '">' + loc + "</a></li>"
             continue
         if item.is_dir():
-            loc = dirl + item.name + "/"
+            loc = dirl + loc + "/"
             htmlBody += '<li><a href="' + uri + loc + '">' + loc + "</a></li>"
             htmlBody += show(item, loc)
     htmlBody += "</ul>"

@@ -1,11 +1,7 @@
-name: Gen to Pages
+name: Github Pages
 on:
   schedule:
     - cron: 0 0 * * 0
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 concurrency:
   group: github-pages
   cancel-in-progress: true

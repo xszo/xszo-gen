@@ -5,32 +5,28 @@ tar:
 route:
   - "="
   - id: adb
-    node:
-      id: main
+    node: { id: main }
     filter:
       - type: pre
         list:
           clash: -clash/f-adb.yml
           surge: -surge/f-adb.txt
   - id: ada
-    node:
-      id: reject
+    node: { id: reject }
     filter:
       - type: pre
         list:
           clash: -clash/f-ada.yml
           surge: -surge/f-ada.txt
   - id: gfwa
-    node:
-      id: main
+    node: { id: main }
     filter:
       - type: pre
         list:
           clash: -clash/f-gfwa.yml
           surge: -surge/f-gfwa.txt
   - id: gfwb
-    node:
-      id: rcn
+    node: { id: rcn }
     filter:
       - type: pre
         list:

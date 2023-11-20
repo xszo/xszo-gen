@@ -3,21 +3,18 @@ tar:
   - loon
 route:
   - id: direct
-    node:
-      id: direct
+    node: { id: direct }
     filter:
       - { type: gen, list: direct }
       - { type: gen, list: system }
   - id: proxy
-    node:
-      id: proxy
+    node: { id: proxy }
     filter:
       - { type: main }
       - { type: gen, list: global }
       - { type: gen, list: stream }
   - id: rcn
-    node:
-      id: direct
+    node: { id: direct }
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
