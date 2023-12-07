@@ -1,8 +1,9 @@
+import base64
 import re
-import yaml
-from base64 import b64decode
 from pathlib import Path
-from requests import get as download
+
+import requests
+import yaml
 
 # load data
 with open("var/net/filter/list.yml", "tr", encoding="utf-8") as file:
@@ -17,7 +18,7 @@ ccPath = Path("tmp/net/filter")
 ccPath.mkdir(parents=True, exist_ok=True)
 
 # variables
-ReCom = re.compile("^ *($|#|!)")  # comment line
+ReCom = re.compile("^\\s*($|#|!)")  # comment line
 NoMc = {}  # not matched
 
 # start
@@ -33,14 +34,14 @@ for unit in Data["list"]:
             for val in Data["var"]:
                 item = re.sub(val[0], val[1], item)
             # compile pattern
-            item = item.split(" ")
+            item = item.split("  ")
             Pattern.append((re.compile(item[0]), item[1], key))
         # ini output obj
         Out[key] = []
     # get remote filter
-    Raw = download(unit["uri"], timeout=1000).text
+    Raw = requests.get(unit["uri"], timeout=1000).text
     if "b64" in unit["pre"]:
-        Raw = b64decode(Raw).decode("utf-8")
+        Raw = base64.b64decode(Raw).decode("utf-8")
     # loop lines
     for item in Raw.splitlines():
         if re.match(ReCom, item):

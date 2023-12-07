@@ -1,5 +1,6 @@
-import yaml
 from pathlib import Path
+
+import yaml
 
 with open("out/null", "tw", encoding="utf-8") as file:
     file.write("\n")
@@ -8,6 +9,7 @@ with open("var/base.yml", "tr", encoding="utf-8") as file:
     uri = yaml.safe_load(file)["uri"]
 
 htmlHead = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>etc</title></head><body>'
+html404 = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>404</title></head><body><h1>404 Not Found</h1>'
 htmlTail = "</body></html>"
 
 
@@ -32,4 +34,4 @@ def show(dire: Path, dirl: str):
 
 
 with open("out/404.html", "tw", encoding="utf-8") as file:
-    file.write(htmlHead + show(Path("out"), "") + htmlTail)
+    file.write(html404 + show(Path("out"), "") + htmlTail)

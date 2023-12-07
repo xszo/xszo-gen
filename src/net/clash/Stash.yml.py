@@ -1,5 +1,6 @@
-import yaml
 from copy import deepcopy
+
+import yaml
 
 MapNode = {"direct": "DIRECT", "reject": "REJECT"}
 for item in src["node"]:

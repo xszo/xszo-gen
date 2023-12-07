@@ -24,7 +24,7 @@ o("ipv6 = true")
 o("ipv6-vif = auto")
 # o("udp-priority = true")
 # o("udp-policy-not-supported-behaviour = REJECT")
-# o("exclude-simple-hostnames = true")
+o("exclude-simple-hostnames = true")
 if "dns" in src["meta"]:
     o("hijack-dns = *:53")
     line = "dns-server = "
@@ -32,10 +32,11 @@ if "dns" in src["meta"]:
         line += item + ", "
     o(line[:-2])
 if "doh" in src["meta"]:
+    # o("encrypted-dns-follow-outbound-mode = true")
     o("encrypted-dns-server = " + src["meta"]["doh"])
 o("internet-test-url = " + src["meta"]["test"])
 o("proxy-test-url = " + src["meta"]["test"])
-o("proxy-test-udp = " + src["meta"]["t-dns"])
+# o("proxy-test-udp = " + src["meta"]["t-dns"])
 o()
 o("[Proxy Group]")
 for item in src["node"]:

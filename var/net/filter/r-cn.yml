@@ -6,27 +6,20 @@ domain:
   - mi-img.com
   - miui.com
 
-  # Service
-  - alicdn.com
-  - amap.com
-  - autonavi.com
-
-  # Social
-  - qq.com
-  - xiaohongshu.com
-  - xhscdn.com
-
   # Media
   - bilibili.com
   - biliapi.com
   - bilivideo.com
   - hdslb.com
+  - iqiyi.com
   - gitv.tv # mi
   - ximalaya.com
   - xmcdn.com
 
-  # Live
+  # Other
+  - alicdn.com
   - alipay.com
   - taobao.com
-  - meituan.com
-  - meituan.net
+  - amap.com
+  - autonavi.com
+  - qq.com

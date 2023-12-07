@@ -1,20 +1,20 @@
 # '' gen DST-PORT,''
 # port:
-#   - 123 # time
+#   - 0
 
 # '' gen DOMAIN-SUFFIX,''    -'' gen DOMAIN,''
 domain:
   - local
-  # Time
-  - time.apple.com
-  - time.google.com
-  - time.windows.com
-  - ntp.org
 
 # '' gen IP-CIDR,''    [''] gen IP6-CIDR,''
 ipcidr:
-  - 10.0.0.0/8
-  - 100.64.0.0/10
-  - 172.16.0.0/12
-  - 192.168.0.0/16
-  - "[fc00::/7]"
+  - 0.0.0.0/8 # this
+  - 10.0.0.0/8 # local
+  - 100.64.0.0/10 # local
+  - 127.0.0.0/8 # loopback
+  - 169.254.0.0/16 # ll
+  - 172.16.0.0/12 # local
+  - 192.168.0.0/16 # local
+  - "[::/127]" # this & loopback
+  - "[fc00::/7]" # local
+  - "[fe80::/10]" # ll
