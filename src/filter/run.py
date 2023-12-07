@@ -6,7 +6,9 @@ import requests
 import yaml
 
 # load data
-with open("var/net/filter/list.yml", "tr", encoding="utf-8") as file:
+with open("src/filter/run.yml", "tr", encoding="utf-8") as file:
+    Run = yaml.safe_load(file)
+with open(Run["path"]["var.list"], "tr", encoding="utf-8") as file:
     Data = yaml.safe_load(file)
 # compile variable pattern
 ReVar = []
@@ -14,7 +16,7 @@ for name, line in Data["var"].items():
     ReVar.append((re.compile("\\\\=" + name + "\\\\"), line))
 Data["var"] = ReVar + [(re.compile("\\\\=\\w+\\\\"), "")]
 # path of tmp file
-ccPath = Path("tmp/net/filter")
+ccPath = Path(Run["path"]["tmp"])
 ccPath.mkdir(parents=True, exist_ok=True)
 
 # variables
@@ -70,19 +72,23 @@ for unit in Data["list"]:
                 )
         if "clash" in Data["tar"]:
             with open(
-                "out/net/clash/f-" + unit["id"] + key + ".yml", "tw", encoding="utf-8"
+                Run["path"]["out.clash"] + unit["id"] + key + ".yml",
+                "tw",
+                encoding="utf-8",
             ) as file:
                 yaml.safe_dump({"payload": con}, file)
         if "surge" in Data["tar"]:
             with open(
-                "out/net/surge/f-" + unit["id"] + key + ".txt", "tw", encoding="utf-8"
+                Run["path"]["out.surge"] + unit["id"] + key + ".txt",
+                "tw",
+                encoding="utf-8",
             ) as file:
                 file.writelines(
                     [x[1:] + "\n" if x[0] == "+" else x + "\n" for x in con]
                 )
         if "quantumult" in Data["tar"]:
             with open(
-                "out/net/quantumult/f-" + unit["id"] + key + ".txt",
+                Run["path"]["out.quantumult"] + unit["id"] + key + ".txt",
                 "tw",
                 encoding="utf-8",
             ) as file:

@@ -1,0 +1,49 @@
+# variables refered with '\=name\'
+var:
+  bs: (?:\|\||\.)
+  bn: (?:\|?|\|?[a-z]*://)
+  dn: ((?:[A-Za-z0-9\*](?:[A-Za-z0-9\-\*]*[A-Za-z0-9\*])?\.)+(?:[A-Za-z]+|xn--[A-Za-z0-9]+))
+  dl: ((?:[A-Za-z0-9\*](?:[A-Za-z0-9\-\*]*[A-Za-z0-9\*])?\.)+)\*?
+  ed: (?:$|\^|\$|/|%2F)
+# target list
+tar:
+  # - gen
+  - clash
+  - surge
+  # - quantumult
+# list
+list:
+  - id: ad # adguard list
+    # link to source file
+    uri: https://filters.adtidy.org/ios/filters/15.txt
+    # use preprocessor
+    pre: []
+    # use regular expression to convert
+    reg:
+      # into sublist
+      a:
+        # match pattern, expand pattern
+        - ^\=bs\\=dn\\=ed\  +.\1
+        - ^\=bs\\=dl\\=ed\  +.\1*
+        - ^\=bn\\=dn\\=ed\  \1
+        - ^\=bn\\=dl\\=ed\  \1*
+      b:
+        - ^@@\=bs\\=dn\\=ed\  +.\1
+        - ^@@\=bs\\=dl\\=ed\  +.\1*
+        - ^@@\=bn\\=dn\\=ed\  \1
+        - ^@@\=bn\\=dl\\=ed\  \1*
+
+  - id: gfw # gfw list
+    uri: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+    pre: [b64]
+    reg:
+      a:
+        - ^\=bs\\=dn\\=ed\  +.\1
+        - ^\=bs\\=dl\\=ed\  +.\1*
+        - ^\=bn\\=dn\\=ed\  \1
+        - ^\=bn\\=dl\\=ed\  \1*
+      b:
+        - ^@@\=bs\\=dn\\=ed\  +.\1
+        - ^@@\=bs\\=dl\\=ed\  +.\1*
+        - ^@@\=bn\\=dn\\=ed\  \1
+        - ^@@\=bn\\=dl\\=ed\  \1*

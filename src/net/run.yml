@@ -1,3 +1,11 @@
+path:
+  src: src/net/
+  var: var/net/
+  var.base: var/base.yml
+  var.list: var/net/list.yml
+  var.pattern: var/pattern.yml
+  var.filter: var/filter/
+  out: out/net/
 # path to output scripts by target
 script:
   # flag path [args]

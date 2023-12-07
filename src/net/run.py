@@ -32,10 +32,10 @@ def Insert(ls1, ls2):
 
 # load data
 with open("src/net/run.yml", "tr", encoding="utf-8") as file:
+    Run = yaml.safe_load(file)
+with open(Run["path"]["var.list"], "tr", encoding="utf-8") as file:
     Data = yaml.safe_load(file)
-with open("var/net/list.yml", "tr", encoding="utf-8") as file:
-    Data.update(yaml.safe_load(file))
-with open("var/base.yml", "tr", encoding="utf-8") as file:
+with open(Run["path"]["var.base"], "tr", encoding="utf-8") as file:
     raw = yaml.safe_load(file)
     Data["path"] = raw["uri"] + "net/"
     Base = {
@@ -120,7 +120,7 @@ def LoadRoute():
 
 
 # pre LoadNode
-with open("var/pattern.yml", "tr", encoding="utf-8") as file:
+with open(Run["path"]["var.pattern"], "tr", encoding="utf-8") as file:
     Pat = yaml.safe_load(file)["region"]
 
 
@@ -159,7 +159,9 @@ def LoadFilter():
         if item["type"] == "gen":
             # read filter file
             with open(
-                "var/net/filter/" + item["list"] + ".yml", "tr", encoding="utf-8"
+                Run["path"]["var.filter"] + item["list"] + ".yml",
+                "tr",
+                encoding="utf-8",
             ) as file:
                 raw = yaml.safe_load(file)
             if "domain" in raw:
@@ -231,23 +233,23 @@ def LoadProxy():
 
 
 # pre CallScript
-for item in Data["script"]:
+for item in Run["script"]:
     tmp = []
-    for unit in Data["script"][item]:
+    for unit in Run["script"][item]:
         unit = unit.split(" ")
         tmp.append(tuple(unit))
-        outPath = "out/net/" + os.path.dirname(unit[1])
+        outPath = Run["path"]["out"] + os.path.dirname(unit[1])
         if not os.path.exists(outPath):
             os.makedirs(outPath)
-    Data["script"][item] = tmp
+    Run["script"][item] = tmp
 
 
 def CallScript():
     """call script to generate output from object"""
     # loop targets
     for item in Gen["tar"]:
-        for unit in Data["script"][item]:
-            outPath = "out/net/" + unit[1]
+        for unit in Run["script"][item]:
+            outPath = Run["path"]["out"] + unit[1]
             # see flag
             if "g" in unit[0]:
                 # call script
@@ -255,7 +257,9 @@ def CallScript():
                     os.path.dirname(outPath), Gen["id"] + os.path.basename(outPath)
                 )
                 out = open(outPath, "tw", encoding="utf-8")
-                with open("src/net/" + unit[1] + ".py", "tr", encoding="utf-8") as file:
+                with open(
+                    Run["path"]["src"] + unit[1] + ".py", "tr", encoding="utf-8"
+                ) as file:
                     exec(
                         file.read(),
                         {
@@ -277,12 +281,19 @@ def CallScript():
                     file.write(requests.get(unit[2], timeout=1000).text)
                 continue
             # copy file
-            os.system("cp -f src/net/" + unit[1] + " out/net/" + unit[1])
+            os.system(
+                "cp -f "
+                + Run["path"]["src"]
+                + unit[1]
+                + " "
+                + Run["path"]["out"]
+                + unit[1]
+            )
 
 
 # run scripts
-with open("var/net/" + Data["base"], "tr", encoding="utf-8") as file:
+with open(Run["path"]["var"] + Data["base"], "tr", encoding="utf-8") as file:
     Merge(Base, yaml.safe_load(file))
 for item in Data["list"]:
-    with open("var/net/" + item, "tr", encoding="utf-8") as file:
+    with open(Run["path"]["var"] + item, "tr", encoding="utf-8") as file:
         RunFile(Base, yaml.safe_load(file))

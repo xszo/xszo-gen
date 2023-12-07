@@ -16,6 +16,7 @@ var:
     - TW
     - US
     - Node
+    - N-JMS
 # target software
 tar:
   # - quantumult
@@ -151,3 +152,6 @@ node:
   - name: US
     type: test
     list: =us
+  - name: N-JMS
+    type: test
+    list: ^JMS-\d+@c\d+s\d\d?\.\w+\.[a-z]+:\d+$
