@@ -24,7 +24,7 @@ o("loglevel = warning")
 # o("ipv6-vif = auto")
 # o("udp-priority = true")
 # o("udp-policy-not-supported-behaviour = REJECT")
-o("exclude-simple-hostnames = true")
+# o("exclude-simple-hostnames = true")
 if "dns" in src["meta"]:
     o("hijack-dns = *:53")
     line = "dns-server = "

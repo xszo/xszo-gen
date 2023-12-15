@@ -16,9 +16,14 @@ domain:
   - dmc.nico
   - pixiv.net
   - pximg.net
+  - fanbox.cc
   - dmm.com
   - dlsite.com
   - syosetu.com
 
   # Game
   - colorfulpalette.org
+
+  # Other
+  - misakaf.org
+  - aca.best

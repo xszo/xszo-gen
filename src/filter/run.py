@@ -5,10 +5,10 @@ from pathlib import Path
 import requests
 import yaml
 
+from var import VAR
+
 # load data
-with open("src/filter/run.yml", "tr", encoding="utf-8") as file:
-    Run = yaml.safe_load(file)
-with open(Run["path"]["var.list"], "tr", encoding="utf-8") as file:
+with open(VAR["path"]["var.list"], "tr", encoding="utf-8") as file:
     Data = yaml.safe_load(file)
 # compile variable pattern
 ReVar = []
@@ -16,7 +16,7 @@ for name, line in Data["var"].items():
     ReVar.append((re.compile("\\\\=" + name + "\\\\"), line))
 Data["var"] = ReVar + [(re.compile("\\\\=\\w+\\\\"), "")]
 # path of tmp file
-ccPath = Path(Run["path"]["tmp"])
+ccPath = Path(VAR["path"]["tmp"])
 ccPath.mkdir(parents=True, exist_ok=True)
 
 # variables
@@ -72,14 +72,14 @@ for unit in Data["list"]:
                 )
         if "clash" in Data["tar"]:
             with open(
-                Run["path"]["out.clash"] + unit["id"] + key + ".yml",
+                VAR["path"]["out.clash"] + unit["id"] + key + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as file:
                 yaml.safe_dump({"payload": con}, file)
         if "surge" in Data["tar"]:
             with open(
-                Run["path"]["out.surge"] + unit["id"] + key + ".txt",
+                VAR["path"]["out.surge"] + unit["id"] + key + ".txt",
                 "tw",
                 encoding="utf-8",
             ) as file:
@@ -88,7 +88,7 @@ for unit in Data["list"]:
                 )
         if "quantumult" in Data["tar"]:
             with open(
-                Run["path"]["out.quantumult"] + unit["id"] + key + ".txt",
+                VAR["path"]["out.quantumult"] + unit["id"] + key + ".txt",
                 "tw",
                 encoding="utf-8",
             ) as file:
