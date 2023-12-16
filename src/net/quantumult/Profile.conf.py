@@ -22,6 +22,16 @@ if "doh" in src["meta"]:
 o()
 o("[mitm]")
 o()
+o("[server_local]")
+o("[server_remote]")
+for idx, item in enumerate(src["proxy"]["link"]):
+    o(
+        item
+        + ", tag=Proxy"
+        + str(idx)
+        + ", update-interval=86400, opt-parser=true, enabled=true"
+    )
+o()
 o("[policy]")
 for item in src["node"]:
     if item["type"] == "static":
@@ -70,13 +80,3 @@ if "pre" in src["filter"]:
 o()
 o("[rewrite_local]")
 o("[rewrite_remote]")
-o()
-o("[server_local]")
-o("[server_remote]")
-for idx, item in enumerate(src["proxy"]["link"]):
-    o(
-        item
-        + ", tag=Proxy"
-        + str(idx)
-        + ", update-interval=86400, opt-parser=true, enabled=true"
-    )

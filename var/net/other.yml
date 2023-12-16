@@ -1,6 +1,5 @@
 tar:
   - shadowrocket
-  - loon
 route:
   - id: direct
     node: { id: direct }

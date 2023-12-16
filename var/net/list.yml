@@ -7,6 +7,5 @@ list:
 # data for proxy section
 proxy:
   - ""
-  # flag path, p local file, l link
-  # - p proxy.yml
+  # flag path
   # - l https://xszo.github.io/etc/net/proxy.yml

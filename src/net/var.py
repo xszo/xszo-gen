@@ -32,6 +32,7 @@ VAR = {
             "g other/shadowrocket.conf",
         ],
         "loon": [
+            "g other/loon.conf",
             "r other/loon-parser.js https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-parser.loon.min.js"
         ],
     },
