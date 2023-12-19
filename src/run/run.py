@@ -1,15 +1,26 @@
 import argparse
+import os
 from subprocess import run
 
-from var import VAR
+VAR = {
+    "run-point": ["net", "filter", "out"],
+    "env-python": "python3",
+    "env-path": "src/run/",
+}
+
+os.chdir(os.path.join(os.path.dirname(__file__), "../.."))
 
 
 class cmd:
-    def shell(cmd):
-        run("cd src/run; " + cmd + "; cd ../..;", shell=True, check=True)
+    def shell(command):
+        run(
+            "cd " + VAR["env-path"] + "; " + command + "; cd ../..;",
+            shell=True,
+            check=True,
+        )
 
     def run():
-        for item in VAR["run-point"] + ["out"]:
+        for item in VAR["run-point"]:
             run([VAR["env-python"], "src/" + item + "/run.py"], check=True)
 
     def iniPip():
@@ -59,7 +70,7 @@ class cmd:
         )
 
     def rmOut():
-        run(["rm", "-rf", "out/*"], check=True)
+        run("rm -rf out/*", shell=True, check=True)
 
 
 arg = argparse.ArgumentParser()

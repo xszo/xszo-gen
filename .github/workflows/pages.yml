@@ -2,6 +2,7 @@ name: Github Pages
 on:
   schedule:
     - cron: 0 0 * * 0
+  workflow_dispatch: ~
 concurrency:
   group: github-pages
   cancel-in-progress: true
@@ -23,7 +24,7 @@ jobs:
           python-version-file: src/run/.python-version
           cache: pip
           cache-dependency-path: src/run/requirements.txt
-      # gen
+      # run
       - run: ./run -a
       # pages
       - uses: actions/configure-pages@v3

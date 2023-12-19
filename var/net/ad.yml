@@ -1,7 +1,6 @@
 id: ad
 tar:
   - clash
-  - surge
 route:
   - "="
   - id: adb

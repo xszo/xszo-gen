@@ -10,7 +10,6 @@ tar:
   # - gen
   - clash
   - surge
-  # - quantumult
 # list
 list:
   - id: ad # adguard list

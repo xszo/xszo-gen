@@ -1,5 +1,5 @@
-import base64
 import re
+from base64 import b64decode
 from pathlib import Path
 
 import requests
@@ -14,13 +14,14 @@ with open(VAR["path"]["var.list"], "tr", encoding="utf-8") as file:
 ReVar = []
 for name, line in Data["var"].items():
     ReVar.append((re.compile("\\\\=" + name + "\\\\"), line))
-Data["var"] = ReVar + [(re.compile("\\\\=\\w+\\\\"), "")]
+Data["var"] = ReVar + [(re.compile("\\\\=\\w*\\\\"), "")]
+Data["com"] = re.compile(VAR["re-com"])  # comment line
+
 # path of tmp file
 ccPath = Path(VAR["path"]["tmp"])
 ccPath.mkdir(parents=True, exist_ok=True)
 
 # variables
-ReCom = re.compile("^\\s*($|#|!)")  # comment line
 NoMc = {}  # not matched
 
 # start
@@ -42,11 +43,12 @@ for unit in Data["list"]:
         Out[key] = []
     # get remote filter
     Raw = requests.get(unit["uri"], timeout=1000).text
+    # pre process
     if "b64" in unit["pre"]:
-        Raw = base64.b64decode(Raw).decode("utf-8")
+        Raw = b64decode(Raw).decode("utf-8")
     # loop lines
     for item in Raw.splitlines():
-        if re.match(ReCom, item):
+        if re.match(Data["com"], item):
             continue
         # match pattern
         for pat in Pattern:
@@ -62,6 +64,7 @@ for unit in Data["list"]:
         Out[key] = list(dict.fromkeys(Out[key]))
     # output
     for key, con in Out.items():
+        # + means prefix, * means any
         if "gen" in Data["tar"]:
             with open(
                 ccPath / (unit["id"] + key + ".yml"), "tw", encoding="utf-8"
@@ -85,20 +88,6 @@ for unit in Data["list"]:
             ) as file:
                 file.writelines(
                     [x[1:] + "\n" if x[0] == "+" else x + "\n" for x in con]
-                )
-        if "quantumult" in Data["tar"]:
-            with open(
-                VAR["path"]["out.quantumult"] + unit["id"] + key + ".txt",
-                "tw",
-                encoding="utf-8",
-            ) as file:
-                file.writelines(
-                    [
-                        "host-suffix," + x[2:] + ",o\n"
-                        if x[0] == "+"
-                        else "host," + x + ",o\n"
-                        for x in con
-                    ]
                 )
     # log not matched ones
     NoMc[unit["id"]] = LoNoMc

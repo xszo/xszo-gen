@@ -24,12 +24,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 - xszo/etc.wiki, _GNU GPL 3.0_ & _GNU FDL 1.3_  
   doc/
 - AdGuard DNS Filter, _GNU GPL 3.0_, https://adguard.com/kb/  
-  out/net/\*/f-ada.yml  
-  out/net/\*/f-adb.yml
+  out/(clash|surge)/f-(ada|adb).yml
 - GFW List, _GNU LGPL 2.1_, https://github.com/gfwlist/gfwlist  
-  out/net/\*/f-gfwa.yml  
-  out/net/\*/f-gfwb.yml
+  out/(clash|surge)/f-(gfwa|gfwb).yml
 - KOP-XIAO, https://github.com/KOP-XIAO/QuantumultX  
-  out/net/quantumult/parser.js
+  out/network/quantumult-parser.js
 - Sub Store Parser, _GNU AGPL 3.0_, https://github.com/sub-store-org/Sub-Store  
-  out/net/other/loon-parser.js
+  out/network/loon-parser.js
