@@ -21,13 +21,11 @@ def show(dire: Path, dirl: str):
         if loc[0] == "." or (len(loc) > 5 and loc[-5:] == ".html"):
             continue
         if item.is_file():
-            loc = dirl + loc
-            htmlBody += '<li><a href="' + uri + loc + '">' + loc + "</a></li>"
+            htmlBody += '<li><a href="' + uri + dirl + loc + '">' + loc + "</a></li>"
             continue
         if item.is_dir():
-            loc = dirl + loc + "/"
-            htmlBody += '<li><a href="' + uri + loc + '">' + loc + "</a></li>"
-            htmlBody += show(item, loc)
+            htmlBody += '<li><a href="' + uri + dirl + loc + '/">' + loc + "/</a></li>"
+            htmlBody += show(item, dirl + loc + "/")
     htmlBody += "</ul>"
     # create index
     with open(dire / "index.html", "tw", encoding="utf-8") as file:

@@ -1,3 +1,4 @@
+from pathlib import Path
 from subprocess import run as prun
 
 import requests
@@ -13,9 +14,9 @@ from surge.server import dump as surge_server
 
 from var import VAR
 
-prun(["mkdir", VAR["path"]["out"]], check=False)
-prun(["mkdir", VAR["path"]["out.surge"]], check=False)
-prun(["mkdir", VAR["path"]["out.clash"]], check=False)
+Path(VAR["path"]["out"]).mkdir(parents=True, exist_ok=True)
+Path(VAR["path"]["out.surge"]).mkdir(parents=True, exist_ok=True)
+Path(VAR["path"]["out.clash"]).mkdir(parents=True, exist_ok=True)
 
 
 def rmt(loc, lnk):
@@ -30,11 +31,11 @@ def cp(fo, to):
 def do(dat):
     var = dat.pop("dump")
     if var["id"] != "":
-        var["id"] += "-"
+        var["id"] = "-" + var["id"]
 
     if "quantumult" in var["tar"]:
         with open(
-            VAR["path"]["out"] + var["id"] + "quantumult.conf",
+            VAR["path"]["out"] + "quantumult" + var["id"] + ".conf",
             "tw",
             encoding="utf-8",
         ) as out:
@@ -43,12 +44,13 @@ def do(dat):
                 out,
                 locFilter=var["uri"]
                 + VAR["path"]["out.uri"]
+                + "quantumult-filter"
                 + var["id"]
-                + "quantumult-filter.txt",
+                + ".txt",
                 locParse=var["uri"] + VAR["path"]["out.uri"] + "quantumult-parser.js",
             )
         with open(
-            VAR["path"]["out"] + var["id"] + "quantumult-filter.txt",
+            VAR["path"]["out"] + "quantumult-filter" + var["id"] + ".txt",
             "tw",
             encoding="utf-8",
         ) as out:
@@ -59,35 +61,35 @@ def do(dat):
         )
     if "clash" in var["tar"]:
         with open(
-            VAR["path"]["out.clash"] + var["id"] + "stash.yml",
+            VAR["path"]["out.clash"] + "Stash" + var["id"] + ".yml",
             "tw",
             encoding="utf-8",
         ) as out:
             clash_stash(dat, out)
         with open(
-            VAR["path"]["out.clash"] + var["id"] + "scv.ini",
+            VAR["path"]["out.clash"] + "scv" + var["id"] + ".ini",
             "tw",
             encoding="utf-8",
         ) as out:
             clash_scv_ini(
-                dat, out, locYml=var["uri"] + "clash/" + var["id"] + "scv.yml"
+                dat, out, locYml=var["uri"] + "clash/scv" + var["id"] + ".yml"
             )
         with open(
-            VAR["path"]["out.clash"] + var["id"] + "scv.yml",
+            VAR["path"]["out.clash"] + "scv" + var["id"] + ".yml",
             "tw",
             encoding="utf-8",
         ) as out:
             clash_scv_yml(dat, out)
     if "surge" in var["tar"]:
         with open(
-            VAR["path"]["out.surge"] + var["id"] + "base.conf",
+            VAR["path"]["out.surge"] + "base" + var["id"] + ".conf",
             "tw",
             encoding="utf-8",
         ) as out:
-            surge_base(dat, out, locUp=var["uri"] + "surge/" + var["id"] + "base.conf")
-        cp("surge/profile.conf", "../surge/" + var["id"] + "Profile.conf")
+            surge_base(dat, out, locUp=var["uri"] + "surge/base" + var["id"] + ".conf")
+        cp("surge/profile.conf", "../surge/Profile" + var["id"] + ".conf")
         with open(
-            VAR["path"]["out.surge"] + var["id"] + "Server.conf",
+            VAR["path"]["out.surge"] + "Server" + var["id"] + ".conf",
             "tw",
             encoding="utf-8",
         ) as out:
@@ -95,7 +97,7 @@ def do(dat):
         cp("other/scv.ini", "scv.ini")
     if "shadowrocket" in var["tar"]:
         with open(
-            VAR["path"]["out"] + var["id"] + "shadowrocket.conf",
+            VAR["path"]["out"] + "shadowrocket" + var["id"] + ".conf",
             "tw",
             encoding="utf-8",
         ) as out:
@@ -104,12 +106,13 @@ def do(dat):
                 out,
                 locUp=var["uri"]
                 + VAR["path"]["out.uri"]
+                + "shadowrocket"
                 + var["id"]
-                + "shadowrocket.conf",
+                + ".conf",
             )
     if "loon" in var["tar"]:
         with open(
-            VAR["path"]["out"] + var["id"] + "loon.conf", "tw", encoding="utf-8"
+            VAR["path"]["out"] + "loon" + var["id"] + ".conf", "tw", encoding="utf-8"
         ) as out:
             loon(
                 dat,

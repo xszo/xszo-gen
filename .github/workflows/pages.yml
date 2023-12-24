@@ -20,10 +20,7 @@ jobs:
       # env
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with:
-          python-version-file: src/run/.python-version
-          cache: pip
-          cache-dependency-path: src/run/requirements.txt
+        with: { cache: pip }
       # run
       - run: ./run -a
       # pages

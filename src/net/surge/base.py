@@ -33,7 +33,7 @@ def dump(src, out, locUp):
         o("encrypted-dns-server = " + src["misc"]["doh"])
     o("internet-test-url = " + src["misc"]["test"])
     o("proxy-test-url = " + src["misc"]["test"])
-    # o("proxy-test-udp = " + src["misc"]["t-dns"])
+    o("proxy-test-udp = " + src["misc"]["t-dns"])
     o()
     o("[Proxy Group]")
     for item in src["node"]:

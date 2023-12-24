@@ -1,6 +1,10 @@
 # xszo/etc
 
+Code in `run` `src/` `var/` at <https://github.com/xszo/etc>
+
 Documents in `doc/` at <https://github.com/xszo/etc/wiki>
+
+Configuration in `out/` at <https://xszo.github.io/etc/>
 
 ## LICENSE
 

@@ -27,8 +27,8 @@ tar:
 # misc options
 misc:
   # lag test http link
-  test: http://bing.com/
-  t-dns: bing.com@1.1.1.1
+  test: http://1.1.1.1/
+  t-dns: one.one.one.one@1.1.1.1
   # dns over udp on port 53
   dns:
     - "223.5.5.5"
@@ -54,7 +54,10 @@ route:
     icon:
       emoji: 🚩
       sf: arrow.left.arrow.right.system
-    node: { type: static, name: DEFAULT, list: [-direct, -reject, =NodeList] }
+    node:
+      type: static
+      name: DEFAULT
+      list: [-direct, -reject, =NodeList]
     filter:
       - { type: main }
       - { type: gen, list: global }
@@ -62,28 +65,40 @@ route:
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: SYSTEM, list: [-main, -direct, =NodeList] }
+    node:
+      type: static
+      name: SYSTEM
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: system }
   - id: stream
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: STREAM, list: [-main, -direct, =NodeList] }
+    node:
+      type: static
+      name: STREAM
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: stream }
   - id: specfi
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: SPECFI, list: .* }
+    node:
+      type: static
+      name: SPECFI
+      list: .*
     filter:
       - { type: gen, list: specfi }
   - id: rcn
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: R-CN, list: [-main, -direct, =NodeList] }
+    node:
+      type: static
+      name: R-CN
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
@@ -91,7 +106,10 @@ route:
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: R-JP, list: [-main, -direct, =NodeList] }
+    node:
+      type: static
+      name: R-JP
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
@@ -99,7 +117,10 @@ route:
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: R-TW, list: [-main, -direct, =NodeList] }
+    node:
+      type: static
+      name: R-TW
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
@@ -107,51 +128,29 @@ route:
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node: { type: static, name: R-US, list: [-main, -direct, =NodeList] }
+    node:
+      type: static
+      name: R-US
+      list: [-main, -direct, =NodeList]
     filter:
       - { type: gen, list: r-us }
 node:
-  - name: Node0
-    # type, static manual set dest, test set based on lag test
-    type: static
-    # include proxy
-    list: .*
-  - name: Node1
-    type: static
-    list: .*
-  - name: Node2
-    type: static
-    list: .*
-  - name: Node3
-    type: static
-    list: .*
-  - name: Node
-    type: test
-    list: .*
-  - name: CN
-    type: test
-    list: =cn
-  - name: DE
-    type: test
-    list: =de
-  - name: GB
-    type: test
-    list: =gb
-  - name: HK
-    type: test
-    list: =hk
-  - name: JP
-    type: test
-    list: =jp
-  - name: SG
-    type: test
-    list: =sg
-  - name: TW
-    type: test
-    list: =tw
-  - name: US
-    type: test
-    list: =us
+  # type, static manual set dest, test set based on lag test
+  # list, include proxy, = ref pattern.region
+  - { name: Node0, type: static, list: .* }
+  - { name: Node1, type: static, list: .* }
+  - { name: Node2, type: static, list: .* }
+  - { name: Node3, type: static, list: .* }
+  - { name: Node, type: test, list: .* }
+  - { name: CN, type: test, list: =cn }
+  - { name: DE, type: test, list: =de }
+  - { name: GB, type: test, list: =gb }
+  - { name: HK, type: test, list: =hk }
+  - { name: JP, type: test, list: =jp }
+  - { name: KR, type: test, list: =kr }
+  - { name: SG, type: test, list: =sg }
+  - { name: TW, type: test, list: =tw }
+  - { name: US, type: test, list: =us }
   - name: N-JMS
     type: test
     list: ^JMS-\d+@c\d+s\d\d?\.\w+\.[a-z]+:\d+$
