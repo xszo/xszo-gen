@@ -5,6 +5,11 @@
 # '' gen DOMAIN-SUFFIX,''    -'' gen DOMAIN,''
 domain:
   - local
+  # Time
+  - time.apple.com
+  - time.google.com
+  - time.windows.com
+  - ntp.org
 
 # '' gen IP-CIDR,''    [''] gen IP6-CIDR,''
 ipcidr:

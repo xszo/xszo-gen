@@ -1,12 +1,5 @@
 domain:
-  # Apple
   - apple
-  - apple.com
-  - cdn-apple.com
-  - icloud.com
-  - me.com # mail
-  - icloud-content.com
-  - mzstatic.com # itunes
 
   # Google
   - google.com
@@ -169,6 +162,3 @@ domain:
   # - steamcommunity.com
   # - steamstatic.com
   # - steamcontent.com # dl
-
-ipcidr:
-  - 17.0.0.0/8 # apple

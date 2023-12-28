@@ -1,10 +1,15 @@
 domain:
-  # Time
-  - time.apple.com
-  - time.google.com
-  - time.windows.com
-  - ntp.org
+  # Apple
+  - apple.com
+  - cdn-apple.com
+  - icloud.com
+  - me.com # mail
+  - icloud-content.com
+  - mzstatic.com # itunes
 
   # Other
   - synology.com
   - qnap.com
+
+ipcidr:
+  - 17.0.0.0/8 # apple

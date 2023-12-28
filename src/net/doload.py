@@ -9,9 +9,10 @@ with open(VAR["path"]["var.pattern"], "tr", encoding="utf-8") as file:
 
 
 class do:
+    res = {}
+
     __base = {}
     __var = {"var": {}}
-    res = {}
 
     # d merge dc2 into dc1
     def __merge(self, dc1: dict, dc2: dict):

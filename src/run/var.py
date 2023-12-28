@@ -1,5 +1,4 @@
-VAR = {
-    "run-point": ["net", "filter", "out"],
-    "env-python": "python3",
-    "env-path": "src/run/",
-}
+class var:
+    ENV = {"python": "python3", "pip": "pip"}
+    PATH = {"run": "src/run/", "pan": "../..", "pip": "requirements.txt"}
+    RUN = ["net", "filter", "out"]

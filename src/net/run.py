@@ -6,11 +6,12 @@ from var import VAR
 
 # load runtime data
 with open(VAR["path"]["var.list"], "tr", encoding="utf-8") as file:
-    Data = yaml.safe_load(file)
+    data = yaml.safe_load(file)
 
-proLoad = do_load()
+loader = do_load()
+dumper = do_dump()
 
-for item in Data["list"]:
+for item in data["list"]:
     with open(VAR["path"]["var"] + item, "tr", encoding="utf-8") as file:
-        proLoad.load(yaml.safe_load(file))
-    do_dump(proLoad.res)
+        loader.load(yaml.safe_load(file))
+    dumper.dump(loader.res)
