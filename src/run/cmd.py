@@ -3,7 +3,7 @@ from subprocess import run
 from var import var
 
 
-class cmd:
+class CommandLine:
     def shell(command):
         run(
             "cd " + var.PATH["run"] + "; " + command + "; cd " + var.PATH["pan"] + ";",
@@ -15,7 +15,7 @@ class cmd:
         for item in var.RUN:
             run([var.ENV["python"], "src/" + item + "/run.py"], check=True)
 
-    def iniPip():
+    def ini_pip():
         run(
             [
                 var.ENV["python"],
@@ -28,7 +28,7 @@ class cmd:
             check=True,
         )
 
-    def iniGit():
+    def ini_git():
         run(
             ["git", "submodule", "update", "--init", "--recursive", "--remote"],
             check=True,
@@ -47,7 +47,7 @@ class cmd:
             check=True,
         )
 
-    def outPush():
+    def out_push():
         run(
             """
         cd out
@@ -61,5 +61,5 @@ class cmd:
             check=True,
         )
 
-    def outRm():
+    def out_rm():
         run("rm -rf out/*", shell=True, check=True)

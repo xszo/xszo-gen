@@ -1,7 +1,7 @@
-from var import VAR
+from var import var
 
 
 # create file null
 def do():
-    with open(VAR["path"]["out.null"], "tw", encoding="utf-8") as file:
+    with open(var.PATH["out.null"], "tw", encoding="utf-8") as file:
         file.write("\n")

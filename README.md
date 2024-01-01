@@ -8,7 +8,7 @@ Configuration in `out/` at <https://xszo.github.io/etc/>
 
 ## LICENSE
 
-Copyright (C) 2022 Xelios Zukto
+Copyright (C) 2022-2024 Xelios Zukto
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,9 +28,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 - xszo/etc.wiki, _GNU GPL 3.0_ & _GNU FDL 1.3_  
   doc/
 - AdGuard DNS Filter, _GNU GPL 3.0_, https://adguard.com/kb/  
-  out/(clash|surge)/f-(ada|adb).yml
+  out/(clash|surge)/f-ad(a|b).yml
 - GFW List, _GNU LGPL 2.1_, https://github.com/gfwlist/gfwlist  
-  out/(clash|surge)/f-(gfwa|gfwb).yml
+  out/(clash|surge)/f-gfw(a|b).yml
 - KOP-XIAO, https://github.com/KOP-XIAO/QuantumultX  
   out/network/quantumult-parser.js
 - Sub Store Parser, _GNU AGPL 3.0_, https://github.com/sub-store-org/Sub-Store  

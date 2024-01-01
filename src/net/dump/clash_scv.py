@@ -21,6 +21,8 @@ class dump:
 
         o("[custom]")
         o("clash_rule_base=" + loc["yml"])
+        o("enable_rule_generator=false")
+
         for item in self.__src["node"]:
             line = "custom_proxy_group=" + item["name"]
             if item["type"] == "static":
@@ -41,30 +43,6 @@ class dump:
                 line += "`" + self.__src["misc"]["test"] + "`600"
             o(line)
 
-        o("enable_rule_generator=true")
-        o("overwrite_original_rules=true")
-        for item in self.__src["filter"]["port"]:
-            if item[0] == 1:
-                o("ruleset=" + self.__map_node[item[2]] + ",[]DST-PORT," + str(item[1]))
-        for item in self.__src["filter"]["domain"]:
-            if item[0] == 1:
-                o("ruleset=" + self.__map_node[item[2]] + ",[]DOMAIN-SUFFIX," + item[1])
-            elif item[0] == 2:
-                o("ruleset=" + self.__map_node[item[2]] + ",[]DOMAIN," + item[1])
-        if "pre" in self.__src["filter"]:
-            for item in self.__src["filter"]["pre"]["clash"]:
-                if item[0] == 1:
-                    o("ruleset=" + self.__map_node[item[2]] + ",[]RULE-SET," + item[3])
-        for item in self.__src["filter"]["ipcidr"]:
-            if item[0] == 1:
-                o("ruleset=" + self.__map_node[item[2]] + ",[]IP-CIDR," + item[1])
-            elif item[0] == 2:
-                o("ruleset=" + self.__map_node[item[2]] + ",[]IP-CIDR6," + item[1])
-        for item in self.__src["filter"]["ipgeo"]:
-            if item[0] == 1:
-                o("ruleset=" + self.__map_node[item[2]] + ",[]GEOIP," + item[1])
-        o("ruleset=" + self.__map_node[self.__src["filter"]["main"]] + ",[]MATCH")
-
     def yml(self, out):
         with open("src/net/dump/clash_base.yml", "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
@@ -76,6 +54,38 @@ class dump:
             raw["dns"]["nameserver"] = [self.__src["misc"]["doh"]]
         else:
             raw["dns"]["nameserver"] = deepcopy(raw["dns"]["default-nameserver"])
+
+        raw["rules"] = [
+            "DST-PORT," + str(x[1]) + "," + self.__map_node[x[2]] if x[0] == 1 else None
+            for x in self.__src["filter"]["port"]
+        ] + [
+            "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
+            if x[0] == 1
+            else "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
+            if x[0] == 2
+            else None
+            for x in self.__src["filter"]["domain"]
+        ]
+        if "pre" in self.__src["filter"]:
+            raw["rules"] += [
+                "RULE-SET," + x[3] + "," + self.__map_node[x[2]] if x[0] == 1 else None
+                for x in self.__src["filter"]["pre"]["clash"]
+            ]
+        raw["rules"] += (
+            [
+                "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
+                if x[0] == 1
+                else "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
+                if x[0] == 2
+                else None
+                for x in self.__src["filter"]["ipcidr"]
+            ]
+            + [
+                "GEOIP," + x[1] + "," + self.__map_node[x[2]] if x[0] == 1 else None
+                for x in self.__src["filter"]["ipgeo"]
+            ]
+            + ["MATCH, " + self.__map_node[self.__src["filter"]["main"]]]
+        )
 
         if "pre" in self.__src["filter"]:
             raw["rule-providers"] = {}

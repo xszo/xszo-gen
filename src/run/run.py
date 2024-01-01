@@ -1,6 +1,6 @@
 import argparse
 import os
-from cmd import cmd
+from cmd import CommandLine
 from var import var
 
 os.chdir(os.path.join(os.path.dirname(__file__), var.PATH["pan"]))
@@ -14,16 +14,16 @@ arg.add_argument("-o", action="store_true", help="push out to branch etc")
 args = arg.parse_args()
 
 if args.a:
-    cmd.iniPip()
-    cmd.run()
+    CommandLine.ini_pip()
+    CommandLine.run()
 else:
     if args.i:
-        cmd.iniPip()
-        cmd.iniGit()
+        CommandLine.ini_pip()
+        CommandLine.ini_git()
     if args.g and not args.n:
-        cmd.run()
+        CommandLine.run()
     if not args.g and args.n:
-        cmd.outRm()
-        cmd.run()
+        CommandLine.out_rm()
+        CommandLine.run()
     if args.o:
-        cmd.outPush()
+        CommandLine.out_push()

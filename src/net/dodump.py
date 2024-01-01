@@ -63,7 +63,7 @@ class do:
         if "clash" in var["tar"]:
             dp = clash_stash(src)
             with open(
-                VAR["path"]["out.clash"] + "Stash" + var["id"] + ".yml",
+                VAR["path"]["out.clash"] + "stash" + var["id"] + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as out:
