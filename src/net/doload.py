@@ -1,11 +1,10 @@
 from copy import deepcopy
 
 import yaml
+from ren import Var
 
-from var import VAR
-
-with open(VAR["path"]["var.pattern"], "tr", encoding="utf-8") as file:
-    Pat = yaml.safe_load(file)["region"]
+with open(Var.PATH["var.pattern"], "tr", encoding="utf-8") as file:
+    REX = yaml.safe_load(file)["region"]
 
 
 class do:
@@ -25,20 +24,20 @@ class do:
 
     # t insert ls2 into ls1 with template
     def __insert(self, ls1: list, ls2: list):
-        Res = []
+        res = []
         for item in ls2:
             if isinstance(item, str):
                 if item == "=":
-                    Res.extend(ls1)
+                    res.extend(ls1)
                 if item[0] == "-":
-                    Res.append(ls1[int(item[1:])])
+                    res.append(ls1[int(item[1:])])
             else:
-                Res.append(item)
-        return Res
+                res.append(item)
+        return res
 
     def __init__(self):
         # load base profile
-        with open(VAR["path"]["var.base"], "tr", encoding="utf-8") as file:
+        with open(Var.PATH["var.base"], "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
         self.__base = {
             "dump": {
@@ -50,10 +49,10 @@ class do:
             },
         }
         self.__var["uri"] = raw["uri"]
-        with open(VAR["path"]["var.list"], "tr", encoding="utf-8") as file:
+        with open(Var.PATH["var.list"], "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
         self.__base["proxy"] = raw["proxy"]
-        with open(VAR["path"]["var"] + raw["base"], "tr", encoding="utf-8") as file:
+        with open(Var.PATH["var"] + raw["base"], "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
         self.__merge(self.__base, raw)
         if "var" in self.__base:
@@ -64,71 +63,71 @@ class do:
             self.__base["dump"]["tar"] = self.__base.pop("tar")
 
     # load data from file
-    def load(self, ipro: dict):
+    def load(self, i_src: dict):
         # load sections
-        if "tar" in ipro:
+        if "tar" in i_src:
             self.res = deepcopy(self.__base)
-            self.res["dump"]["tar"] = ipro["tar"]
+            self.res["dump"]["tar"] = i_src["tar"]
         else:
             self.res = {}
             return
-        if "id" in ipro:
-            self.res["dump"]["id"] = ipro["id"]
-        if "var" in ipro:
-            self.__var["var"].update(ipro["var"])
-        if "misc" in ipro:
-            self.res["misc"].update(ipro["misc"])
-        if "route" in ipro:
-            self.res["route"] = self.__insert(self.res["route"], ipro["route"])
-        if "node" in ipro:
-            self.res["node"] = self.__insert(self.res["node"], ipro["node"])
+        if "id" in i_src:
+            self.res["dump"]["id"] = i_src["id"]
+        if "var" in i_src:
+            self.__var["var"].update(i_src["var"])
+        if "misc" in i_src:
+            self.res["misc"].update(i_src["misc"])
+        if "route" in i_src:
+            self.res["route"] = self.__insert(self.res["route"], i_src["route"])
+        if "node" in i_src:
+            self.res["node"] = self.__insert(self.res["node"], i_src["node"])
         # load modules
-        self.__loadRoute()
-        self.__loadNode()
-        self.__loadFilter()
-        self.__loadProxy()
+        self.__load_route()
+        self.__load_node()
+        self.__load_filter()
+        self.__load_proxy()
         return self.res
 
     # convert route list to node and filter
-    def __loadRoute(self):
-        tmpNode = []
-        tmpFilter = []
+    def __load_route(self):
+        tmp_node = []
+        tmp_filter = []
         for item in self.res["route"]:
             # node
             if "id" in item["node"]:
-                loId = item["node"]["id"]
+                lo_id = item["node"]["id"]
             else:
-                loId = item["id"]
+                lo_id = item["id"]
                 # format node
-                loNode = {
-                    "id": loId,
+                lo_node = {
+                    "id": lo_id,
                     "type": item["node"]["type"],
                     "name": item["node"]["name"],
                     "list": item["node"]["list"],
                 }
                 if "icon" in item:
-                    loNode["icon"] = item["icon"]
-                tmpNode.append(loNode)
+                    lo_node["icon"] = item["icon"]
+                tmp_node.append(lo_node)
             # filter
             for idx, line in enumerate(item["filter"]):
-                loFilter = {
+                lo_filter = {
                     "id": item["id"] + str(idx),
                     "type": line["type"],
-                    "node": loId,
+                    "node": lo_id,
                 }
                 # filter link or gen filter
                 if line["type"] == "pre":
-                    loFilter["link"] = line["list"]
+                    lo_filter["link"] = line["list"]
                 elif "list" in line:
-                    loFilter["list"] = line["list"]
-                tmpFilter.append(loFilter)
+                    lo_filter["list"] = line["list"]
+                tmp_filter.append(lo_filter)
         # append
-        self.res["node"] = tmpNode + self.res["node"]
-        self.res["filter"] = tmpFilter
+        self.res["node"] = tmp_node + self.res["node"]
+        self.res["filter"] = tmp_filter
         del self.res["route"]
 
     # ins inline var, format list val
-    def __loadNode(self):
+    def __load_node(self):
         for item in self.res["node"]:
             if isinstance(item["list"], list):
                 # plain list
@@ -143,23 +142,23 @@ class do:
             else:
                 # regex match
                 if item["list"][0] == "=":
-                    item["regx"] = Pat[item.pop("list")[1:]]
+                    item["regx"] = REX[item.pop("list")[1:]]
                 else:
                     item["regx"] = item.pop("list")
 
     # get filter content from file and optimize
-    def __loadFilter(self):
-        tmpDomain = [[], [], [], [], [], [], [], []]
-        tmpIpcidr = [[], []]
-        tmpIpgeo = []
-        tmpPort = []
-        tmpPre = {}
+    def __load_filter(self):
+        tmp_domain = [[], [], [], [], [], [], [], []]
+        tmp_ipcidr = [[], []]
+        tmp_ipgeo = []
+        tmp_port = []
+        tmp_pre = {}
         for item in self.res["filter"]:
             # type gen
             if item["type"] == "gen":
                 # read filter file
                 with open(
-                    VAR["path"]["var.filter"] + item["list"] + ".yml",
+                    Var.PATH["var.filter"] + item["list"] + ".yml",
                     "tr",
                     encoding="utf-8",
                 ) as file:
@@ -168,30 +167,30 @@ class do:
                     # divide domain by level
                     for line in raw["domain"]:
                         if line[0] == "-":
-                            tmpDomain[line.count(".")].append(
+                            tmp_domain[line.count(".")].append(
                                 (2, line[1:], item["node"])
                             )
                         else:
-                            tmpDomain[line.count(".")].append((1, line, item["node"]))
+                            tmp_domain[line.count(".")].append((1, line, item["node"]))
                 if "ipcidr" in raw:
                     # sepatate 4 and 6
                     for line in raw["ipcidr"]:
                         if line[0] == "[":
-                            tmpIpcidr[1].append((2, line[1:-1], item["node"]))
+                            tmp_ipcidr[1].append((2, line[1:-1], item["node"]))
                         else:
-                            tmpIpcidr[0].append((1, line, item["node"]))
+                            tmp_ipcidr[0].append((1, line, item["node"]))
                 if "port" in raw:
                     for line in raw["port"]:
                         # convert to (type, match, dest)
-                        tmpPort.append((1, line, item["node"]))
+                        tmp_port.append((1, line, item["node"]))
             # type pre
             elif item["type"] == "pre":
                 for unit in self.res["dump"]["tar"]:
-                    if not unit in tmpPre:
-                        tmpPre[unit] = []
+                    if not unit in tmp_pre:
+                        tmp_pre[unit] = []
                     # from name.tar to tar.[name]
                     if item["link"][unit][0] == "-":
-                        tmpPre[unit].append(
+                        tmp_pre[unit].append(
                             (
                                 1,
                                 self.__var["uri"] + item["link"][unit][1:],
@@ -200,35 +199,35 @@ class do:
                             )
                         )
                     else:
-                        tmpPre[unit].append(
+                        tmp_pre[unit].append(
                             (1, item["link"][unit], item["node"], item["id"])
                         )
             # type other
             elif item["type"] == "ipgeo":
-                tmpIpgeo.append((1, item["list"].upper(), item["node"]))
+                tmp_ipgeo.append((1, item["list"].upper(), item["node"]))
             elif item["type"] == "main":
-                tmpMain = item["node"]
+                tmp_main = item["node"]
         # merge domain in order
-        Res = {"domain": [], "ipcidr": [], "main": tmpMain}
-        for item in reversed(tmpDomain):
-            Res["domain"] += sorted(
+        res = {"domain": [], "ipcidr": [], "main": tmp_main}
+        for item in reversed(tmp_domain):
+            res["domain"] += sorted(
                 item, key=lambda v: ".".join(reversed(v[1].split(".")))
             )
-        # copy into Res
-        for item in tmpIpcidr:
-            Res["ipcidr"] += sorted(
+        # copy into res
+        for item in tmp_ipcidr:
+            res["ipcidr"] += sorted(
                 item, reverse=True, key=lambda v: int((v[1].split("/"))[1])
             )
-        Res["ipgeo"] = sorted(tmpIpgeo, key=lambda v: v[1])
-        Res["port"] = sorted(tmpPort, key=lambda v: v[1])
-        if len(tmpPre) > 0:
-            Res["pre"] = tmpPre
-        self.res["filter"] = Res
+        res["ipgeo"] = sorted(tmp_ipgeo, key=lambda v: v[1])
+        res["port"] = sorted(tmp_port, key=lambda v: v[1])
+        if len(tmp_pre) > 0:
+            res["pre"] = tmp_pre
+        self.res["filter"] = res
 
-    def __loadProxy(self):
-        tmpProxy = {"local": [], "link": []}
+    def __load_proxy(self):
+        tmp_proxy = {"local": [], "link": []}
         for item in self.res["proxy"]:
             item = item.split(" ")
             if "l" in item[0]:
-                tmpProxy["link"].append(item[1])
-        self.res["proxy"] = tmpProxy
+                tmp_proxy["link"].append(item[1])
+        self.res["proxy"] = tmp_proxy

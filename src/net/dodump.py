@@ -8,24 +8,23 @@ from dump.loon import dump as loon
 from dump.quantumult import dump as quantumult
 from dump.shadowrocket import dump as shadowrocket
 from dump.surge import dump as surge
-
-from var import VAR
+from ren import Var
 
 
 class do:
     def __init__(self):
-        Path(VAR["path"]["out"]).mkdir(parents=True, exist_ok=True)
-        Path(VAR["path"]["out.surge"]).mkdir(parents=True, exist_ok=True)
-        Path(VAR["path"]["out.clash"]).mkdir(parents=True, exist_ok=True)
+        Path(Var.PATH["out"]).mkdir(parents=True, exist_ok=True)
+        Path(Var.PATH["out.surge"]).mkdir(parents=True, exist_ok=True)
+        Path(Var.PATH["out.clash"]).mkdir(parents=True, exist_ok=True)
 
-    def __rmt(self, loc, lnk):
-        with open(VAR["path"]["out"] + loc, "tw", encoding="utf-8") as file:
+    def __rmt(self, loc: str, lnk: str):
+        with open(Var.PATH["out"] + loc, "tw", encoding="utf-8") as file:
             file.write(requests.get(lnk, timeout=1000).text)
 
-    def __cp(self, fo, to):
-        prun(["cp", VAR["path"]["src"] + fo, VAR["path"]["out"] + to], check=True)
+    def __cp(self, fo: str, to: str):
+        prun(["cp", Var.PATH["src"] + fo, Var.PATH["out"] + to], check=True)
 
-    def dump(self, src):
+    def dump(self, src: dict):
         var = src.pop("dump")
         if var["id"] != "":
             var["id"] = "-" + var["id"]
@@ -33,7 +32,7 @@ class do:
         if "quantumult" in var["tar"]:
             dp = quantumult(src)
             with open(
-                VAR["path"]["out"] + "quantumult" + var["id"] + ".conf",
+                Var.PATH["out"] + "quantumult" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -41,17 +40,17 @@ class do:
                     out,
                     {
                         "filter": var["uri"]
-                        + VAR["path"]["out.uri"]
+                        + Var.PATH["out.uri"]
                         + "quantumult-filter"
                         + var["id"]
                         + ".txt",
                         "parse": var["uri"]
-                        + VAR["path"]["out.uri"]
+                        + Var.PATH["out.uri"]
                         + "quantumult-parser.js",
                     },
                 )
             with open(
-                VAR["path"]["out"] + "quantumult-filter" + var["id"] + ".txt",
+                Var.PATH["out"] + "quantumult-filter" + var["id"] + ".txt",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -63,20 +62,20 @@ class do:
         if "clash" in var["tar"]:
             dp = clash_stash(src)
             with open(
-                VAR["path"]["out.clash"] + "stash" + var["id"] + ".yml",
+                Var.PATH["out.clash"] + "stash" + var["id"] + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as out:
                 dp.yml(out)
             dp = clash_scv(src)
             with open(
-                VAR["path"]["out.clash"] + "scv" + var["id"] + ".ini",
+                Var.PATH["out.clash"] + "scv" + var["id"] + ".ini",
                 "tw",
                 encoding="utf-8",
             ) as out:
                 dp.ini(out, {"yml": var["uri"] + "clash/scv" + var["id"] + ".yml"})
             with open(
-                VAR["path"]["out.clash"] + "scv" + var["id"] + ".yml",
+                Var.PATH["out.clash"] + "scv" + var["id"] + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -84,13 +83,13 @@ class do:
         if "surge" in var["tar"]:
             dp = surge(src)
             with open(
-                VAR["path"]["out.surge"] + "base" + var["id"] + ".conf",
+                Var.PATH["out.surge"] + "base" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
                 dp.base(out, {"up": var["uri"] + "surge/base" + var["id"] + ".conf"})
             with open(
-                VAR["path"]["out.surge"] + "Profile" + var["id"] + ".conf",
+                Var.PATH["out.surge"] + "Profile" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -99,7 +98,7 @@ class do:
         if "shadowrocket" in var["tar"]:
             dp = shadowrocket(src)
             with open(
-                VAR["path"]["out"] + "shadowrocket" + var["id"] + ".conf",
+                Var.PATH["out"] + "shadowrocket" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -107,7 +106,7 @@ class do:
                     out,
                     {
                         "up": var["uri"]
-                        + VAR["path"]["out.uri"]
+                        + Var.PATH["out.uri"]
                         + "shadowrocket"
                         + var["id"]
                         + ".conf",
@@ -116,14 +115,14 @@ class do:
         if "loon" in var["tar"]:
             dp = loon(src)
             with open(
-                VAR["path"]["out"] + "loon" + var["id"] + ".conf",
+                Var.PATH["out"] + "loon" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
                 dp.profile(
                     out,
                     {
-                        "parse": var["uri"] + VAR["path"]["out.uri"] + "loon-parser.js",
+                        "parse": var["uri"] + Var.PATH["out.uri"] + "loon-parser.js",
                     },
                 )
             self.__rmt(

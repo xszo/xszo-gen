@@ -1,11 +1,12 @@
-import argparse
 import os
-from cmd import CommandLine
-from var import var
+from argparse import ArgumentParser
 
-os.chdir(os.path.join(os.path.dirname(__file__), var.PATH["pan"]))
+from docmd import CommandLine
+from ren import Var
 
-arg = argparse.ArgumentParser()
+os.chdir(os.path.join(os.path.dirname(__file__), Var.PATH["pan"]))
+
+arg = ArgumentParser()
 arg.add_argument("-a", action="store_true", help="run once")
 arg.add_argument("-i", action="store_true", help="init git repo & init python env")
 arg.add_argument("-g", action="store_true", help="run scripts & generate out")

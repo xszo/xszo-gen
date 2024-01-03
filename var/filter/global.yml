@@ -1,4 +1,5 @@
 domain:
+  # Apple
   - apple
 
   # Google
@@ -112,6 +113,7 @@ domain:
   # Trust
   - lencr.org
   - digicert.com
+  - entrust.net
 
   # CDN
   - jsdelivr.net

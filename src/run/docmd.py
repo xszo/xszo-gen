@@ -1,29 +1,29 @@
 from subprocess import run
 
-from var import var
+from ren import Var
 
 
 class CommandLine:
     def shell(command):
         run(
-            "cd " + var.PATH["run"] + "; " + command + "; cd " + var.PATH["pan"] + ";",
+            "cd " + Var.PATH["run"] + "; " + command + "; cd " + Var.PATH["pan"] + ";",
             shell=True,
             check=True,
         )
 
     def run():
-        for item in var.RUN:
-            run([var.ENV["python"], "src/" + item + "/run.py"], check=True)
+        for item in Var.RUN:
+            run([Var.ENV["python"], "src/" + item + "/run.py"], check=True)
 
     def ini_pip():
         run(
             [
-                var.ENV["python"],
+                Var.ENV["python"],
                 "-m",
-                var.ENV["pip"],
+                Var.ENV["pip"],
                 "install",
                 "-r",
-                var.PATH["pip"],
+                Var.PATH["pip"],
             ],
             check=True,
         )

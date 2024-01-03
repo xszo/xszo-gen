@@ -1,7 +1,4 @@
-class var:
-    def __init__(self):
-        pass
-
+class Var:
     PATH = {
         "var.base": "var/base.yml",
         "out": "out/",

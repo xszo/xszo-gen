@@ -1,5 +1,5 @@
-VAR = {
-    "path": {
+class Var:
+    PATH = {
         "src": "src/net/",
         "var": "var/net/",
         "var.base": "var/base.yml",
@@ -10,5 +10,4 @@ VAR = {
         "out.clash": "out/clash/",
         "out.surge": "out/surge/",
         "out.uri": "network/",
-    },
-}
+    }

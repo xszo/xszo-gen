@@ -1,11 +1,6 @@
 domain:
   # Apple
-  - apple.com
-  - cdn-apple.com
-  - icloud.com
-  - me.com # mail
-  - icloud-content.com
-  - mzstatic.com # itunes
+  # remove due to cdn
 
   # Other
   - synology.com
