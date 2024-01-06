@@ -1,6 +1,12 @@
 domain:
   - us
 
+  # Service
+  - highwinds-cdn.com
+
+  # Media
+  - denpasoft.com
+
   # Content
   - e-hentai.org
   - exhentai.org

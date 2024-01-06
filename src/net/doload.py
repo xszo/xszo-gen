@@ -3,9 +3,6 @@ from copy import deepcopy
 import yaml
 from ren import Var
 
-with open(Var.PATH["var.pattern"], "tr", encoding="utf-8") as file:
-    REX = yaml.safe_load(file)["region"]
-
 
 class do:
     res = {}
@@ -36,6 +33,9 @@ class do:
         return res
 
     def __init__(self):
+        # load var
+        with open(Var.PATH["var.pattern"], "tr", encoding="utf-8") as file:
+            self.__var["rex"] = yaml.safe_load(file)["region"]
         # load base profile
         with open(Var.PATH["var.base"], "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
@@ -142,7 +142,7 @@ class do:
             else:
                 # regex match
                 if item["list"][0] == "=":
-                    item["regx"] = REX[item.pop("list")[1:]]
+                    item["regx"] = self.__var["rex"][item.pop("list")[1:]]
                 else:
                     item["regx"] = item.pop("list")
 

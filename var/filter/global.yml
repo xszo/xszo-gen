@@ -8,11 +8,17 @@ domain:
   - gmail.com
   - gstatic.com
   - ggpht.com # avatar
+
   - google
+  - goog # pki.goog
+  - goo
+  - gle # forms.gle
   - googleapis.com # cloud
   - googleusercontent.com # cloud
-  - goog # pki.goog
+  - googletagmanager.com
+
   - google-analytics.com
+  - googlesyndication.com
   - app-measurement.com # firebase
   - doubleclick.net
 
@@ -28,7 +34,8 @@ domain:
   - live.com
   - live.net
   - office.com
-  - hotmail.com # mobile outlook
+  - office.net
+  - hotmail.com # outlook
   - onenote.com
   - onedrive.com
   - bing.com
@@ -63,10 +70,10 @@ domain:
   - github.com
   - github.dev
   - github.io
-  # - githubassets.com
+  - githubassets.com
   - ghcr.io
   - githubusercontent.com
-  # - visualstudio.com
+  - visualstudio.com
   # - vscode.dev
   # - vscode-cdn.net # web
   # - exp-tas.com
@@ -92,9 +99,9 @@ domain:
   - adobe.com
   - adobe.io
 
-  # Wikimedia
+  # Wiki
   - wikipedia.org
-  # - wikimedia.org
+  - wikimedia.org
   # - wikibooks.org
   # - wiktionary.org
 
@@ -115,52 +122,23 @@ domain:
   - digicert.com
   - entrust.net
 
-  # CDN
-  - jsdelivr.net
-  - unpkg.com
-
   # Services
   - adjust.com
   - wp.com
   - wordpress.com
   - gravatar.com
-
-  # Tools
-  - proton.me
-  # - tutanota.com
-  - firefox.com
-  - duckduckgo.com
-  # - mega.nz
+  - jsdelivr.net
+  - unpkg.com
 
   # Social
+  - line.me
   - line.naver.jp
   - discord.com
-  # - discordapp.com
+  - discord.gg
   - mastodon.social
   - signal.org
-  # - twitter.com
-  # - twimg.com
-  # - t.co
-  # - x.com
 
   # Media
-  # - kobo.com
   - spotify.com
   - spotifycdn.com
   - trakt.tv
-
-  # Game
-  # - gamepass.com
-  # - xbox.com
-  # - xboxlive.com
-  # - xboxservices.com
-  # - sony.com
-  # - sony.net
-  # - playstation.com
-  # - playstation.net
-  # - playstationnetwork.com
-  # - sonyentertainmentnetwork.com
-  # - steampowered.com
-  # - steamcommunity.com
-  # - steamstatic.com
-  # - steamcontent.com # dl

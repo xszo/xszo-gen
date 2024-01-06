@@ -1,5 +1,6 @@
 domain:
   # Apple
+  - me.com # mail
   # remove due to cdn
 
   # Other

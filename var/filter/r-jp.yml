@@ -6,6 +6,9 @@ domain:
   - abema-tv.com
   - abematv.akamaized.net
   - vod-abematv.akamaized.net
+  - ds-vod-abematv.akamaized.net
+  - linear-abematv.akamaized.net
+  - ds-linear-abematv.akamaized.net
 
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -13,7 +16,6 @@ domain:
   - misskey.io
 
   # Media
-  - dmc.nico
   - pixiv.net
   - pximg.net
   - fanbox.cc

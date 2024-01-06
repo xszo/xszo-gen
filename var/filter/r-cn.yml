@@ -10,16 +10,8 @@ domain:
   - bilibili.com
   - biliapi.com
   - bilivideo.com
-  - hdslb.com
+  - hdslb.com # bili
   - iqiyi.com
-  - gitv.tv # mi
+  - gitv.tv # iqiyi
   - ximalaya.com
   - xmcdn.com
-
-  # Other
-  - alicdn.com
-  - alipay.com
-  - taobao.com
-  - amap.com
-  - autonavi.com
-  - qq.com
