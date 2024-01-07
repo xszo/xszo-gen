@@ -1,10 +1,30 @@
 # xszo/etc
 
-Code in `run` `src/` `var/` at <https://github.com/xszo/etc>
+Configuration at `etc` on <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>.
 
-Documents in `doc/` at <https://github.com/xszo/etc/wiki>
+[![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/xszo/etc/badge)](https://www.jsdelivr.com/package/gh/xszo/etc)
 
-Configuration in `out/` at <https://xszo.github.io/etc/>
+## About
+
+`git switch main; ./run -i;`
+
+Code at `main` in `run` `src/` `var/` on <https://github.com/xszo/etc/tree/main>.
+
+Documents at `main` in `doc/` on <https://github.com/xszo/etc/wiki>.
+
+## External
+
+- xszo/etc.wiki, _GNU GPL 3.0_ & _CC BY-SA 4.0_  
+  doc/
+- _GNU GPL 3.0_, https://github.com/AdguardTeam/AdGuardSDNSFilter  
+  out/(clash|surge)/f-ad(a|b).yml
+- _GNU LGPL 2.1_, https://github.com/gfwlist/gfwlist  
+  out/(clash|surge)/f-gfw(a|b).yml
+- https://github.com/KOP-XIAO/QuantumultX  
+  out/network/quantumult-parser.js
+- _GNU AGPL 3.0_, https://github.com/sub-store-org/Sub-Store  
+  out/network/loon-parser.js
 
 ## LICENSE
 
@@ -22,16 +42,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-## External
-
-- xszo/etc.wiki, _GNU GPL 3.0_ & _GNU FDL 1.3_  
-  doc/
-- AdGuard DNS Filter, _GNU GPL 3.0_, https://adguard.com/kb/  
-  out/(clash|surge)/f-ad(a|b).yml
-- GFW List, _GNU LGPL 2.1_, https://github.com/gfwlist/gfwlist  
-  out/(clash|surge)/f-gfw(a|b).yml
-- KOP-XIAO, https://github.com/KOP-XIAO/QuantumultX  
-  out/network/quantumult-parser.js
-- Sub Store Parser, _GNU AGPL 3.0_, https://github.com/sub-store-org/Sub-Store  
-  out/network/loon-parser.js

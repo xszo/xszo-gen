@@ -1,11 +1,9 @@
-from doindex import Do as do_index
-from donull import Do as do_null
-from up_net import do as up_net
+# from doindex import Do as do_index
+from donull import do as do_null
 
 # compatibility
-up_net()
 
-# create file null
-do_null().do()
-# create index.html for dir
-do_index().do()
+# create file
+do_null()
+# create index.html
+# do_index().do()

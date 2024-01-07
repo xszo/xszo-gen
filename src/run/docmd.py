@@ -1,21 +1,21 @@
+from os import system
 from subprocess import run
 
 from ren import Var
 
 
-class CommandLine:
-    def shell(command):
-        run(
-            "cd " + Var.PATH["run"] + "; " + command + "; cd " + Var.PATH["pan"] + ";",
-            shell=True,
-            check=True,
+class Command:
+    def shell(self, command):
+        system(
+            "cd " + Var.PATH["run"] + "; " + command + "; cd " + Var.PATH["pan"] + ";"
         )
 
-    def run():
+    def run(self):
         for item in Var.RUN:
+            print("Run " + item)
             run([Var.ENV["python"], "src/" + item + "/run.py"], check=True)
 
-    def ini_pip():
+    def ini_pip(self):
         run(
             [
                 Var.ENV["python"],
@@ -28,38 +28,43 @@ class CommandLine:
             check=True,
         )
 
-    def ini_git():
-        run(
-            ["git", "submodule", "update", "--init", "--recursive", "--remote"],
-            check=True,
-        )
-        run(
+    def ini_git(self):
+        system(
             """
-        git switch -qf main
-        cd doc
-        git switch -qf master
-        cd ../out
-        git switch -qf etc
-        git pull -q --rebase
-        cd ..
-        """,
-            shell=True,
-            check=True,
+        git submodule update --init --recursive --remote;
+        if ! git worktree list | grep -q out; then
+            if [ -e out ]; then rm -rf out; fi
+            git worktree add out;
+        fi
+        wait;
+        git switch -f main;
+        cd doc;
+        git switch -f master;
+        cd ../out;
+        git switch -f etc;
+        git pull -r;
+        cd ..;
+        """
         )
 
-    def out_push():
-        run(
+    def out_push(self):
+        system(
             """
-        cd out
-        git switch -q etc
-        git add --all
-        git commit -qm run --amend --reset-author
-        git push -qf
-        cd ..
-        """,
-            shell=True,
-            check=True,
+        cd out;
+        git switch etc;
+        git add -A;
+        git commit --amend --reset-author -qm run;
+        git push -qf;
+        cd ..;
+        """
         )
 
-    def out_rm():
-        run("rm -rf out/*", shell=True, check=True)
+    def out_rm(self):
+        system(
+            """
+        cd out;
+        git switch -f etc;
+        rm -rf *;
+        cd ..;
+        """
+        )
