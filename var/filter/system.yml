@@ -1,6 +1,7 @@
 domain:
   # Apple
   - me.com # mail
+  - icloud.com
   # remove due to cdn
 
   # Other

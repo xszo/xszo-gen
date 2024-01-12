@@ -64,13 +64,6 @@ class dump:
         raw["rules"] = [
             "DST-PORT," + str(x[1]) + "," + self.__map_node[x[2]] if x[0] == 1 else None
             for x in self.__src["filter"]["port"]
-        ] + [
-            "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
-            if x[0] == 1
-            else "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
-            if x[0] == 2
-            else None
-            for x in self.__src["filter"]["domain"]
         ]
         if "pre" in self.__src["filter"]:
             raw["rules"] += [
@@ -79,6 +72,14 @@ class dump:
             ]
         raw["rules"] += (
             [
+                "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
+                if x[0] == 1
+                else "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
+                if x[0] == 2
+                else None
+                for x in self.__src["filter"]["domain"]
+            ]
+            + [
                 "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
                 if x[0] == 1
                 else "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]

@@ -84,15 +84,15 @@ class dump:
         for item in self.__src["filter"]["port"]:
             if item[0] == 1:
                 o("DEST-PORT," + str(item[1]) + "," + self.__map_node[item[2]])
+        if "pre" in self.__src["filter"]:
+            for item in self.__src["filter"]["pre"]["surge"]:
+                if item[0] == 1:
+                    o("DOMAIN-SET," + item[1] + "," + self.__map_node[item[2]])
         for item in self.__src["filter"]["domain"]:
             if item[0] == 1:
                 o("DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]])
             elif item[0] == 2:
                 o("DOMAIN," + item[1] + "," + self.__map_node[item[2]])
-        if "pre" in self.__src["filter"]:
-            for item in self.__src["filter"]["pre"]["surge"]:
-                if item[0] == 1:
-                    o("DOMAIN-SET," + item[1] + "," + self.__map_node[item[2]])
         for item in self.__src["filter"]["ipcidr"]:
             if item[0] == 1:
                 o("IP-CIDR," + item[1] + "," + self.__map_node[item[2]])
