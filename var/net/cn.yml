@@ -1,4 +1,8 @@
+id: cn
 tar:
+  - quantumult
+  - clash
+  - surge
   - shadowrocket
 route:
   - id: direct
@@ -6,8 +10,8 @@ route:
     filter:
       - { type: gen, list: direct }
       - { type: gen, list: system }
-  - id: proxy
-    node: { id: proxy }
+  - id: main
+    node: { name: Node, type: test, list: .* }
     filter:
       - { type: main }
       - { type: gen, list: global }

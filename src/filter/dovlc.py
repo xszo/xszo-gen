@@ -10,7 +10,6 @@ class Do:
     res = {}
 
     __var = {"rex": []}
-    # __session = None
 
     def __init__(self) -> None:
         self.__var["com"] = re.compile(Var.REX["comment"])
@@ -20,17 +19,16 @@ class Do:
             elif isinstance(val, list):
                 self.__var["rex"].append((re.compile(val[0]), val[1]))
 
-        # self.__session = requests.Session()
         if Path(Var.PATH["var.vlc"]).exists():
             prun(
-                "cd " + Var.PATH["var.vlc"] + "; git pull -r;",
+                "cd " + Var.PATH["var.vlc"] + "; git pull --depth=1 -r;",
                 shell=True,
                 check=True,
             )
         else:
             Path(Var.PATH["tmp.vlc"]).mkdir(parents=True, exist_ok=True)
             prun(
-                ["git", "clone", Var.EXT["vlc"], Var.PATH["tmp.vlc"]],
+                ["git", "clone", "--depth=1", Var.EXT["vlc"], Var.PATH["tmp.vlc"]],
                 check=True,
             )
 
@@ -40,7 +38,8 @@ class Do:
                 continue
             raw = []
             for item in unit[1:]:
-                raw.extend(self.__incl(item))
+                with open(Var.PATH["var.vlc"] + item, "tr", encoding="utf-8") as file:
+                    raw.extend(file.read().splitlines())
             res = []
 
             while True:
@@ -49,7 +48,12 @@ class Do:
                     if re.match(self.__var["com"], item):
                         continue
                     if line := re.match(self.__var["incl"][0], item):
-                        tmp.extend(self.__incl(line.expand(self.__var["incl"][1])))
+                        with open(
+                            Var.PATH["var.vlc"] + line.expand(self.__var["incl"][1]),
+                            "tr",
+                            encoding="utf-8",
+                        ) as file:
+                            tmp.extend(file.read().splitlines())
                     else:
                         for pat in self.__var["rex"]:
                             if line := re.match(pat[0], item):
@@ -62,12 +66,6 @@ class Do:
 
             self.res["vlc" + unit[0]] = res
         return self.res
-
-    def __incl(self, name: str) -> list:
-        # raw = self.__session.get(Var.EXT["vlc"] + name, timeout=4).text.splitlines()
-        with open(Var.PATH["var.vlc"] + name, "tr", encoding="utf-8") as file:
-            raw = file.read().splitlines()
-        return raw
 
     def gen(self, dat: list) -> None:
         rex = []
@@ -83,7 +81,8 @@ class Do:
                 continue
             raw = []
             for item in unit[1:]:
-                raw.extend(self.__incl(item))
+                with open(Var.PATH["var.vlc"] + item, "tr", encoding="utf-8") as file:
+                    raw.extend(file.read().splitlines())
             res = []
             lo_no = []
 
@@ -93,7 +92,12 @@ class Do:
                     if re.match(self.__var["com"], item):
                         continue
                     if line := re.match(self.__var["incl"][0], item):
-                        tmp.extend(self.__incl(line.expand(self.__var["incl"][1])))
+                        with open(
+                            Var.PATH["var.vlc"] + line.expand(self.__var["incl"][1]),
+                            "tr",
+                            encoding="utf-8",
+                        ) as file:
+                            tmp.extend(file.read().splitlines())
                     else:
                         for pat in rex:
                             if line := re.match(pat[0], item):

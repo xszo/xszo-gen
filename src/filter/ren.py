@@ -2,7 +2,7 @@ class Var:
     EXT = {"vlc": "https://github.com/v2fly/domain-list-community"}
     REX = {
         "comment": "^\\s*($|#|\\/\\/|!)",
-        "incl": ["^include:([A-Za-z0-9\\-]+)(?:$|\\s)", "\\1"],
+        "incl": ["^include:([A-Za-z0-9\\-\\!]+)(?:$|\\s)", "\\1"],
         "dn": [
             "^full:((?:[A-Za-z0-9\\*](?:[A-Za-z0-9\\-\\*]*[A-Za-z0-9\\*])?\\.)*(?:[A-Za-z]+|xn--[A-Za-z0-9]+))(?:$|\\s)",
             "\\1",
@@ -13,11 +13,11 @@ class Var:
         ],
     }
     PATH = {
-        "tmp": "var/filter/tmp/",
-        "tmp.vlc": "var/filter/tmp/vlc/",
+        "tmp": "tmp/filter/",
+        "tmp.vlc": "tmp/filter/vlc/",
         "var": "var/filter/",
         "var.list": "var/filter/list.yml",
-        "var.vlc": "var/filter/tmp/vlc/data/",
+        "var.vlc": "tmp/filter/vlc/data/",
         "out.clash": "out/clash/f-",
         "out.surge": "out/surge/f-",
     }

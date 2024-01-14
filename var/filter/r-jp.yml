@@ -4,6 +4,7 @@ domain:
   # Abema
   - abema.tv
   - abema-tv.com
+  - abema.io
   - abematv.akamaized.net
   - vod-abematv.akamaized.net
   - ds-vod-abematv.akamaized.net
@@ -20,5 +21,6 @@ domain:
   - pximg.net
   - fanbox.cc
   - dmm.com
+  - dmm-extension.com
   - dlsite.com
   - syosetu.com

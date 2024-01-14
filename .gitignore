@@ -1,6 +1,6 @@
 /usr
 /out
-tmp
+/tmp
 __pycache__
 desktop.ini
 .DS_Store

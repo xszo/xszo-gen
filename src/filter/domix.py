@@ -13,7 +13,13 @@ class Do:
             if len(unit := unit.split(" ")) < 2:
                 continue
             res = set()
+            tmp = []
             for item in unit[1:]:
-                res.update(self.__src[item])
+                if item[0] == "-":
+                    tmp.append(item[1:])
+                else:
+                    res.update(self.__src[item])
+            for item in tmp:
+                res.difference(self.__src[item])
             self.res[unit[0]] = list(res)
         return self.res

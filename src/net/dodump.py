@@ -2,7 +2,7 @@ from pathlib import Path
 from subprocess import run as prun
 
 import requests
-from dump.clash_scv import dump as clash_scv
+from dump.clash_convert import dump as clash_convert
 from dump.clash_stash import dump as clash_stash
 from dump.loon import dump as loon
 from dump.quantumult import dump as quantumult
@@ -27,7 +27,7 @@ class do:
     def dump(self, src: dict):
         var = src.pop("dump")
         if var["id"] != "":
-            var["id"] = "-" + var["id"]
+            var["id"] = "+" + var["id"]
 
         if "quantumult" in var["tar"]:
             dp = quantumult(src)
@@ -57,7 +57,7 @@ class do:
                 dp.filter(out)
             self.__rmt(
                 "quantumult-parser.js",
-                "https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/resource-parser.js",
+                Var.EXT["quantumult-parser"],
             )
         if "clash" in var["tar"]:
             dp = clash_stash(src)
@@ -67,15 +67,15 @@ class do:
                 encoding="utf-8",
             ) as out:
                 dp.yml(out)
-            dp = clash_scv(src)
+            dp = clash_convert(src)
             with open(
                 Var.PATH["out.clash"] + "scv" + var["id"] + ".ini",
                 "tw",
                 encoding="utf-8",
             ) as out:
-                dp.ini(out, {"yml": var["uri"] + "clash/scv" + var["id"] + ".yml"})
+                dp.ini(out, {"yml": var["uri"] + "clash/convbase" + var["id"] + ".yml"})
             with open(
-                Var.PATH["out.clash"] + "scv" + var["id"] + ".yml",
+                Var.PATH["out.clash"] + "convbase" + var["id"] + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -89,7 +89,7 @@ class do:
             ) as out:
                 dp.base(out, {"up": var["uri"] + "surge/base" + var["id"] + ".conf"})
             with open(
-                Var.PATH["out.surge"] + "Profile" + var["id"] + ".conf",
+                Var.PATH["out.surge"] + "profile" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
@@ -127,5 +127,5 @@ class do:
                 )
             self.__rmt(
                 "loon-parser.js",
-                "https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-parser.loon.min.js",
+                Var.EXT["loon-parser"],
             )

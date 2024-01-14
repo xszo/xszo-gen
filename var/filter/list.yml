@@ -5,10 +5,10 @@ tar:
 # output list
 list:
   # id, list below
-  - ad ada
-  - adfix adb
-  - ww gfwa vlcww
-  - cn vlccn
+  - ad adguard -adguardfix vlcad
+  - adfix adguardfix
+  - global vlcww gfw
+  - china vlccn
 
 # V2fly domain List Community
 # vlc{id}
@@ -16,6 +16,7 @@ vlc:
   # id list
   - cn geolocation-cn
   - ww geolocation-!cn
+  - ad category-ads
 
 # Parse Online list
 # {reg}
@@ -27,13 +28,13 @@ get:
     # use regular expression to convert
     reg:
       # into sublist
-      ada:
+      adguard:
         # match pattern, expand pattern
         - ^\=bs\\=dn\\=ed\  +.\1
         - ^\=bs\\=dl\\=ed\  +.\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
-      adb:
+      adguardfix:
         - ^@@\=bs\\=dn\\=ed\  +.\1
         - ^@@\=bs\\=dl\\=ed\  +.\1*
         - ^@@\=bn\\=dn\\=ed\  \1
@@ -42,12 +43,12 @@ get:
   - uri: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
     pre: [b64]
     reg:
-      gfwa:
+      gfw:
         - ^\=bs\\=dn\\=ed\  +.\1
         - ^\=bs\\=dl\\=ed\  +.\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
-      gfwb:
+      gfwcn:
         - ^@@\=bs\\=dn\\=ed\  +.\1
         - ^@@\=bs\\=dl\\=ed\  +.\1*
         - ^@@\=bn\\=dn\\=ed\  \1

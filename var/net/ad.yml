@@ -1,6 +1,7 @@
 id: ad
 tar:
   - clash
+  - surge
 route:
   - "="
   - id: fadfix
@@ -22,12 +23,12 @@ route:
     filter:
       - type: pre
         list:
-          clash: -clash/f-ww.yml
-          surge: -surge/f-ww.txt
+          clash: -clash/f-global.yml
+          surge: -surge/f-global.txt
   - id: fcn
     node: { id: rcn }
     filter:
       - type: pre
         list:
-          clash: -clash/f-cn.yml
-          surge: -surge/f-cn.txt
+          clash: -clash/f-china.yml
+          surge: -surge/f-china.txt

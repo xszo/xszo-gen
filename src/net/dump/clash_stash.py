@@ -23,7 +23,7 @@ class dump:
         if "doh" in self.__src["misc"]:
             raw["dns"]["nameserver"] = [self.__src["misc"]["doh"]]
         else:
-            raw["dns"]["nameserver"] = raw["dns"]["default-nameserver"]
+            raw["dns"]["nameserver"] = deepcopy(raw["dns"]["default-nameserver"])
 
         raw["proxy-providers"] = {}
         proxy_list = []

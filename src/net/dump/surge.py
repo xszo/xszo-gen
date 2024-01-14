@@ -52,7 +52,10 @@ class dump:
             o(line[:-2])
         if "doh" in self.__src["misc"]:
             # o("encrypted-dns-follow-outbound-mode = true")
-            o("encrypted-dns-server = " + self.__src["misc"]["doh"])
+            if self.__src["misc"]["doh"][:5] == "https":
+                o("encrypted-dns-server = " + "h3" + self.__src["misc"]["doh"][5:])
+            else:
+                o("encrypted-dns-server = " + self.__src["misc"]["doh"])
         o("internet-test-url = " + self.__src["misc"]["test"])
         o("proxy-test-url = " + self.__src["misc"]["test"])
         o("proxy-test-udp = " + self.__src["misc"]["t-dns"])
@@ -87,7 +90,7 @@ class dump:
         if "pre" in self.__src["filter"]:
             for item in self.__src["filter"]["pre"]["surge"]:
                 if item[0] == 1:
-                    o("DOMAIN-SET," + item[1] + "," + self.__map_node[item[2]])
+                    o("DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]])
         for item in self.__src["filter"]["domain"]:
             if item[0] == 1:
                 o("DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]])
