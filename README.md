@@ -1,6 +1,7 @@
 # xszo/etc
 
-Configuration at `etc` on <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>.
+Configuration at `etc`  
+  on <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>.
 
 [![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/xszo/etc/badge)](https://www.jsdelivr.com/package/gh/xszo/etc)
@@ -9,22 +10,31 @@ Configuration at `etc` on <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>.
 
 `git switch main; ./run -i;`
 
-Code at `main` in `run` `src/` `var/` on <https://github.com/xszo/etc/tree/main>.
+Code at `main` in `run` `src/` `var/`  
+  on <https://github.com/xszo/etc/tree/main>.
 
-Documents at `main` in `doc/` on <https://github.com/xszo/etc/wiki>.
+Documents at `main` in `doc/`  
+  on <https://github.com/xszo/etc/wiki>.
 
 ## External
 
-- xszo/etc.wiki, _GNU GPL 3.0_ & _CC BY-SA 4.0_  
-  doc/
-- _GNU GPL 3.0_, https://github.com/AdguardTeam/AdGuardSDNSFilter  
-  out/(clash|surge)/f-ad(a|b).yml
-- _GNU LGPL 2.1_, https://github.com/gfwlist/gfwlist  
-  out/(clash|surge)/f-gfw(a|b).yml
-- https://github.com/KOP-XIAO/QuantumultX  
-  out/network/quantumult-parser.js
-- _GNU AGPL 3.0_, https://github.com/sub-store-org/Sub-Store  
-  out/network/loon-parser.js
+- doc/  
+  <https://github.com/xszo/etc/wiki>  
+  _GNU GPL 3.0_ & _CC BY-SA 4.0_
+- out/(clash|surge)/f-ad\*.yml  
+  <https://github.com/AdguardTeam/AdGuardSDNSFilter>  
+  _GNU GPL 3.0_
+- out/(clash|surge)/f-vlc\*.yml  
+  <https://github.com/v2fly/domain-list-community>  
+  _MIT_
+- out/(clash|surge)/f-gfw\*.yml  
+  <https://github.com/gfwlist/gfwlist>  
+  _GNU LGPL 2.1_
+- out/network/quantumult-parser.js  
+  <https://github.com/KOP-XIAO/QuantumultX>
+- out/network/loon-parser.js  
+  <https://github.com/sub-store-org/Sub-Store>  
+  _GNU AGPL 3.0_
 
 ## LICENSE
 

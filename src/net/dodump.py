@@ -19,7 +19,7 @@ class do:
 
     def __rmt(self, loc: str, lnk: str):
         with open(Var.PATH["out"] + loc, "tw", encoding="utf-8") as file:
-            file.write(requests.get(lnk, timeout=1000).text)
+            file.write(requests.get(lnk, timeout=4).text)
 
     def __cp(self, fo: str, to: str):
         prun(["cp", Var.PATH["src"] + fo, Var.PATH["out"] + to], check=True)

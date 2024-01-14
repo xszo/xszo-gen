@@ -3,24 +3,31 @@ tar:
   - clash
 route:
   - "="
-  - id: adb
+  - id: fadfix
     node: { id: main }
     filter:
       - type: pre
         list:
-          clash: -clash/f-adb.yml
-          surge: -surge/f-adb.txt
-  - id: ada
+          clash: -clash/f-adfix.yml
+          surge: -surge/f-adfix.txt
+  - id: fad
     node: { id: reject }
     filter:
       - type: pre
         list:
-          clash: -clash/f-ada.yml
-          surge: -surge/f-ada.txt
-  - id: gfwa
+          clash: -clash/f-ad.yml
+          surge: -surge/f-ad.txt
+  - id: fww
     node: { id: main }
     filter:
       - type: pre
         list:
-          clash: -clash/f-gfwa.yml
-          surge: -surge/f-gfwa.txt
+          clash: -clash/f-ww.yml
+          surge: -surge/f-ww.txt
+  - id: fcn
+    node: { id: rcn }
+    filter:
+      - type: pre
+        list:
+          clash: -clash/f-cn.yml
+          surge: -surge/f-cn.txt
