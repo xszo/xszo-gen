@@ -3,7 +3,8 @@ from base64 import b64decode
 
 import requests
 import yaml
-from ren import Var
+
+from .ren import Var
 
 
 class Do:
@@ -36,7 +37,7 @@ class Do:
                 self.res[key] = []
 
             # get remote filter
-            raw = requests.get(unit["uri"], timeout=4).text
+            raw = requests.get(unit["uri"], timeout=8).text
 
             # pre process
             if "b64" in unit["pre"]:
@@ -71,7 +72,7 @@ class Do:
                         rex.append((re.compile(item[0]), "-" + item[1], key))
                 cc[key] = []
 
-            raw = requests.get(unit["uri"], timeout=4).text
+            raw = requests.get(unit["uri"], timeout=8).text
 
             if "b64" in unit["pre"]:
                 raw = b64decode(raw).decode("utf-8")

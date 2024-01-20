@@ -2,7 +2,7 @@ class Var:
     EXT = {"vlc": "https://github.com/v2fly/domain-list-community"}
     REX = {
         "comment": "^\\s*($|#|\\/\\/|!)",
-        "incl": ["^include:([A-Za-z0-9\\-\\!]+)(?:$|\\s)", "\\1"],
+        "incl": ["^include:([A-Za-z0-9\\-\\!]+)\\s*(?:#.*)?$", "\\1"],
         "dn": [
             "^full:((?:[A-Za-z0-9\\*](?:[A-Za-z0-9\\-\\*]*[A-Za-z0-9\\*])?\\.)*(?:[A-Za-z]+|xn--[A-Za-z0-9]+))(?:$|\\s)",
             "\\1",

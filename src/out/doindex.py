@@ -1,7 +1,8 @@
 from pathlib import Path
 
 import yaml
-from ren import Var
+
+from .ren import Var
 
 
 class Do:

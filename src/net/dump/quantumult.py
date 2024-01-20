@@ -1,6 +1,6 @@
 class dump:
     __src = None
-    __map_node = {"direct": "DIRECT", "reject": "REJECT"}
+    __map_node = {"direct": "direct", "proxy": "proxy", "reject": "reject"}
 
     def __init__(self, i_src):
         self.__src = i_src
@@ -68,11 +68,11 @@ class dump:
                         + self.__map_node[item[2]]
                         + ", update-interval="
                         + str(self.__src["misc"]["interval"])
-                        + ", opt-parser=false, enabled=true\n"
+                        + ", opt-parser=true, enabled=true\n"
                     )
                     if item[0] == 1
                     else None
-                    for item in self.__src["filter"]["pre"]["quantumult"]
+                    for item in self.__src["filter"]["pre"]["surge"]
                 ]
             )
         o()

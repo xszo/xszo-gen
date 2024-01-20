@@ -1,14 +1,15 @@
 from pathlib import Path
-from subprocess import run as prun
+from shutil import copyfile
 
 import requests
-from dump.clash_convert import dump as clash_convert
-from dump.clash_stash import dump as clash_stash
-from dump.loon import dump as loon
-from dump.quantumult import dump as quantumult
-from dump.shadowrocket import dump as shadowrocket
-from dump.surge import dump as surge
-from ren import Var
+
+from .dump.clash import dump as clash
+from .dump.clash_convert import dump as clash_convert
+from .dump.loon import dump as loon
+from .dump.quantumult import dump as quantumult
+from .dump.shadowrocket import dump as shadowrocket
+from .dump.surge import dump as surge
+from .ren import Var
 
 
 class do:
@@ -19,10 +20,7 @@ class do:
 
     def __rmt(self, loc: str, lnk: str):
         with open(Var.PATH["out"] + loc, "tw", encoding="utf-8") as file:
-            file.write(requests.get(lnk, timeout=4).text)
-
-    def __cp(self, fo: str, to: str):
-        prun(["cp", Var.PATH["src"] + fo, Var.PATH["out"] + to], check=True)
+            file.write(requests.get(lnk, timeout=8).text)
 
     def dump(self, src: dict):
         var = src.pop("dump")
@@ -60,26 +58,28 @@ class do:
                 Var.EXT["quantumult-parser"],
             )
         if "clash" in var["tar"]:
-            dp = clash_stash(src)
+            dp = clash(src)
             with open(
-                Var.PATH["out.clash"] + "stash" + var["id"] + ".yml",
+                Var.PATH["out.clash"] + "profile" + var["id"] + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as out:
-                dp.yml(out)
+                dp.config(out)
             dp = clash_convert(src)
             with open(
-                Var.PATH["out.clash"] + "scv" + var["id"] + ".ini",
+                Var.PATH["out.clash"] + "conv" + var["id"] + ".conf",
                 "tw",
                 encoding="utf-8",
             ) as out:
-                dp.ini(out, {"yml": var["uri"] + "clash/convbase" + var["id"] + ".yml"})
+                dp.config(
+                    out, {"yml": var["uri"] + "clash/conv-base" + var["id"] + ".yml"}
+                )
             with open(
-                Var.PATH["out.clash"] + "convbase" + var["id"] + ".yml",
+                Var.PATH["out.clash"] + "conv-base" + var["id"] + ".yml",
                 "tw",
                 encoding="utf-8",
             ) as out:
-                dp.yml(out)
+                dp.base(out)
         if "surge" in var["tar"]:
             dp = surge(src)
             with open(
@@ -94,7 +94,7 @@ class do:
                 encoding="utf-8",
             ) as out:
                 dp.profile(out, {"base": "base" + var["id"] + ".conf"})
-            self.__cp("dump/scv.ini", "scv.ini")
+            copyfile(Var.PATH["src"] + "dump/conv.conf", Var.PATH["out"] + "conv.conf")
         if "shadowrocket" in var["tar"]:
             dp = shadowrocket(src)
             with open(

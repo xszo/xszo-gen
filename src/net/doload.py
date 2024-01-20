@@ -1,7 +1,8 @@
 from copy import deepcopy
 
 import yaml
-from ren import Var
+
+from .ren import Var
 
 
 class do:
@@ -61,6 +62,8 @@ class do:
             self.__base["dump"]["id"] = self.__base.pop("id")
         if "tar" in self.__base:
             self.__base["dump"]["tar"] = self.__base.pop("tar")
+        if "node" in self.__base:
+            self.__var["var"]["node"] = [x["name"] for x in self.__base["node"]]
 
     # load data from file
     def load(self, i_src: dict):
@@ -81,6 +84,7 @@ class do:
             self.res["route"] = self.__insert(self.res["route"], i_src["route"])
         if "node" in i_src:
             self.res["node"] = self.__insert(self.res["node"], i_src["node"])
+        self.__var["var"]["node"] = [x["name"] for x in self.res["node"]]
         # load modules
         self.__load_route()
         self.__load_node()
@@ -185,23 +189,21 @@ class do:
                         tmp_port.append((1, line, item["node"]))
             # type pre
             elif item["type"] == "pre":
-                for unit in self.res["dump"]["tar"]:
-                    if not unit in tmp_pre:
-                        tmp_pre[unit] = []
-                    # from name.tar to tar.[name]
-                    if item["link"][unit][0] == "-":
-                        tmp_pre[unit].append(
+                # from name.tar to tar.[name]
+                for key, val in item["link"].items():
+                    if not key in tmp_pre:
+                        tmp_pre[key] = []
+                    if val[0] == "-":
+                        tmp_pre[key].append(
                             (
                                 1,
-                                self.__var["uri"] + item["link"][unit][1:],
+                                self.__var["uri"] + val[1:],
                                 item["node"],
                                 item["id"],
                             )
                         )
                     else:
-                        tmp_pre[unit].append(
-                            (1, item["link"][unit], item["node"], item["id"])
-                        )
+                        tmp_pre[key].append((1, val, item["node"], item["id"]))
             # type other
             elif item["type"] == "ipgeo":
                 tmp_ipgeo.append((1, item["list"].upper(), item["node"]))

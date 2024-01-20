@@ -1,0 +1,37 @@
+name: Update ETC
+on:
+  schedule:
+    - cron: 0 0 * * 0
+concurrency:
+  group: etc
+  cancel-in-progress: true
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Ini Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+      - name: Ini Repo
+        uses: actions/checkout@v4
+      - name: Ini Repo
+        uses: actions/checkout@v4
+        with: { path: tmp, ref: main }
+      - name: Ini Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tmp/requirements.txt
+      - name: Run
+        run: ./run -a
+        working-directory: tmp
+      - name: Out Repo
+        run: |
+          cp -rf tmp/out/* .
+          git add -A
+          git commit --amend -m run
+          git push -f

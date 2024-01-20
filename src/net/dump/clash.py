@@ -13,7 +13,7 @@ class dump:
             if "id" in item:
                 self.__map_node[item["id"]] = item["name"]
 
-    def yml(self, out):
+    def config(self, out):
         with open("src/net/dump/clash_base.yml", "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
 

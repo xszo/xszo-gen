@@ -1,23 +1,7 @@
 # base profile
 id: ""
 # variables refered with '=name'
-var:
-  NodeList:
-    - Node0
-    - Node1
-    - Node2
-    - Node3
-    - CN
-    - DE
-    - GB
-    - HK
-    - JP
-    - KR
-    - SG
-    - TW
-    - US
-    - Node
-    - N-JMS
+var: {}
 # target software
 tar:
   # - quantumult
@@ -58,7 +42,7 @@ route:
     node:
       type: static
       name: DEFAULT
-      list: [-direct, -reject, =NodeList]
+      list: [-direct, -reject, =node]
     filter:
       - { type: main }
       - { type: gen, list: global }
@@ -69,7 +53,7 @@ route:
     node:
       type: static
       name: SYSTEM
-      list: [-main, -direct, =NodeList]
+      list: [-main, -direct, =node]
     filter:
       - { type: gen, list: system }
   - id: stream
@@ -79,7 +63,7 @@ route:
     node:
       type: static
       name: STREAM
-      list: [-main, -direct, =NodeList]
+      list: [-main, -direct, =node]
     filter:
       - { type: gen, list: stream }
   - id: specfi
@@ -95,44 +79,44 @@ route:
   - id: rcn
     icon:
       emoji: 🚩
-      sf: arrow.left.and.right.system
+      sf: arrow.forward.system
     node:
       type: static
       name: R-CN
-      list: [-main, -direct, =NodeList]
+      list: [-main, -direct, =node]
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
   - id: rjp
     icon:
       emoji: 🚩
-      sf: arrow.left.and.right.system
+      sf: arrow.forward.system
     node:
       type: static
       name: R-JP
-      list: [-main, -direct, =NodeList]
+      list: [-main, -direct, =node]
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
   - id: rtw
     icon:
       emoji: 🚩
-      sf: arrow.left.and.right.system
+      sf: arrow.forward.system
     node:
       type: static
       name: R-TW
-      list: [-main, -direct, =NodeList]
+      list: [-main, -direct, =node]
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
   - id: rus
     icon:
       emoji: 🚩
-      sf: arrow.left.and.right.system
+      sf: arrow.forward.system
     node:
       type: static
       name: R-US
-      list: [-main, -direct, =NodeList]
+      list: [-main, -direct, =node]
     filter:
       - { type: gen, list: r-us }
 node:
@@ -142,7 +126,6 @@ node:
   - { name: Node1, type: static, list: .* }
   - { name: Node2, type: static, list: .* }
   - { name: Node3, type: static, list: .* }
-  - { name: Node, type: test, list: .* }
   - { name: CN, type: test, list: =cn }
   - { name: DE, type: test, list: =de }
   - { name: GB, type: test, list: =gb }
@@ -152,6 +135,7 @@ node:
   - { name: SG, type: test, list: =sg }
   - { name: TW, type: test, list: =tw }
   - { name: US, type: test, list: =us }
+  - { name: Node, type: test, list: .* }
   - name: N-JMS
     type: test
     list: ^JMS-\d+@c\d+s\d\d?\.\w+\.[a-z]+:\d+$

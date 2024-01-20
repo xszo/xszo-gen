@@ -1,9 +1,10 @@
 import re
+from os import system
 from pathlib import Path
-from subprocess import run as prun
 
 import yaml
-from ren import Var
+
+from .ren import Var
 
 
 class Do:
@@ -20,17 +21,10 @@ class Do:
                 self.__var["rex"].append((re.compile(val[0]), val[1]))
 
         if Path(Var.PATH["var.vlc"]).exists():
-            prun(
-                "cd " + Var.PATH["var.vlc"] + "; git pull --depth=1 -r;",
-                shell=True,
-                check=True,
-            )
+            system("cd " + Var.PATH["var.vlc"] + "; git pull --depth=1 -r;")
         else:
             Path(Var.PATH["tmp.vlc"]).mkdir(parents=True, exist_ok=True)
-            prun(
-                ["git", "clone", "--depth=1", Var.EXT["vlc"], Var.PATH["tmp.vlc"]],
-                check=True,
-            )
+            system("git clone --depth=1 " + Var.EXT["vlc"] + " " + Var.PATH["tmp.vlc"])
 
     def get(self, dat: list) -> dict:
         for unit in dat:

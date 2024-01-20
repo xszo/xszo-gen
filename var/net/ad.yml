@@ -1,17 +1,17 @@
 id: ad
 tar:
+  - quantumult
   - clash
   - surge
 route:
-  - "="
-  - id: fadfix
+  - id: adfix
     node: { id: main }
     filter:
       - type: pre
         list:
           clash: -clash/f-adfix.yml
           surge: -surge/f-adfix.txt
-  - id: fad
+  - id: ad
     node: { id: reject }
     filter:
       - type: pre
@@ -32,3 +32,4 @@ route:
         list:
           clash: -clash/f-china.yml
           surge: -surge/f-china.txt
+  - "="

@@ -1,4 +1,3 @@
-class Var:
-    ENV = {"python": "python3", "pip": "pip"}
-    PATH = {"run": "src/run/", "pan": "../..", "pip": "requirements.txt"}
-    RUN = ["net", "filter", "out"]
+PY_BIN = "python3"
+PIP_BIN = "python3 -m pip"
+PIP_REQ = "requirements.txt"

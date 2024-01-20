@@ -1,34 +1,13 @@
 from os import system
-from subprocess import run
 
-from ren import Var
+from .ren import *
 
 
 class Command:
-    def shell(self, command):
-        system(
-            "cd " + Var.PATH["run"] + "; " + command + "; cd " + Var.PATH["pan"] + ";"
-        )
+    def ini_pip(self) -> None:
+        system(PIP_BIN + " install -r " + PIP_REQ)
 
-    def run(self):
-        for item in Var.RUN:
-            print("Run " + item)
-            run([Var.ENV["python"], "src/" + item + "/run.py"], check=True)
-
-    def ini_pip(self):
-        run(
-            [
-                Var.ENV["python"],
-                "-m",
-                Var.ENV["pip"],
-                "install",
-                "-r",
-                Var.PATH["pip"],
-            ],
-            check=True,
-        )
-
-    def ini_git(self):
+    def ini_git(self) -> None:
         system(
             """
         git submodule update --init --recursive --remote;
@@ -47,7 +26,7 @@ class Command:
         """
         )
 
-    def out_push(self):
+    def out_push(self) -> None:
         system(
             """
         cd out;
@@ -59,7 +38,7 @@ class Command:
         """
         )
 
-    def out_rm(self):
+    def out_rm(self) -> None:
         system(
             """
         cd out;

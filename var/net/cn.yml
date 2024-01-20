@@ -4,6 +4,7 @@ tar:
   - clash
   - surge
   - shadowrocket
+  - loon
 route:
   - id: direct
     node: { id: direct }

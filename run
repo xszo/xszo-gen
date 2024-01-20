@@ -1,2 +1,2 @@
-#!/bin/bash
-python3 src/run/run.py "$@"
+#!/bin/sh
+python3 src/run.py "$@"

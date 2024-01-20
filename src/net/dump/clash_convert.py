@@ -15,7 +15,7 @@ class dump:
             if "id" in item:
                 self.__map_node[item["id"]] = item["name"]
 
-    def ini(self, out, loc):
+    def config(self, out, loc):
         def o(line=""):
             out.write(line + "\n")
 
@@ -43,7 +43,7 @@ class dump:
                 line += "`" + self.__src["misc"]["test"] + "`600"
             o(line)
 
-    def yml(self, out):
+    def base(self, out):
         with open("src/net/dump/clash_base.yml", "tr", encoding="utf-8") as file:
             raw = yaml.safe_load(file)
 

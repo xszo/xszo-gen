@@ -1,5 +1,6 @@
 class Var:
     PATH = {
+        "src": "src/out/",
         "var": "var/out/",
         "var.base": "var/base.yml",
         "out": "out/",

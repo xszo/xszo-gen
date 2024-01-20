@@ -1,11 +1,8 @@
-import os
 from argparse import ArgumentParser
 
-from docmd import Command
-from ren import Var
+from .cmd import Command
 
-os.chdir(os.path.join(os.path.dirname(__file__), Var.PATH["pan"]))
-
+cmd = Command()
 
 arg = ArgumentParser()
 
@@ -17,20 +14,20 @@ arg.add_argument("-o", action="store_true", help="push out to branch etc")
 
 args = arg.parse_args()
 
-cmd = Command()
 
-if args.a:
-    cmd.ini_pip()
-    cmd.run()
-
-else:
-    if args.i:
+def run(do) -> None:
+    if args.a:
         cmd.ini_pip()
-        cmd.ini_git()
-    if args.g and not args.n:
-        cmd.run()
-    if not args.g and args.n:
-        cmd.out_rm()
-        cmd.run()
-    if args.o:
-        cmd.out_push()
+        do()
+
+    else:
+        if args.i:
+            cmd.ini_pip()
+            cmd.ini_git()
+        if args.g and not args.n:
+            do()
+        if not args.g and args.n:
+            cmd.out_rm()
+            do()
+        if args.o:
+            cmd.out_push()
