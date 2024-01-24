@@ -5,6 +5,7 @@ from net.run import run as run_net
 from out.run import run as run_out
 from run.run import run
 
+# set working directory
 os.chdir(os.path.join(os.path.dirname(__file__), ".."))
 
 

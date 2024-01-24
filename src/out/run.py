@@ -1,11 +1,8 @@
-# from doindex import Do as do_index
-from .donull import do as do_null
+from .copy import do as do_copy
 
 
 def run() -> None:
     # compatibility
 
-    # create file
-    do_null()
-    # create index.html
-    # do_index().do()
+    # copy file
+    do_copy()

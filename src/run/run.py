@@ -1,21 +1,21 @@
 from argparse import ArgumentParser
 
-from .cmd import Command
+from . import cmd
 
-cmd = Command()
+# get cli args
+_arg = ArgumentParser()
 
-arg = ArgumentParser()
+_arg.add_argument("-a", action="store_true", help="run actions")
+_arg.add_argument("-i", action="store_true", help="init git repo & init python env")
+_arg.add_argument("-g", action="store_true", help="run scripts & generate out")
+_arg.add_argument("-n", action="store_true", help="clear out & run scripts")
+_arg.add_argument("-o", action="store_true", help="push out to branch etc")
 
-arg.add_argument("-a", action="store_true", help="run actions")
-arg.add_argument("-i", action="store_true", help="init git repo & init python env")
-arg.add_argument("-g", action="store_true", help="run scripts & generate out")
-arg.add_argument("-n", action="store_true", help="clear out & run scripts")
-arg.add_argument("-o", action="store_true", help="push out to branch etc")
-
-args = arg.parse_args()
+args = _arg.parse_args()
 
 
-def run(do) -> None:
+# call modules
+def run(do: callable) -> None:
     if args.a:
         cmd.ini_pip()
         do()

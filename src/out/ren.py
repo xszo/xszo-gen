@@ -1,10 +1,9 @@
-class Var:
-    PATH = {
-        "src": "src/out/",
-        "var": "var/out/",
-        "var.base": "var/base.yml",
-        "out": "out/",
-        "out.null": "out/null",
-        "out.404": "out/404.html",
-    }
-    RAW = ["README.md", "LICENSE.md"]
+from pathlib import Path
+
+PATH_VAR = Path("var/out/")
+PATH_VAR_BASE = Path("var/base.yml")
+PATH_OUT = Path("out/")
+
+# raw.py
+RAW_PATH = Path("src/out/raw/")
+RAW_FILE = ["README.md", "LICENSE.md"]

@@ -5,10 +5,10 @@ tar:
 # output list
 list:
   # id, list below
-  - ad adguard -adguardfix vlcad
   - adfix adguardfix
-  - global vlcww gfw
-  - china vlccn
+  - ad -adfix adguard vlcad
+  - global -ad vlcww gfw
+  - china -ad vlccn
 
 # V2fly domain List Community
 # vlc{id}

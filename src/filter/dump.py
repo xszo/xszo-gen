@@ -1,26 +1,29 @@
 import yaml
 
-from .ren import Var
+from . import ren
 
 
-class Do:
-    __src = None
+class Dump:
+    __raw = None
 
-    def __init__(self, i_src: dict) -> None:
-        self.__src = i_src
+    def __init__(self, araw: dict) -> None:
+        # store raw {name: list}
+        self.__raw = araw
 
     def dump(self, loc: list) -> None:
-        for key, val in self.__src.items():
+        for key, val in self.__raw.items():
+            # dump clash
             if "clash" in loc:
                 with open(
-                    Var.PATH["out.clash"] + key + ".yml",
+                    ren.PATH_OUT_CLASH / ("filter-" + key + ".yml"),
                     "tw",
                     encoding="utf-8",
                 ) as file:
                     yaml.safe_dump({"payload": val}, file)
+            # dump surge
             if "surge" in loc:
                 with open(
-                    Var.PATH["out.surge"] + key + ".txt",
+                    ren.PATH_OUT_SURGE / ("filter-" + key + ".txt"),
                     "tw",
                     encoding="utf-8",
                 ) as file:
