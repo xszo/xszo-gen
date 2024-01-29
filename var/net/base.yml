@@ -45,7 +45,7 @@ route:
       list: [-direct, -reject, =node]
     filter:
       - { type: main }
-      - { type: gen, list: global }
+      - { type: gen, list: world }
   - id: system
     icon:
       emoji: 🚩

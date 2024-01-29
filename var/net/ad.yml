@@ -9,27 +9,27 @@ route:
     filter:
       - type: pre
         list:
-          clash: -clash/f-adfix.yml
-          surge: -surge/f-adfix.txt
+          clash: -clash/filter-adfix.yml
+          surge: -surge/filter-adfix.txt
   - id: ad
     node: { id: reject }
     filter:
       - type: pre
         list:
-          clash: -clash/f-ad.yml
-          surge: -surge/f-ad.txt
+          clash: -clash/filter-ad.yml
+          surge: -surge/filter-ad.txt
   - id: fww
     node: { id: main }
     filter:
       - type: pre
         list:
-          clash: -clash/f-global.yml
-          surge: -surge/f-global.txt
+          clash: -clash/filter-world.yml
+          surge: -surge/filter-world.txt
   - id: fcn
     node: { id: rcn }
     filter:
       - type: pre
         list:
-          clash: -clash/f-china.yml
-          surge: -surge/f-china.txt
+          clash: -clash/filter-cn.yml
+          surge: -surge/filter-cn.txt
   - "="

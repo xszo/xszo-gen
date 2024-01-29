@@ -3,7 +3,7 @@ class Var:
         "src": "src/net/",
         "var": "var/net/",
         "var.base": "var/base.yml",
-        "var.pattern": "var/pattern.yml",
+        "var.pattern": "var/re.yml",
         "var.list": "var/net/list.yml",
         "var.filter": "var/filter/",
         "out": "out/network/",

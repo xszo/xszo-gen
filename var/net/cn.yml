@@ -15,7 +15,7 @@ route:
     node: { name: Node, type: test, list: .* }
     filter:
       - { type: main }
-      - { type: gen, list: global }
+      - { type: gen, list: world }
       - { type: gen, list: stream }
   - id: rcn
     node: { id: direct }

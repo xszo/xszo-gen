@@ -7,8 +7,8 @@ list:
   # id, list below
   - adfix adguardfix
   - ad -adfix adguard vlcad
-  - global -ad vlcww gfw
-  - china -ad vlccn
+  - world -ad vlcww gfw
+  - cn -ad vlccn
 
 # V2fly domain List Community
 # vlc{id}
@@ -30,13 +30,13 @@ get:
       # into sublist
       adguard:
         # match pattern, expand pattern
-        - ^\=bs\\=dn\\=ed\  +.\1
-        - ^\=bs\\=dl\\=ed\  +.\1*
+        - ^\=bs\\=dn\\=ed\  .\1
+        - ^\=bs\\=dl\\=ed\  .\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
       adguardfix:
-        - ^@@\=bs\\=dn\\=ed\  +.\1
-        - ^@@\=bs\\=dl\\=ed\  +.\1*
+        - ^@@\=bs\\=dn\\=ed\  .\1
+        - ^@@\=bs\\=dl\\=ed\  .\1*
         - ^@@\=bn\\=dn\\=ed\  \1
         - ^@@\=bn\\=dl\\=ed\  \1*
 
@@ -44,13 +44,13 @@ get:
     pre: [b64]
     reg:
       gfw:
-        - ^\=bs\\=dn\\=ed\  +.\1
-        - ^\=bs\\=dl\\=ed\  +.\1*
+        - ^\=bs\\=dn\\=ed\  .\1
+        - ^\=bs\\=dl\\=ed\  .\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
       gfwcn:
-        - ^@@\=bs\\=dn\\=ed\  +.\1
-        - ^@@\=bs\\=dl\\=ed\  +.\1*
+        - ^@@\=bs\\=dn\\=ed\  .\1
+        - ^@@\=bs\\=dl\\=ed\  .\1*
         - ^@@\=bn\\=dn\\=ed\  \1
         - ^@@\=bn\\=dl\\=ed\  \1*
 

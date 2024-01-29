@@ -19,7 +19,9 @@ class Dump:
                     "tw",
                     encoding="utf-8",
                 ) as file:
-                    yaml.safe_dump({"payload": val}, file)
+                    yaml.safe_dump(
+                        {"payload": ["+" + x if x[0] == "." else x for x in val]}, file
+                    )
             # dump surge
             if "surge" in loc:
                 with open(
@@ -27,6 +29,4 @@ class Dump:
                     "tw",
                     encoding="utf-8",
                 ) as file:
-                    file.writelines(
-                        [x[1:] + "\n" if x[0] == "+" else x + "\n" for x in val]
-                    )
+                    file.writelines([x + "\n" for x in val])
