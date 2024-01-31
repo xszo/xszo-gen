@@ -4,6 +4,7 @@
 
 # '' gen DOMAIN-SUFFIX,''    -'' gen DOMAIN,''
 domain:
+  - lan
   - local
   # Time
   - time.apple.com

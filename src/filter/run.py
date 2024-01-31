@@ -4,7 +4,7 @@ from . import ren
 from .dump import Dump
 from .getrex import GetRex
 from .getvlc import GetVlc
-from .mixer import Mixer
+from .load import Mixer
 
 
 def run() -> None:

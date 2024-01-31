@@ -2,20 +2,50 @@ from copy import deepcopy
 
 import yaml
 
+MISC = {
+    "redir-port": 8421,
+    "mixed-port": 8422,
+    "allow-lan": True,
+    "bind-address": "*",
+    "mode": "rule",
+    "log-level": "warning",
+    "external-controller": "0.0.0.0:8420",
+    "secret": "00000000",
+    "profile": {"store-selected": True, "store-fake-ip": True, "tracing": False},
+    "dns": {
+        "enable": True,
+        "listen": "0.0.0.0:53",
+        "use-hosts": True,
+        "enhanced-mode": "fake-ip",
+        "fake-ip-range": "198.18.0.1/16",
+        "fake-ip-filter": ["+.lan", "+.local"],
+        "default-nameserver": ["1.1.1.1"],
+        "nameserver": ["1.1.1.1"],
+        "nameserver-policy": {"captive.apple.com": "1.1.1.1"},
+    },
+    "tun": {
+        "enable": True,
+        "stack": "system",
+        "dns-hijack": ["any:53"],
+        "auto-route": True,
+        "auto-redir": True,
+        "auto-detect-interface": True,
+    },
+}
+
 
 class dump:
     __src = None
     __map_node = {"direct": "DIRECT", "reject": "REJECT"}
 
-    def __init__(self, i_src):
-        self.__src = deepcopy(i_src)
+    def __init__(self, araw: dict) -> None:
+        self.__src = deepcopy(araw)
         for item in self.__src["node"]:
             if "id" in item:
                 self.__map_node[item["id"]] = item["name"]
 
-    def config(self, out):
-        with open("src/net/dump/clash_base.yml", "tr", encoding="utf-8") as file:
-            raw = yaml.safe_load(file)
+    def config(self, out) -> None:
+        raw = deepcopy(MISC)
 
         raw["dns"]["default-nameserver"] = [
             item + ":53" for item in self.__src["misc"]["dns"]
@@ -66,11 +96,15 @@ class dump:
             for x in self.__src["filter"]["port"]
         ]
         if "pre" in self.__src["filter"]:
-            raw["rules"] += [
-                "RULE-SET," + x[3] + "," + self.__map_node[x[2]] if x[0] == 1 else None
-                for x in self.__src["filter"]["pre"]["clash"]
-            ]
-        raw["rules"] += (
+            raw["rules"].extend(
+                [
+                    "RULE-SET," + x[3] + "," + self.__map_node[x[2]]
+                    if x[0] == 1
+                    else None
+                    for x in self.__src["filter"]["pre"]["clash"]
+                ]
+            )
+        raw["rules"].extend(
             [
                 "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
                 if x[0] == 1

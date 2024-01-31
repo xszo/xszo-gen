@@ -2,32 +2,31 @@ class dump:
     __src = None
     __map_node = {"direct": "direct", "proxy": "proxy", "reject": "reject"}
 
-    def __init__(self, i_src):
-        self.__src = i_src
+    def __init__(self, araw: dict) -> None:
+        self.__src = araw
         for item in self.__src["node"]:
             if "id" in item:
                 self.__map_node[item["id"]] = item["name"]
 
-    def profile(self, out, loc):
-        def o(line=""):
-            out.write(line + "\n")
+    def profile(self, out, loc: dict) -> None:
+        raw = [
+            "[general]",
+            "profile_img_url = " + self.__src["misc"]["icon"],
+            "resource_parser_url = " + loc["parse"],
+            "network_check_url = " + self.__src["misc"]["test"],
+            "server_check_url = " + self.__src["misc"]["test"],
+        ]
 
-        o("[general]")
-        o("profile_img_url = " + self.__src["misc"]["icon"])
-        o("resource_parser_url = " + loc["parse"])
-        o("network_check_url = " + self.__src["misc"]["test"])
-        o("server_check_url = " + self.__src["misc"]["test"])
-        o()
-        o("[dns]")
+        raw.append("\n[dns]")
         if "dns" in self.__src["misc"]:
             for item in self.__src["misc"]["dns"]:
-                o("server = " + item)
+                raw.append("server = " + item)
         if "doh" in self.__src["misc"]:
-            o("doh-server = " + self.__src["misc"]["doh"])
-        o()
-        o("[mitm]")
-        o()
-        o("[policy]")
+            raw.append("doh-server = " + self.__src["misc"]["doh"])
+
+        raw.append("\n[mitm]")
+
+        raw.append("\n[policy]")
         for item in self.__src["node"]:
             if item["type"] == "static":
                 line = "static = "
@@ -46,19 +45,21 @@ class dump:
                 line += ", server-tag-regex=" + item["regx"]
             if "icon" in item:
                 line += ", img-url=" + item["icon"]["sf"]
-            o(line)
-        o()
-        o("[filter_local]")
-        o("final, " + self.__map_node[self.__src["filter"]["main"]])
-        o("[filter_remote]")
-        o(
-            loc["filter"]
-            + ", tag=Filter, update-interval="
-            + str(self.__src["misc"]["interval"])
-            + ", opt-parser=false, enabled=true"
+            raw.append(line)
+
+        raw.extend(
+            [
+                "\n[filter_local]",
+                "final, " + self.__map_node[self.__src["filter"]["main"]],
+                "\n[filter_remote]",
+                loc["filter"]
+                + ", tag=Filter, update-interval="
+                + str(self.__src["misc"]["interval"])
+                + ", opt-parser=false, enabled=true",
+            ]
         )
         if "pre" in self.__src["filter"]:
-            out.writelines(
+            raw.extend(
                 [
                     (
                         item[1]
@@ -68,28 +69,30 @@ class dump:
                         + self.__map_node[item[2]]
                         + ", update-interval="
                         + str(self.__src["misc"]["interval"])
-                        + ", opt-parser=true, enabled=true\n"
+                        + ", opt-parser=true, enabled=true"
                     )
                     if item[0] == 1
                     else None
                     for item in self.__src["filter"]["pre"]["surge"]
                 ]
             )
-        o()
-        o("[rewrite_local]")
-        o("[rewrite_remote]")
-        o()
-        o("[server_local]")
-        o("[server_remote]")
-        for idx, item in enumerate(self.__src["proxy"]["link"]):
-            o(
-                item
-                + ", tag=Proxy"
-                + str(idx)
-                + ", update-interval=86400, opt-parser=true, enabled=true"
-            )
 
-    def filter(self, out):
+        raw.append("\n[rewrite_local]")
+        raw.append("\n[rewrite_remote]")
+
+        raw.append("\n[server_local]")
+        raw.append("\n[server_remote]")
+        raw.extend(
+            [
+                item
+                + ", tag=Proxy, update-interval=86400, opt-parser=true, enabled=true"
+                for item in self.__src["proxy"]["link"]
+            ]
+        )
+
+        out.writelines([x + "\n" for x in raw])
+
+    def filter(self, out) -> None:
         out.writelines(
             [
                 "host-suffix," + item[1] + "," + self.__map_node[item[2]] + "\n"

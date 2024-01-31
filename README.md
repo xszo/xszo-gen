@@ -18,18 +18,16 @@ Documents at `main` in `doc/` on
 
 ## External
 
-- doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
-  <https://github.com/xszo/etc/wiki>  
+- doc/      _GNU GPL 3.0_ & _CC BY-SA 4.0_  
+  <https://github.com/xszo/etc/wiki>
 - out/(clash|surge)/filter-ad\*.yml  
-  <https://github.com/AdguardTeam/AdGuardSDNSFilter>  
+  <https://github.com/AdguardTeam/AdGuardSDNSFilter>
 - out/(clash|surge)/filter-(world|ad|cn).yml  
-  <https://github.com/v2fly/domain-list-community>  
+  <https://github.com/v2fly/domain-list-community>
 - out/(clash|surge)/filter-world.yml  
-  <https://github.com/gfwlist/gfwlist>  
+  <https://github.com/gfwlist/gfwlist>
 - out/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>
-- out/network/loon-parser.js  
-  <https://github.com/sub-store-org/Sub-Store>  
 
 ## LICENSE
 

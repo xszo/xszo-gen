@@ -2,26 +2,27 @@ from copy import deepcopy
 
 import yaml
 
+from .clash import MISC
+
 
 class dump:
     __src = None
     __map_node = {"direct": "DIRECT", "reject": "REJECT"}
 
-    def __init__(self, i_src):
-        self.__src = deepcopy(i_src)
+    def __init__(self, araw: dict) -> None:
+        self.__src = deepcopy(araw)
         for item in self.__src["node"]:
             if "icon" in item:
                 item["name"] = item["icon"]["emoji"] + item["name"]
             if "id" in item:
                 self.__map_node[item["id"]] = item["name"]
 
-    def config(self, out, loc):
-        def o(line=""):
-            out.write(line + "\n")
-
-        o("[custom]")
-        o("clash_rule_base=" + loc["yml"])
-        o("enable_rule_generator=false")
+    def config(self, out, loc: dict) -> None:
+        raw = [
+            "[custom]",
+            "clash_rule_base=" + loc["yml"],
+            "enable_rule_generator=false",
+        ]
 
         for item in self.__src["node"]:
             line = "custom_proxy_group=" + item["name"]
@@ -41,11 +42,12 @@ class dump:
                 line += "`" + item["regx"]
             if item["type"] == "test":
                 line += "`" + self.__src["misc"]["test"] + "`600"
-            o(line)
+            raw.append(line)
 
-    def base(self, out):
-        with open("src/net/dump/clash_base.yml", "tr", encoding="utf-8") as file:
-            raw = yaml.safe_load(file)
+        out.writelines([x + "\n" for x in raw])
+
+    def base(self, out) -> None:
+        raw = deepcopy(MISC)
 
         raw["dns"]["default-nameserver"] = [
             item + ":53" for item in self.__src["misc"]["dns"]
@@ -60,11 +62,15 @@ class dump:
             for x in self.__src["filter"]["port"]
         ]
         if "pre" in self.__src["filter"]:
-            raw["rules"] += [
-                "RULE-SET," + x[3] + "," + self.__map_node[x[2]] if x[0] == 1 else None
-                for x in self.__src["filter"]["pre"]["clash"]
-            ]
-        raw["rules"] += (
+            raw["rules"].extend(
+                [
+                    "RULE-SET," + x[3] + "," + self.__map_node[x[2]]
+                    if x[0] == 1
+                    else None
+                    for x in self.__src["filter"]["pre"]["clash"]
+                ]
+            )
+        raw["rules"].extend(
             [
                 "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
                 if x[0] == 1

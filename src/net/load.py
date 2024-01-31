@@ -2,26 +2,72 @@ from copy import deepcopy
 
 import yaml
 
-from .ren import Var
+from . import ren
 
 
-class do:
+class Load:
     res = {}
 
     __base = {}
-    __var = {"var": {}}
+    __rex = None
+    __tmp_var = {}
 
-    # d merge dc2 into dc1
-    def __merge(self, dc1: dict, dc2: dict):
-        for key in dc2:
-            if key in dc1 and isinstance(dc1[key], dict) and isinstance(dc2[key], dict):
-                self.__merge(dc1[key], dc2[key])
-            else:
-                dc1[key] = dc2[key]
-        return dc1
+    def __init__(self) -> None:
+        # load var
+        with open(ren.PATH_VAR_REX, "tr", encoding="utf-8") as file:
+            self.__rex = yaml.safe_load(file)["region"]
+
+    # load base profile
+    def base(self, araw: dict) -> None:
+        self.__base = araw
+        self.__base["dump"] = {}
+        # load common
+        with open(ren.PATH_VAR_BASE, "tr", encoding="utf-8") as file:
+            raw = yaml.safe_load(file)
+        self.__base["misc"].update(
+            {
+                "interval": raw["int"],
+                "icon": raw["ico"],
+            }
+        )
+        # load sections
+        if "tar" in self.__base:
+            self.__base["dump"]["tar"] = self.__base.pop("tar")
+        if "id" in self.__base:
+            self.__base["dump"]["id"] = self.__base.pop("id")
+        if "var" in self.__base:
+            self.__tmp_var.update(self.__base.pop("var"))
+
+    # load data from file
+    def load(self, araw: dict) -> None:
+        # load sections
+        if "tar" in araw:
+            self.res = deepcopy(self.__base)
+            self.res["dump"]["tar"] = araw.pop("tar")
+        else:
+            self.res = {}
+            return
+
+        if "id" in araw:
+            self.res["dump"]["id"] = araw["id"]
+        if "var" in araw:
+            self.__tmp_var.update(araw["var"])
+        if "misc" in araw:
+            self.res["misc"].update(araw["misc"])
+        if "route" in araw:
+            self.res["route"] = self.__insert(self.res["route"], araw["route"])
+        if "node" in araw:
+            self.res["node"] = self.__insert(self.res["node"], araw["node"])
+        self.__tmp_var["node"] = [x["name"] for x in self.res["node"]]
+        # load modules
+        self.__load_route()
+        self.__load_node()
+        self.__load_filter()
+        self.__load_proxy()
+        return self.res
 
     # t insert ls2 into ls1 with template
-    def __insert(self, ls1: list, ls2: list):
+    def __insert(self, ls1: list, ls2: list) -> list:
         res = []
         for item in ls2:
             if isinstance(item, str):
@@ -33,67 +79,8 @@ class do:
                 res.append(item)
         return res
 
-    def __init__(self):
-        # load var
-        with open(Var.PATH["var.pattern"], "tr", encoding="utf-8") as file:
-            self.__var["rex"] = yaml.safe_load(file)["region"]
-        # load base profile
-        with open(Var.PATH["var.base"], "tr", encoding="utf-8") as file:
-            raw = yaml.safe_load(file)
-        self.__base = {
-            "dump": {
-                "uri": raw["uri"],
-            },
-            "misc": {
-                "interval": raw["int"],
-                "icon": raw["ico"],
-            },
-        }
-        self.__var["uri"] = raw["uri"]
-        with open(Var.PATH["var.list"], "tr", encoding="utf-8") as file:
-            raw = yaml.safe_load(file)
-        self.__base["proxy"] = raw["proxy"]
-        with open(Var.PATH["var"] + raw["base"], "tr", encoding="utf-8") as file:
-            raw = yaml.safe_load(file)
-        self.__merge(self.__base, raw)
-        if "var" in self.__base:
-            self.__var["var"].update(self.__base.pop("var"))
-        if "id" in self.__base:
-            self.__base["dump"]["id"] = self.__base.pop("id")
-        if "tar" in self.__base:
-            self.__base["dump"]["tar"] = self.__base.pop("tar")
-        if "node" in self.__base:
-            self.__var["var"]["node"] = [x["name"] for x in self.__base["node"]]
-
-    # load data from file
-    def load(self, i_src: dict):
-        # load sections
-        if "tar" in i_src:
-            self.res = deepcopy(self.__base)
-            self.res["dump"]["tar"] = i_src["tar"]
-        else:
-            self.res = {}
-            return
-        if "id" in i_src:
-            self.res["dump"]["id"] = i_src["id"]
-        if "var" in i_src:
-            self.__var["var"].update(i_src["var"])
-        if "misc" in i_src:
-            self.res["misc"].update(i_src["misc"])
-        if "route" in i_src:
-            self.res["route"] = self.__insert(self.res["route"], i_src["route"])
-        if "node" in i_src:
-            self.res["node"] = self.__insert(self.res["node"], i_src["node"])
-        self.__var["var"]["node"] = [x["name"] for x in self.res["node"]]
-        # load modules
-        self.__load_route()
-        self.__load_node()
-        self.__load_filter()
-        self.__load_proxy()
-        return self.res
-
     # convert route list to node and filter
-    def __load_route(self):
+    def __load_route(self) -> None:
         tmp_node = []
         tmp_filter = []
         for item in self.res["route"]:
@@ -131,7 +118,7 @@ class do:
         del self.res["route"]
 
     # ins inline var, format list val
-    def __load_node(self):
+    def __load_node(self) -> None:
         for item in self.res["node"]:
             if isinstance(item["list"], list):
                 # plain list
@@ -139,19 +126,19 @@ class do:
                 for sth in item["list"]:
                     # replace variable
                     if sth[0] == "=":
-                        tmp.extend(self.__var["var"][sth[1:]])
+                        tmp.extend(self.__tmp_var[sth[1:]])
                     else:
                         tmp.append(sth)
                 item["list"] = tmp
             else:
                 # regex match
                 if item["list"][0] == "=":
-                    item["regx"] = self.__var["rex"][item.pop("list")[1:]]
+                    item["regx"] = self.__rex[item.pop("list")[1:]]
                 else:
                     item["regx"] = item.pop("list")
 
     # get filter content from file and optimize
-    def __load_filter(self):
+    def __load_filter(self) -> None:
         tmp_domain = [[], [], [], [], [], [], [], []]
         tmp_ipcidr = [[], []]
         tmp_ipgeo = []
@@ -162,7 +149,7 @@ class do:
             if item["type"] == "gen":
                 # read filter file
                 with open(
-                    Var.PATH["var.filter"] + item["list"] + ".yml",
+                    ren.PATH_VAR_FILTER / (item["list"] + ".yml"),
                     "tr",
                     encoding="utf-8",
                 ) as file:
@@ -197,7 +184,7 @@ class do:
                         tmp_pre[key].append(
                             (
                                 1,
-                                self.__var["uri"] + val[1:],
+                                ren.URI + val[1:],
                                 item["node"],
                                 item["id"],
                             )
@@ -226,7 +213,7 @@ class do:
             res["pre"] = tmp_pre
         self.res["filter"] = res
 
-    def __load_proxy(self):
+    def __load_proxy(self) -> None:
         tmp_proxy = {"local": [], "link": []}
         for item in self.res["proxy"]:
             item = item.split(" ")
