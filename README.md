@@ -18,7 +18,7 @@ Documents at `main` in `doc/` on
 
 ## External
 
-- doc/      _GNU GPL 3.0_ & _CC BY-SA 4.0_  
+- doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
   <https://github.com/xszo/etc/wiki>
 - out/(clash|surge)/filter-ad\*.yml  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>

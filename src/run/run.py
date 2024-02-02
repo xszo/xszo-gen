@@ -5,6 +5,7 @@ from . import cmd
 # get cli args
 _arg = ArgumentParser()
 
+_arg.add_argument("-c", action="store_true", help="code clean")
 _arg.add_argument("-a", action="store_true", help="run actions")
 _arg.add_argument("-i", action="store_true", help="init git repo & init python env")
 _arg.add_argument("-g", action="store_true", help="run scripts & generate out")
@@ -16,6 +17,9 @@ args = _arg.parse_args()
 
 # call modules
 def run(do: callable) -> None:
+    if args.c:
+        cmd.c()
+
     if args.a:
         cmd.ini_pip()
         do()

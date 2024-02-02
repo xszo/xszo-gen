@@ -15,7 +15,7 @@ class Load:
     def __init__(self) -> None:
         # load var
         with open(ren.PATH_VAR_REX, "tr", encoding="utf-8") as file:
-            self.__rex = yaml.safe_load(file)["region"]
+            self.__rex = yaml.safe_load(file)
 
     # load base profile
     def base(self, araw: dict) -> None:
@@ -86,6 +86,7 @@ class Load:
         for item in self.res["route"]:
             # node
             if "id" in item["node"]:
+                # refer existing node
                 lo_id = item["node"]["id"]
             else:
                 lo_id = item["id"]
@@ -113,7 +114,8 @@ class Load:
                     lo_filter["list"] = line["list"]
                 tmp_filter.append(lo_filter)
         # append
-        self.res["node"] = tmp_node + self.res["node"]
+        tmp_node.extend(self.res["node"])
+        self.res["node"] = tmp_node
         self.res["filter"] = tmp_filter
         del self.res["route"]
 
@@ -154,8 +156,8 @@ class Load:
                     encoding="utf-8",
                 ) as file:
                     raw = yaml.safe_load(file)
+                # domain divide by level
                 if "domain" in raw:
-                    # divide domain by level
                     for line in raw["domain"]:
                         if line[0] == "-":
                             tmp_domain[line.count(".")].append(
@@ -163,17 +165,25 @@ class Load:
                             )
                         else:
                             tmp_domain[line.count(".")].append((1, line, item["node"]))
+                # ipcidr 4 and 6
                 if "ipcidr" in raw:
-                    # sepatate 4 and 6
-                    for line in raw["ipcidr"]:
-                        if line[0] == "[":
-                            tmp_ipcidr[1].append((2, line[1:-1], item["node"]))
-                        else:
-                            tmp_ipcidr[0].append((1, line, item["node"]))
+                    tmp_ipcidr[0].extend(
+                        [
+                            (1, line, item["node"])
+                            for line in raw["ipcidr"]
+                            if not line[0] == "["
+                        ]
+                    )
+                    tmp_ipcidr[1].extend(
+                        [
+                            (2, line[1:-1], item["node"])
+                            for line in raw["ipcidr"]
+                            if line[0] == "["
+                        ]
+                    )
+                # port to (type, match, dest)
                 if "port" in raw:
-                    for line in raw["port"]:
-                        # convert to (type, match, dest)
-                        tmp_port.append((1, line, item["node"]))
+                    tmp_port.extend([(1, line, item["node"]) for line in raw["port"]])
             # type pre
             elif item["type"] == "pre":
                 # from name.tar to tar.[name]
@@ -205,7 +215,9 @@ class Load:
         # copy into res
         for item in tmp_ipcidr:
             res["ipcidr"] += sorted(
-                item, reverse=True, key=lambda v: int((v[1].split("/"))[1])
+                sorted(item, key=lambda v: v[1]),
+                reverse=True,
+                key=lambda v: int((v[1].split("/"))[1]),
             )
         res["ipgeo"] = sorted(tmp_ipgeo, key=lambda v: v[1])
         res["port"] = sorted(tmp_port, key=lambda v: v[1])

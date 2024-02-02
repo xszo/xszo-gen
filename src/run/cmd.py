@@ -5,6 +5,16 @@ from os import system
 from . import ren
 
 
+# format code
+def c() -> None:
+    system(
+        """
+    npx prettier . --write
+    isort . --profile black
+    """
+    )
+
+
 # install modules with pip
 def ini_pip() -> None:
     system(ren.PIP_BIN + " install -r " + ren.PIP_REQ)
@@ -18,7 +28,7 @@ def ini_git() -> None:
     if ! git worktree list | grep -q out; then
         if [ -e out ]; then rm -rf out; fi
         git worktree add out;
-    fi
+        fi
     wait;
 
     git switch -f main;
