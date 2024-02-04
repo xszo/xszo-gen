@@ -6,10 +6,6 @@ domain:
   - abema-tv.com
   - abema.io
   - abematv.akamaized.net
-  - vod-abematv.akamaized.net
-  - ds-vod-abematv.akamaized.net
-  - linear-abematv.akamaized.net
-  - ds-linear-abematv.akamaized.net
 
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -24,3 +20,6 @@ domain:
   - dmm-extension.com
   - dlsite.com
   - syosetu.com
+
+  # Game
+  - colorfulpalette.org

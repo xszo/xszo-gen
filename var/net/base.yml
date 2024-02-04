@@ -30,9 +30,6 @@ route:
     filter:
       - { type: gen, list: direct }
   - id: main
-    icon:
-      emoji: 🚩
-      sf: arrow.left.arrow.right.system
     node:
       type: static
       name: DEFAULT
@@ -40,40 +37,21 @@ route:
     filter:
       - { type: main }
       - { type: gen, list: world }
-  - id: system
+      - { type: gen, list: stream }
     icon:
       emoji: 🚩
-      sf: arrow.left.and.right.system
+      sf: arrow.left.arrow.right.system
+  - id: system
     node:
       type: static
       name: SYSTEM
       list: [-main, -direct, =node]
     filter:
       - { type: gen, list: system }
-  - id: stream
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
-    node:
-      type: static
-      name: STREAM
-      list: [-main, -direct, =node]
-    filter:
-      - { type: gen, list: stream }
-  - id: specfi
-    icon:
-      emoji: 🚩
-      sf: arrow.left.and.right.system
-    node:
-      type: static
-      name: SPECFI
-      list: .*
-    filter:
-      - { type: gen, list: specfi }
   - id: rcn
-    icon:
-      emoji: 🚩
-      sf: arrow.forward.system
     node:
       type: static
       name: R-CN
@@ -81,10 +59,10 @@ route:
     filter:
       - { type: gen, list: r-cn }
       - { type: ipgeo, list: cn }
-  - id: rjp
     icon:
       emoji: 🚩
       sf: arrow.forward.system
+  - id: rjp
     node:
       type: static
       name: R-JP
@@ -92,10 +70,10 @@ route:
     filter:
       - { type: gen, list: r-jp }
       - { type: ipgeo, list: jp }
-  - id: rtw
     icon:
       emoji: 🚩
       sf: arrow.forward.system
+  - id: rtw
     node:
       type: static
       name: R-TW
@@ -103,16 +81,19 @@ route:
     filter:
       - { type: gen, list: r-tw }
       - { type: ipgeo, list: tw }
-  - id: rus
     icon:
       emoji: 🚩
       sf: arrow.forward.system
+  - id: rus
     node:
       type: static
       name: R-US
       list: [-main, -direct, =node]
     filter:
       - { type: gen, list: r-us }
+    icon:
+      emoji: 🚩
+      sf: arrow.forward.system
 node:
   # type, static manual set dest, test set based on lag test
   # list, include proxy, = ref pattern.region
