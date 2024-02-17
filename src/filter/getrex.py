@@ -2,6 +2,7 @@ import re
 from base64 import b64decode
 
 import requests
+import yaml
 
 from . import ren
 
@@ -13,6 +14,7 @@ class GetRex:
     __rex_com = None
 
     def __init__(self, avar: dict) -> None:
+        ren.PATH_TMP.mkdir(parents=True, exist_ok=True)
         # compile variable pattern
         for name, line in avar.items():
             self.__rex_var.append((re.compile("\\\\=" + name + "\\\\"), line))
@@ -21,6 +23,7 @@ class GetRex:
         self.__rex_com = re.compile(ren.REX_COM)
 
     def get(self, dat: list) -> dict:
+        no = {}
         for unit in dat:
             # load patterns and out
             rex = []
@@ -35,6 +38,7 @@ class GetRex:
                     rex.append((re.compile(item[0]), item[1], key))
                 # init res
                 self.res[key] = []
+            lo_no = []
 
             # get remote filter
             raw = requests.get(unit["uri"], timeout=8).text
@@ -52,5 +56,12 @@ class GetRex:
                     if line := re.match(pat[0], item):
                         self.res[pat[2]].append(line.expand(pat[1]))
                         break
+                else:
+                    lo_no.append(item)
+            no[unit["uri"]] = lo_no
+
+        # dump no match
+        with open(ren.PATH_TMP / "no-rex.yml", "tw", encoding="utf-8") as file:
+            yaml.safe_dump(no, file)
 
         return self.res

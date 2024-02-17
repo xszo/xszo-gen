@@ -15,3 +15,6 @@ domain:
   - gitv.tv # iqiyi
   - ximalaya.com
   - xmcdn.com
+
+  # Other
+  - qq.com

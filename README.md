@@ -8,7 +8,7 @@ Configuration at `etc` on
 
 ## About
 
-`git switch main;  ./run -i;`
+`git switch main;  python run -i;`
 
 Code at `main` in `run` `src/` `var/` on  
   <https://github.com/xszo/etc/tree/main>.

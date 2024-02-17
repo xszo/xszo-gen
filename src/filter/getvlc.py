@@ -1,6 +1,8 @@
 import re
 from os import system
 
+import yaml
+
 from . import ren
 
 
@@ -22,7 +24,7 @@ class GetVlc:
             system("cd " + str(ren.VLC_VAR) + "; git pull --depth=1 -r;")
         else:
             ren.VLC_TMP.mkdir(parents=True, exist_ok=True)
-            system("git clone --depth=1 " + str(ren.VLC_EXT) + " " + ren.VLC_TMP)
+            system("git clone --depth=1 " + str(ren.VLC_EXT) + " " + str(ren.VLC_TMP))
 
     def __incl(self, loc: str) -> list:
         with open(ren.VLC_VAR / loc, "tr", encoding="utf-8") as file:
@@ -30,14 +32,18 @@ class GetVlc:
         return res
 
     def get(self, dat: list) -> dict:
+        no = {}
         for unit in dat:
             if len(unit := unit.split(" ")) < 2:
                 continue
+
             # parse lists
             raw = []
             for item in unit[1:]:
                 raw.extend(self.__incl(item))
             res = []
+            lo_no = []
+
             while True:
                 tmp = []
                 for item in raw:
@@ -53,6 +59,8 @@ class GetVlc:
                             if line := re.match(pat[0], item):
                                 res.append(line.expand(pat[1]))
                                 break
+                        else:
+                            lo_no.append(item)
                 # loop include
                 if tmp:
                     raw = tmp
@@ -60,4 +68,9 @@ class GetVlc:
                     break
             # store list
             self.res["vlc" + unit[0]] = res
+            no[unit[0]] = lo_no
+
+        with open(ren.PATH_TMP / "no-vlc.yml", "tw", encoding="utf-8") as file:
+            yaml.safe_dump(no, file)
+
         return self.res

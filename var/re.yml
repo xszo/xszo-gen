@@ -1,4 +1,4 @@
-cn: (?<![A-Za-z])(CH?N|China|Shanghai)(?![A-Za-z])|中
+cn: (?<![A-Za-z])(CH?N|China|Shanghai)(?![A-Za-z0-9])|中
 de: (?<![A-Za-z])(DEU?|Deutsch(land)?|Germany?|Berlin)(?![A-Za-z])|德
 gb: (?<![A-Za-z\d]|\d\s)(GBR?|Britain|UK|United\s?Kingdom|London)(?![A-Za-z])|英
 hk: (?<![A-Za-z])(HKG?|Hong\s?Kong)(?![A-Za-z])|香?港

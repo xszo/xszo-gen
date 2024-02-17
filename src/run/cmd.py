@@ -6,7 +6,7 @@ from . import ren
 
 
 # format code
-def c() -> None:
+def fmt() -> None:
     system(
         """
     npx prettier . --write

@@ -1,2 +1,5 @@
-#!/bin/sh
-python3 src/run.py "$@"
+#!/bin/python3
+
+from src import ash
+
+ash.run()

@@ -37,9 +37,10 @@ class dump:
                 "loglevel = warning",
                 # "ipv6 = true",
                 # "ipv6-vif = auto",
-                # "udp-priority = true",
-                # "udp-policy-not-supported-behaviour = REJECT",
-                # "exclude-simple-hostnames = true",
+                "udp-priority = true",
+                "udp-policy-not-supported-behaviour = REJECT",
+                "exclude-simple-hostnames = true",
+                "allow-wifi-access = false"
             ]
         )
         if "dns" in self.__src["misc"]:
@@ -49,10 +50,7 @@ class dump:
             raw.extend(["hijack-dns = *:53", line[:-2]])
         if "doh" in self.__src["misc"]:
             # raw.append("encrypted-dns-follow-outbound-mode = true")
-            if self.__src["misc"]["doh"][:5] == "https":
-                raw.append("encrypted-dns-server = h3" + self.__src["misc"]["doh"][5:])
-            else:
-                raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
+            raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
         raw.extend(
             [
                 "internet-test-url = " + self.__src["misc"]["test"],
