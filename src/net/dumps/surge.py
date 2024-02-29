@@ -40,7 +40,7 @@ class dump:
                 "udp-priority = true",
                 "udp-policy-not-supported-behaviour = REJECT",
                 "exclude-simple-hostnames = true",
-                "allow-wifi-access = false"
+                "allow-wifi-access = false",
             ]
         )
         if "dns" in self.__src["misc"]:
@@ -85,46 +85,60 @@ class dump:
         raw.append("\n[Rule]")
         raw.extend(
             [
-                "DEST-PORT," + str(item[1]) + "," + self.__map_node[item[2]]
-                if item[0] == 1
-                else None
+                (
+                    "DEST-PORT," + str(item[1]) + "," + self.__map_node[item[2]]
+                    if item[0] == 1
+                    else None
+                )
                 for item in self.__src["filter"]["port"]
             ]
         )
         if "pre" in self.__src["filter"]:
             raw.extend(
                 [
-                    "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else None
+                    (
+                        "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
+                        if item[0] == 1
+                        else None
+                    )
                     for item in self.__src["filter"]["pre"]["surge"]
                 ]
             )
         raw.extend(
             [
-                "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
-                if item[0] == 1
-                else "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
-                if item[0] == 2
-                else None
+                (
+                    "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
+                    if item[0] == 1
+                    else (
+                        "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
+                        if item[0] == 2
+                        else None
+                    )
+                )
                 for item in self.__src["filter"]["domain"]
             ]
         )
         raw.extend(
             [
-                "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
-                if item[0] == 1
-                else "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
-                if item[0] == 2
-                else None
+                (
+                    "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
+                    if item[0] == 1
+                    else (
+                        "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
+                        if item[0] == 2
+                        else None
+                    )
+                )
                 for item in self.__src["filter"]["ipcidr"]
             ]
         )
         raw.extend(
             [
-                "GEOIP," + item[1] + "," + self.__map_node[item[2]]
-                if item[0] == 1
-                else None
+                (
+                    "GEOIP," + item[1] + "," + self.__map_node[item[2]]
+                    if item[0] == 1
+                    else None
+                )
                 for item in self.__src["filter"]["ipgeo"]
             ]
         )

@@ -62,17 +62,19 @@ class dump:
             raw.extend(
                 [
                     (
-                        item[1]
-                        + ", tag="
-                        + item[3]
-                        + ", force-policy="
-                        + self.__map_node[item[2]]
-                        + ", update-interval="
-                        + str(self.__src["misc"]["interval"])
-                        + ", opt-parser=true, enabled=true"
+                        (
+                            item[1]
+                            + ", tag="
+                            + item[3]
+                            + ", force-policy="
+                            + self.__map_node[item[2]]
+                            + ", update-interval="
+                            + str(self.__src["misc"]["interval"])
+                            + ", opt-parser=true, enabled=true"
+                        )
+                        if item[0] == 1
+                        else None
                     )
-                    if item[0] == 1
-                    else None
                     for item in self.__src["filter"]["pre"]["surge"]
                 ]
             )
@@ -95,25 +97,35 @@ class dump:
     def filter(self, out) -> None:
         out.writelines(
             [
-                "host-suffix," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                if item[0] == 1
-                else "host," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                if item[0] == 2
-                else None
+                (
+                    "host-suffix," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                    if item[0] == 1
+                    else (
+                        "host," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                        if item[0] == 2
+                        else None
+                    )
+                )
                 for item in self.__src["filter"]["domain"]
             ]
             + [
-                "ip-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                if item[0] == 1
-                else "ip6-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                if item[0] == 2
-                else None
+                (
+                    "ip-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                    if item[0] == 1
+                    else (
+                        "ip6-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                        if item[0] == 2
+                        else None
+                    )
+                )
                 for item in self.__src["filter"]["ipcidr"]
             ]
             + [
-                "geoip," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                if item[0] == 1
-                else None
+                (
+                    "geoip," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                    if item[0] == 1
+                    else None
+                )
                 for item in self.__src["filter"]["ipgeo"]
             ]
         )

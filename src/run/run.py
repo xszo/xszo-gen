@@ -1,11 +1,11 @@
 from argparse import ArgumentParser
 
 from . import cmd
+from .out import copy
 
 # get cli args
 _arg = ArgumentParser()
 
-_arg.add_argument("-a", action="store_true", help="run actions")
 _arg.add_argument("-c", action="store_true", help="code clean")
 _arg.add_argument("-i", action="store_true", help="init git repo & init python env")
 _arg.add_argument("-g", action="store_true", help="run scripts & generate out")
@@ -17,21 +17,21 @@ args = _arg.parse_args()
 
 # call modules
 def run(gen: callable) -> None:
-    if args.a:
+    def g() -> None:
         gen()
-    else:
-        if args.i:
-            cmd.ini_pip()
-            cmd.ini_git()
-        if args.g:
-            gen()
-        if args.n:
-            cmd.out_rm()
-            gen()
-        if args.o:
-            cmd.out_rm()
-            gen()
-            cmd.out_push()
+        copy()
+
+    if args.i:
+        cmd.ini_git()
+    if args.g:
+        g()
+    if args.n:
+        cmd.out_rm()
+        g()
+    if args.o:
+        cmd.out_rm()
+        g()
+        cmd.out_push()
 
     if args.c:
         cmd.fmt()

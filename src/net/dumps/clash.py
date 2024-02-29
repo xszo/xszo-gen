@@ -98,27 +98,37 @@ class dump:
         if "pre" in self.__src["filter"]:
             raw["rules"].extend(
                 [
-                    "RULE-SET," + x[3] + "," + self.__map_node[x[2]]
-                    if x[0] == 1
-                    else None
+                    (
+                        "RULE-SET," + x[3] + "," + self.__map_node[x[2]]
+                        if x[0] == 1
+                        else None
+                    )
                     for x in self.__src["filter"]["pre"]["clash"]
                 ]
             )
         raw["rules"].extend(
             [
-                "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
-                if x[0] == 1
-                else "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
-                if x[0] == 2
-                else None
+                (
+                    "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
+                    if x[0] == 1
+                    else (
+                        "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
+                        if x[0] == 2
+                        else None
+                    )
+                )
                 for x in self.__src["filter"]["domain"]
             ]
             + [
-                "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
-                if x[0] == 1
-                else "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
-                if x[0] == 2
-                else None
+                (
+                    "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
+                    if x[0] == 1
+                    else (
+                        "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
+                        if x[0] == 2
+                        else None
+                    )
+                )
                 for x in self.__src["filter"]["ipcidr"]
             ]
             + [

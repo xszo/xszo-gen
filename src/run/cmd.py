@@ -2,22 +2,16 @@
 
 from os import system
 
-from . import ren
-
 
 # format code
 def fmt() -> None:
     system(
         """
     npx prettier . --write
-    isort . --profile black
+    python3 -m black .
+    python3 -m isort . --profile black
     """
     )
-
-
-# install modules with pip
-def ini_pip() -> None:
-    system(ren.PIP_BIN + " install -r " + ren.PIP_REQ)
 
 
 # install git repo
@@ -31,11 +25,11 @@ def ini_git() -> None:
         fi
     wait;
 
-    git switch -f main;
+    git switch main;
     cd doc;
-    git switch -f master;
+    git switch master;
     cd ../out;
-    git switch -f etc;
+    git switch etc;
     git pull -r;
     cd ..;
     """
@@ -61,7 +55,7 @@ def out_rm() -> None:
     system(
         """
     cd out;
-    git switch -f etc;
+    git switch etc;
     rm -rf *;
     cd ..;
     """

@@ -1,5 +1,11 @@
-#!/bin/python3
+#!/bin/sh
 
-from src import ash
+while getopts i opt; do
+  if [ $opt = i ]; then
+    if ! which pipenv; then
+      pip install pipenv;
+    fi;
+    pipenv install;
+  fi; done;
 
-ash.run()
+pipenv run python -c "from src.ash import run; run();" "$@";
