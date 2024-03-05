@@ -11,6 +11,7 @@ _arg.add_argument("-i", action="store_true", help="init git repo & init python e
 _arg.add_argument("-g", action="store_true", help="run scripts & generate out")
 _arg.add_argument("-n", action="store_true", help="clear out & run scripts")
 _arg.add_argument("-o", action="store_true", help="push out to branch etc")
+_arg.add_argument("-a", action="store_true", help="run actions")
 
 args = _arg.parse_args()
 
@@ -35,3 +36,7 @@ def run(gen: callable) -> None:
 
     if args.c:
         cmd.fmt()
+
+    if args.a:
+        g()
+        cmd.out_push()

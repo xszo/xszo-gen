@@ -4,6 +4,7 @@ tar:
   - clash
   - surge
   - shadowrocket
+  - loon
 misc:
   dns:
     - "223.5.5.5"

@@ -5,6 +5,7 @@ import requests
 from . import ren
 from .dumps.clash import dump as clash
 from .dumps.clash_convert import dump as clash_convert
+from .dumps.loon import dump as loon
 from .dumps.quantumult import dump as quantumult
 from .dumps.shadowrocket import dump as shadowrocket
 from .dumps.surge import dump as surge
@@ -35,8 +36,8 @@ class Dump:
             self.__surge(var["id"])
         if "shadowrocket" in var["tar"]:
             self.__shadowrocket(var["id"])
-        # if "loon" in var["tar"]:
-        #     self.__loon(var["id"])
+        if "loon" in var["tar"]:
+            self.__loon(var["id"])
 
     def __rmt(self, loc: str, lnk: str) -> None:
         with open(ren.PATH_OUT / loc, "tw", encoding="utf-8") as file:
@@ -132,4 +133,26 @@ class Dump:
                 {
                     "up": ren.URI_NET + "shadowrocket" + alia + ".conf",
                 },
+            )
+
+    def __loon(self, alia: str) -> None:
+        dp = loon(self.__raw)
+
+        with open(
+            ren.PATH_OUT / ("loon" + alia + ".conf"),
+            "tw",
+            encoding="utf-8",
+        ) as out:
+            dp.profile(
+                out,
+                {
+                    "parse": ren.URI_NET + "loon-parser.js",
+                },
+            )
+
+        if not "lp" in self.__tmp_set:
+            self.__tmp_set.add("lp")
+            self.__rmt(
+                "loon-parser.js",
+                ren.EXT_LOON_PARSER,
             )
