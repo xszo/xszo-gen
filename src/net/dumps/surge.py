@@ -28,21 +28,22 @@ class dump:
             + loc["up"]
             + " interval="
             + str(self.__src["misc"]["interval"])
-            + " strict=false"
+            + " strict=false",
+            "\n",
+            "[General]",
+            "loglevel = warning",
+            # "ipv6 = true",
+            # "ipv6-vif = auto",
+            "udp-priority = true",
+            "udp-policy-not-supported-behaviour = REJECT",
+            "allow-wifi-access = false",
+            "exclude-simple-hostnames = true",
+            "show-error-page-for-reject = true",
+            "internet-test-url = " + self.__src["misc"]["test"],
+            "proxy-test-url = " + self.__src["misc"]["test"],
+            "proxy-test-udp = " + self.__src["misc"]["t-dns"],
         ]
 
-        raw.extend(
-            [
-                "\n[General]",
-                "loglevel = warning",
-                # "ipv6 = true",
-                # "ipv6-vif = auto",
-                "udp-priority = true",
-                "udp-policy-not-supported-behaviour = REJECT",
-                "exclude-simple-hostnames = true",
-                "allow-wifi-access = false",
-            ]
-        )
         if "dns" in self.__src["misc"]:
             line = "dns-server = "
             for item in self.__src["misc"]["dns"]:
@@ -51,13 +52,6 @@ class dump:
         if "doh" in self.__src["misc"]:
             # raw.append("encrypted-dns-follow-outbound-mode = true")
             raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
-        raw.extend(
-            [
-                "internet-test-url = " + self.__src["misc"]["test"],
-                "proxy-test-url = " + self.__src["misc"]["test"],
-                "proxy-test-udp = " + self.__src["misc"]["t-dns"],
-            ]
-        )
 
         raw.append("\n[Proxy Group]")
         for item in self.__src["node"]:

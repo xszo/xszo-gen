@@ -13,6 +13,8 @@ class dump:
         raw = [
             "[General]",
             "resource-parser = " + loc["parse"],
+            "internet-test-url = " + self.__src["misc"]["test"],
+            "proxy-test-url = " + self.__src["misc"]["test"],
         ]
         if "dns" in self.__src["misc"]:
             line = "dns-server = "
@@ -21,12 +23,6 @@ class dump:
             raw.append(line[:-2])
         if "doh" in self.__src["misc"]:
             raw.append("doh-server = " + self.__src["misc"]["doh"])
-        raw.extend(
-            [
-                "internet-test-url = " + self.__src["misc"]["test"],
-                "proxy-test-url = " + self.__src["misc"]["test"],
-            ]
-        )
 
         raw.append("\n[Mitm]")
 
@@ -58,27 +54,6 @@ class dump:
             if "icon" in item:
                 line += ", img-url=" + item["icon"]["sf"][:-7]
             raw.append(line)
-
-        raw.append("\n[Remote Proxy]")
-        raw.extend(
-            [
-                "Proxy"
-                + str(idx)
-                + " = "
-                + item
-                + ", parser-enabled=true, enabled=true"
-                for idx, item in enumerate(self.__src["proxy"]["link"])
-            ]
-        )
-
-        raw.append("\n[Remote Filter]")
-        self.__var_rex = [item["regx"] for item in self.__src["node"] if "regx" in item]
-        raw.extend(
-            [
-                "Rex" + str(idx) + ' = NameRegex, FilterKey="' + item + '"'
-                for idx, item in enumerate(self.__var_rex)
-            ]
-        )
 
         raw.append("\n[Rule]")
         raw.extend(
@@ -123,6 +98,27 @@ class dump:
                 for item in self.__src["filter"]["ipgeo"]
             ]
             + ["FINAL, " + self.__map_node[self.__src["filter"]["main"]]]
+        )
+
+        raw.append("\n[Remote Proxy]")
+        raw.extend(
+            [
+                "Proxy"
+                + str(idx)
+                + " = "
+                + item
+                + ", parser-enabled=true, enabled=true"
+                for idx, item in enumerate(self.__src["proxy"]["link"])
+            ]
+        )
+
+        raw.append("\n[Remote Filter]")
+        self.__var_rex = [item["regx"] for item in self.__src["node"] if "regx" in item]
+        raw.extend(
+            [
+                "Rex" + str(idx) + ' = NameRegex, FilterKey="' + item + '"'
+                for idx, item in enumerate(self.__var_rex)
+            ]
         )
 
         raw.append("\n[Remote Rule]")

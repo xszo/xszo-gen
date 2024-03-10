@@ -1,6 +1,5 @@
 id: ad
 tar:
-  - quantumult
   - clash
   - surge
 misc:
@@ -25,13 +24,6 @@ route:
         list:
           clash: -clash/filter-ad.yml
           surge: -surge/filter-ad.txt
-  - id: fww
-    node: { id: main }
-    filter:
-      - type: pre
-        list:
-          clash: -clash/filter-world.yml
-          surge: -surge/filter-world.txt
   - id: fcn
     node: { id: rcn }
     filter:
@@ -39,4 +31,11 @@ route:
         list:
           clash: -clash/filter-cn.yml
           surge: -surge/filter-cn.txt
+  - id: fww
+    node: { id: main }
+    filter:
+      - type: pre
+        list:
+          clash: -clash/filter-world.yml
+          surge: -surge/filter-world.txt
   - "="

@@ -4,7 +4,7 @@ import requests
 
 from . import ren
 from .dumps.clash import dump as clash
-from .dumps.clash_convert import dump as clash_convert
+from .dumps.clash_conv import dump as clash_conv
 from .dumps.loon import dump as loon
 from .dumps.quantumult import dump as quantumult
 from .dumps.shadowrocket import dump as shadowrocket
@@ -83,7 +83,7 @@ class Dump:
         ) as out:
             dp.config(out)
 
-        dp = clash_convert(self.__raw)
+        dp = clash_conv(self.__raw)
 
         with open(
             ren.PATH_OUT_CLASH / ("conv" + alia + ".conf"),
