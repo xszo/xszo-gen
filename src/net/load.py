@@ -142,9 +142,12 @@ class Load:
     # get filter content from file and optimize
     def __load_filter(self) -> None:
         tmp_domain = [[], [], [], [], [], [], [], []]
+        tmp_pre = {}
         tmp_ipcidr = [[], []]
         tmp_ipgeo = []
-        tmp_pre = {}
+        tmp_set_domain = []
+        tmp_set_list = []
+
         for item in self.res["filter"]:
             # type gen
             if item["type"] == "gen":
@@ -160,26 +163,27 @@ class Load:
                     for line in raw["domain"]:
                         if line[0] == "-":
                             tmp_domain[line.count(".")].append(
-                                (2, line[1:], item["node"])
+                                (1, line[1:], item["node"])
                             )
                         else:
-                            tmp_domain[line.count(".")].append((1, line, item["node"]))
+                            tmp_domain[line.count(".")].append((2, line, item["node"]))
                 # ipcidr 4 and 6
                 if "ipcidr" in raw:
                     tmp_ipcidr[0].extend(
                         [
-                            (1, line, item["node"])
+                            (9, line, item["node"])
                             for line in raw["ipcidr"]
                             if not line[0] == "["
                         ]
                     )
                     tmp_ipcidr[1].extend(
                         [
-                            (2, line[1:-1], item["node"])
+                            (10, line[1:-1], item["node"])
                             for line in raw["ipcidr"]
                             if line[0] == "["
                         ]
                     )
+
             # type pre
             elif item["type"] == "pre":
                 # from name.tar to tar.[name]
@@ -197,25 +201,30 @@ class Load:
                         )
                     else:
                         tmp_pre[key].append((1, val, item["node"], item["id"]))
+
             # type other
             elif item["type"] == "ipgeo":
-                tmp_ipgeo.append((1, item["list"].upper(), item["node"]))
+                tmp_ipgeo.append((17, item["list"].upper(), item["node"]))
             elif item["type"] == "main":
                 tmp_main = item["node"]
+
         # merge domain in order
-        res = {"domain": [], "ipcidr": [], "main": tmp_main}
+        res = {"list": [], "set": [], "main": tmp_main}
         for item in reversed(tmp_domain):
-            res["domain"] += sorted(
-                item, key=lambda v: ".".join(reversed(v[1].split(".")))
+            res["list"].extend(
+                sorted(item, key=lambda v: ".".join(reversed(v[1].split("."))))
             )
         # copy into res
         for item in tmp_ipcidr:
-            res["ipcidr"] += sorted(
-                sorted(item, key=lambda v: v[1]),
-                reverse=True,
-                key=lambda v: int((v[1].split("/"))[1]),
+            res["list"].extend(
+                sorted(
+                    sorted(item, key=lambda v: v[1]),
+                    reverse=True,
+                    key=lambda v: int((v[1].split("/"))[1]),
+                )
             )
-        res["ipgeo"] = sorted(tmp_ipgeo, key=lambda v: v[1])
+        res["list"].extend(sorted(tmp_ipgeo, key=lambda v: v[1]))
+
         if len(tmp_pre) > 0:
             res["pre"] = tmp_pre
         self.res["filter"] = res

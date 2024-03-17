@@ -62,8 +62,7 @@ class dump:
             proxy_list.append(lo_name)
             raw["proxy-providers"][lo_name] = {"url": item, "interval": 86400}
 
-        raw["proxy-groups"] = []
-        for item in self.__src["node"]:
+        def conv_n(item: dict) -> str:
             line = {"name": item["name"]}
             if item["type"] == "static":
                 line["type"] = "select"
@@ -78,7 +77,7 @@ class dump:
                     }
                 )
             else:
-                continue
+                return None
             if "icon" in item:
                 line["icon"] = item["icon"]["emoji"]
             if "list" in item:
@@ -89,47 +88,34 @@ class dump:
                 line["include-all"] = True
                 line["use"] = deepcopy(proxy_list)
                 line["filter"] = item["regx"]
-            raw["proxy-groups"].append(line)
+            return line
+
+        raw["proxy-groups"] = [conv_n(item) for item in self.__src["node"]]
+
+        def conv_f(x: tuple) -> str:
+            match x[0]:
+                case 1:
+                    return "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
+                case 2:
+                    return "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
+                case 9:
+                    return "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
+                case 10:
+                    return "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
+                case 17:
+                    return "GEOIP," + x[1] + "," + self.__map_node[x[2]]
+                case _:
+                    return None
 
         if "pre" in self.__src["filter"]:
             raw["rules"] = [
                 "RULE-SET, " + x[3] + ", " + self.__map_node[x[2]]
                 for x in self.__src["filter"]["pre"]["clash"]
                 if x[0] == 1
-            ]
+            ] + [conv_f(item) for item in self.__src["filter"]["list"]]
         else:
-            raw["rules"] = []
-        raw["rules"].extend(
-            [
-                (
-                    "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
-                    if x[0] == 1
-                    else (
-                        "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
-                        if x[0] == 2
-                        else None
-                    )
-                )
-                for x in self.__src["filter"]["domain"]
-            ]
-            + [
-                (
-                    "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
-                    if x[0] == 1
-                    else (
-                        "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
-                        if x[0] == 2
-                        else None
-                    )
-                )
-                for x in self.__src["filter"]["ipcidr"]
-            ]
-            + [
-                "GEOIP," + x[1] + "," + self.__map_node[x[2]] if x[0] == 1 else None
-                for x in self.__src["filter"]["ipgeo"]
-            ]
-            + ["MATCH, " + self.__map_node[self.__src["filter"]["main"]]]
-        )
+            raw["rules"] = [conv_f(item) for item in self.__src["filter"]["list"]]
+        raw["rules"].append("MATCH, " + self.__map_node[self.__src["filter"]["main"]])
 
         if "pre" in self.__src["filter"]:
             raw["rule-providers"] = {}

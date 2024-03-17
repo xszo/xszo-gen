@@ -54,14 +54,15 @@ class dump:
             raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
 
         raw.append("\n[Proxy Group]")
-        for item in self.__src["node"]:
+
+        def conv_n(item: dict) -> str:
             line = item["name"]
             if item["type"] == "static":
                 line += " = select"
             elif item["type"] == "test":
                 line += " = url-test, hidden=true"
             else:
-                continue
+                return None
             if "list" in item:
                 for val in item["list"]:
                     if val[0] == "-":
@@ -74,54 +75,36 @@ class dump:
                     + item["regx"]
                     + '"'
                 )
-            raw.append(line)
+            return line
+
+        raw.extend([conv_n(item) for item in self.__src["node"]])
 
         raw.append("\n[Rule]")
+
+        def conv_f(item: tuple) -> str:
+            match item[0]:
+                case 1:
+                    return "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
+                case 2:
+                    return "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
+                case 9:
+                    return "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
+                case 10:
+                    return "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
+                case 17:
+                    return "GEOIP," + item[1] + "," + self.__map_node[item[2]]
+                case _:
+                    return None
+
         if "pre" in self.__src["filter"]:
             raw.extend(
                 [
-                    (
-                        "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
-                        if item[0] == 1
-                        else None
-                    )
+                    "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
                     for item in self.__src["filter"]["pre"]["surge"]
+                    if item[0] == 1
                 ]
             )
-        raw.extend(
-            [
-                (
-                    "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else (
-                        "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
-                        if item[0] == 2
-                        else None
-                    )
-                )
-                for item in self.__src["filter"]["domain"]
-            ]
-            + [
-                (
-                    "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else (
-                        "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
-                        if item[0] == 2
-                        else None
-                    )
-                )
-                for item in self.__src["filter"]["ipcidr"]
-            ]
-            + [
-                (
-                    "GEOIP," + item[1] + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else None
-                )
-                for item in self.__src["filter"]["ipgeo"]
-            ]
-        )
+        raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
         raw.append(
             "FINAL, " + self.__map_node[self.__src["filter"]["main"]] + ", dns-failed"
         )

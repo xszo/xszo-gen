@@ -56,40 +56,23 @@ class dump:
             raw.append(line)
 
         raw.append("\n[Rule]")
-        raw.extend(
-            [
-                (
-                    "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else (
-                        "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
-                        if item[0] == 2
-                        else None
-                    )
-                )
-                for item in self.__src["filter"]["domain"]
-            ]
-            + [
-                (
-                    "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else (
-                        "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
-                        if item[0] == 2
-                        else None
-                    )
-                )
-                for item in self.__src["filter"]["ipcidr"]
-            ]
-            + [
-                (
-                    "GEOIP," + item[1] + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else None
-                )
-                for item in self.__src["filter"]["ipgeo"]
-            ]
-        )
+
+        def conv_f(item: tuple) -> str:
+            match item[0]:
+                case 1:
+                    return "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
+                case 2:
+                    return "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
+                case 9:
+                    return "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
+                case 10:
+                    return "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
+                case 17:
+                    return "GEOIP," + item[1] + "," + self.__map_node[item[2]]
+                case _:
+                    return None
+
+        raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
         raw.append("FINAL, " + self.__map_node[self.__src["filter"]["main"]])
 
         raw.append("\n[Remote Proxy]")

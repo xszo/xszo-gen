@@ -27,13 +27,14 @@ class dump:
         raw.append("\n[mitm]")
 
         raw.append("\n[policy]")
-        for item in self.__src["node"]:
+
+        def conv(item: dict) -> str:
             if item["type"] == "static":
                 line = "static = "
             elif item["type"] == "test":
                 line = "url-latency-benchmark = "
             else:
-                continue
+                return None
             line += item["name"]
             if "list" in item:
                 for val in item["list"]:
@@ -45,18 +46,19 @@ class dump:
                 line += ", server-tag-regex=" + item["regx"]
             if "icon" in item:
                 line += ", img-url=" + item["icon"]["sf"]
-            raw.append(line)
+            return line
 
-        raw.extend(
-            [
-                "\n[filter_local]",
-                "final, " + self.__map_node[self.__src["filter"]["main"]],
-                "\n[filter_remote]",
-                loc["filter"]
-                + ", tag=Filter, update-interval="
-                + str(self.__src["misc"]["interval"])
-                + ", opt-parser=false, enabled=true",
-            ]
+        raw.extend([conv(item) for item in self.__src["node"]])
+
+        raw.append("\n[filter_local]")
+        raw.append("final, " + self.__map_node[self.__src["filter"]["main"]])
+
+        raw.append("\n[filter_remote]")
+        raw.append(
+            loc["filter"]
+            + ", tag=Filter, update-interval="
+            + str(self.__src["misc"]["interval"])
+            + ", opt-parser=false, enabled=true"
         )
         if "pre" in self.__src["filter"]:
             raw.extend(
@@ -92,37 +94,21 @@ class dump:
         out.writelines([x + "\n" for x in raw])
 
     def filter(self, out) -> None:
-        out.writelines(
-            [
-                (
-                    "host-suffix," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                    if item[0] == 1
-                    else (
-                        "host," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                        if item[0] == 2
-                        else None
+        def conv(item: tuple) -> str:
+            match item[0]:
+                case 1:
+                    return "host," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                case 2:
+                    return (
+                        "host-suffix," + item[1] + "," + self.__map_node[item[2]] + "\n"
                     )
-                )
-                for item in self.__src["filter"]["domain"]
-            ]
-            + [
-                (
-                    "ip-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                    if item[0] == 1
-                    else (
-                        "ip6-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                        if item[0] == 2
-                        else None
-                    )
-                )
-                for item in self.__src["filter"]["ipcidr"]
-            ]
-            + [
-                (
-                    "geoip," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                    if item[0] == 1
-                    else None
-                )
-                for item in self.__src["filter"]["ipgeo"]
-            ]
-        )
+                case 9:
+                    return "ip-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                case 10:
+                    return "ip6-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                case 17:
+                    return "geoip," + item[1] + "," + self.__map_node[item[2]] + "\n"
+                case _:
+                    return None
+
+        out.writelines([conv(item) for item in self.__src["filter"]["list"]])
