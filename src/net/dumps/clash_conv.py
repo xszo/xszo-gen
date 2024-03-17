@@ -57,21 +57,14 @@ class dump:
         else:
             raw["dns"]["nameserver"] = deepcopy(raw["dns"]["default-nameserver"])
 
-        raw["rules"] = [
-            "DST-PORT," + str(x[1]) + "," + self.__map_node[x[2]] if x[0] == 1 else None
-            for x in self.__src["filter"]["port"]
-        ]
         if "pre" in self.__src["filter"]:
-            raw["rules"].extend(
-                [
-                    (
-                        "RULE-SET," + x[3] + "," + self.__map_node[x[2]]
-                        if x[0] == 1
-                        else None
-                    )
-                    for x in self.__src["filter"]["pre"]["clash"]
-                ]
-            )
+            raw["rules"] = [
+                "RULE-SET, " + x[3] + ", " + self.__map_node[x[2]]
+                for x in self.__src["filter"]["pre"]["clash"]
+                if x[0] == 1
+            ]
+        else:
+            raw["rules"] = []
         raw["rules"].extend(
             [
                 (

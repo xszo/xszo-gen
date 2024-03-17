@@ -144,7 +144,6 @@ class Load:
         tmp_domain = [[], [], [], [], [], [], [], []]
         tmp_ipcidr = [[], []]
         tmp_ipgeo = []
-        tmp_port = []
         tmp_pre = {}
         for item in self.res["filter"]:
             # type gen
@@ -181,9 +180,6 @@ class Load:
                             if line[0] == "["
                         ]
                     )
-                # port to (type, match, dest)
-                if "port" in raw:
-                    tmp_port.extend([(1, line, item["node"]) for line in raw["port"]])
             # type pre
             elif item["type"] == "pre":
                 # from name.tar to tar.[name]
@@ -220,7 +216,6 @@ class Load:
                 key=lambda v: int((v[1].split("/"))[1]),
             )
         res["ipgeo"] = sorted(tmp_ipgeo, key=lambda v: v[1])
-        res["port"] = sorted(tmp_port, key=lambda v: v[1])
         if len(tmp_pre) > 0:
             res["pre"] = tmp_pre
         self.res["filter"] = res

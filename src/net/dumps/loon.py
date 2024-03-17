@@ -59,14 +59,6 @@ class dump:
         raw.extend(
             [
                 (
-                    "DEST-PORT," + str(item[1]) + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else None
-                )
-                for item in self.__src["filter"]["port"]
-            ]
-            + [
-                (
                     "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
                     if item[0] == 1
                     else (
@@ -97,8 +89,8 @@ class dump:
                 )
                 for item in self.__src["filter"]["ipgeo"]
             ]
-            + ["FINAL, " + self.__map_node[self.__src["filter"]["main"]]]
         )
+        raw.append("FINAL, " + self.__map_node[self.__src["filter"]["main"]])
 
         raw.append("\n[Remote Proxy]")
         raw.extend(
@@ -132,10 +124,9 @@ class dump:
                         + ", policy="
                         + self.__map_node[item[2]]
                         + ", parser-enabled=true, enabled=true"
-                        if item[0] == 1
-                        else None
                     )
                     for item in self.__src["filter"]["pre"]["surge"]
+                    if item[0] == 1
                 ]
             )
 

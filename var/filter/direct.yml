@@ -1,7 +1,3 @@
-# '' gen DST-PORT,''
-# port:
-#   - 0
-
 # '' gen DOMAIN-SUFFIX,''    -'' gen DOMAIN,''
 domain:
   - lan

@@ -37,16 +37,6 @@ class dump:
         raw.extend(
             [
                 (
-                    "DEST-PORT," + str(item[1]) + "," + self.__map_node[item[2]]
-                    if item[0] == 1
-                    else None
-                )
-                for item in self.__src["filter"]["port"]
-            ]
-        )
-        raw.extend(
-            [
-                (
                     "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
                     if item[0] == 1
                     else (
@@ -57,9 +47,7 @@ class dump:
                 )
                 for item in self.__src["filter"]["domain"]
             ]
-        )
-        raw.extend(
-            [
+            + [
                 (
                     "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
                     if item[0] == 1
@@ -71,9 +59,7 @@ class dump:
                 )
                 for item in self.__src["filter"]["ipcidr"]
             ]
-        )
-        raw.extend(
-            [
+            + [
                 (
                     "GEOIP," + item[1] + "," + self.__map_node[item[2]]
                     if item[0] == 1

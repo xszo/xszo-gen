@@ -62,20 +62,17 @@ class dump:
             raw.extend(
                 [
                     (
-                        (
-                            item[1]
-                            + ", tag="
-                            + item[3]
-                            + ", force-policy="
-                            + self.__map_node[item[2]]
-                            + ", update-interval="
-                            + str(self.__src["misc"]["interval"])
-                            + ", opt-parser=true, enabled=true"
-                        )
-                        if item[0] == 1
-                        else None
+                        item[1]
+                        + ", tag="
+                        + item[3]
+                        + ", force-policy="
+                        + self.__map_node[item[2]]
+                        + ", update-interval="
+                        + str(self.__src["misc"]["interval"])
+                        + ", opt-parser=true, enabled=true"
                     )
                     for item in self.__src["filter"]["pre"]["surge"]
+                    if item[0] == 1
                 ]
             )
 

@@ -10,6 +10,7 @@ misc:
     - "[2400:3200:baba::1]"
   doh: https://dns.alidns.com/dns-query
 route:
+  - "="
   - id: adfix
     node: { id: main }
     filter:
@@ -38,4 +39,3 @@ route:
         list:
           clash: -clash/filter-world.yml
           surge: -surge/filter-world.txt
-  - "="
