@@ -2,12 +2,6 @@
 id: ""
 # variables refered with '=name'
 var: {}
-# target software
-tar:
-  # - quantumult
-  # - clash
-  # - surge
-  # - shadowrocket
 # misc options
 misc:
   # lag test http link
@@ -48,8 +42,8 @@ route:
       list: [-direct, -reject, =node]
     filter:
       - type: main
+      - link: =world
       - list: world
-        link: =world
       - list: stream
     icon:
       emoji: 🚩

@@ -31,8 +31,6 @@ class Load:
             }
         )
         # load sections
-        if "tar" in self.__base:
-            self.__base["ref"]["tar"] = self.__base.pop("tar")
         if "id" in self.__base:
             self.__base["ref"]["id"] = self.__base.pop("id")
         if "var" in self.__base:
