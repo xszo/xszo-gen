@@ -101,10 +101,12 @@ class dump:
                 [
                     "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
                     for item in self.__src["filter"]["pre"]["surge"]
-                    if item[0] == 1
+                    if item[0] in set([1, 2])
                 ]
+                + [conv_f(item) for item in self.__src["filter"]["misc"]]
             )
-        raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
+        else:
+            raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
         raw.append(
             "FINAL, " + self.__map_node[self.__src["filter"]["main"]] + ", dns-failed"
         )

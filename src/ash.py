@@ -4,8 +4,8 @@ from .run.run import run as _run
 
 
 def _gen() -> None:
-    _net()
     _filter()
+    _net()
 
 
 def run() -> None:

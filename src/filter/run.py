@@ -4,7 +4,7 @@ from . import ren
 from .dump import Dump
 from .getrex import GetRex
 from .getvlc import GetVlc
-from .load import Mixer
+from .load import GetVar, Mixer
 
 
 def run() -> None:
@@ -14,6 +14,7 @@ def run() -> None:
     res = {}
     res.update(GetRex(data["var"]).get(data["get"]))
     res.update(GetVlc().get(data["vlc"]))
+    res.update(GetVar().get())
 
     res = Mixer(res).mix(data["list"])
-    Dump(res).dump(data["tar"])
+    Dump().dump(res)

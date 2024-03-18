@@ -4,29 +4,25 @@ from . import ren
 
 
 class Dump:
-    __raw = None
+    def __init__(self) -> None:
+        ren.PATH_OUT_CLASH.mkdir(parents=True, exist_ok=True)
+        ren.PATH_OUT_SURGE.mkdir(parents=True, exist_ok=True)
 
-    def __init__(self, araw: dict) -> None:
-        # store raw {name: list}
-        self.__raw = araw
-
-    def dump(self, loc: list) -> None:
-        for key, val in self.__raw.items():
+    def dump(self, araw: dict) -> None:
+        for key, val in araw.items():
             # dump clash
-            if "clash" in loc:
-                with open(
-                    ren.PATH_OUT_CLASH / ("filter-" + key + ".yml"),
-                    "tw",
-                    encoding="utf-8",
-                ) as file:
-                    yaml.safe_dump(
-                        {"payload": ["+" + x if x[0] == "." else x for x in val]}, file
-                    )
+            with open(
+                ren.PATH_OUT_CLASH / ("filter-" + key + ".yml"),
+                "tw",
+                encoding="utf-8",
+            ) as file:
+                yaml.safe_dump(
+                    {"payload": ["+" + x if x[0] == "." else x for x in val]}, file
+                )
             # dump surge
-            if "surge" in loc:
-                with open(
-                    ren.PATH_OUT_SURGE / ("filter-" + key + ".txt"),
-                    "tw",
-                    encoding="utf-8",
-                ) as file:
-                    file.writelines([x + "\n" for x in val])
+            with open(
+                ren.PATH_OUT_SURGE / ("filter-" + key + ".txt"),
+                "tw",
+                encoding="utf-8",
+            ) as file:
+                file.writelines([x + "\n" for x in val])

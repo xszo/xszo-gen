@@ -1,7 +1,7 @@
 tar:
   - quantumult
-  - clash
   - surge
+  - clash
 misc:
   dns:
     - "223.5.5.5"

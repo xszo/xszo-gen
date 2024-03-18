@@ -72,7 +72,10 @@ class dump:
                 case _:
                     return None
 
-        raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
+        if "pre" in self.__src["filter"]:
+            raw.extend([conv_f(item) for item in self.__src["filter"]["misc"]])
+        else:
+            raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
         raw.append("FINAL, " + self.__map_node[self.__src["filter"]["main"]])
 
         raw.append("\n[Remote Proxy]")
@@ -109,7 +112,7 @@ class dump:
                         + ", parser-enabled=true, enabled=true"
                     )
                     for item in self.__src["filter"]["pre"]["surge"]
-                    if item[0] == 1
+                    if item[0] in set([1, 2])
                 ]
             )
 

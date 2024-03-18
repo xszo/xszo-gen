@@ -21,9 +21,9 @@ class Dump:
         ren.PATH_OUT_CLASH.mkdir(parents=True, exist_ok=True)
 
     def dump(self, araw: dict) -> None:
-        if not "dump" in araw:
+        if not "ref" in araw:
             return
-        var = araw.pop("dump")
+        var = araw.pop("ref")
         if var["id"] != "":
             var["id"] = "+" + var["id"]
         self.__raw = araw

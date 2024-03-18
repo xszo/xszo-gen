@@ -1,14 +1,17 @@
-# target list
-tar:
-  - clash
-  - surge
 # output list
 list:
   # id, list below
-  - adfix adguardfix
-  - ad -adfix adguard vlcad
-  - world -ad vlcww gfw
-  - cn -ad vlccn
+  - direct direct
+  - system system
+  - world world stream
+  - rcn r-cn vlccn
+  - rjp r-jp
+  - rtw r-tw
+  - rus r-us
+
+  - adz adguardfix
+  - ad -adz adguard vlcad
+  - fww vlcww gfw
 
 # V2fly domain List Community
 # vlc{id}

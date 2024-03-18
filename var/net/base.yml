@@ -28,37 +28,42 @@ route:
     node: { id: direct }
     # package filter
     filter:
-      - { type: gen, list: direct }
-  - id: main
-    node:
-      type: static
-      name: DEFAULT
-      list: [-direct, -reject, =node]
-    filter:
-      - { type: main }
-      - { type: gen, list: world }
-      - { type: gen, list: stream }
-    icon:
-      emoji: 🚩
-      sf: arrow.left.arrow.right.system
+      - list: direct
+        link: =direct
   - id: system
     node:
       type: static
       name: SYSTEM
       list: [-main, -direct, =node]
     filter:
-      - { type: gen, list: system }
+      - list: system
+        link: =system
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
+  - id: main
+    node:
+      type: static
+      name: DEFAULT
+      list: [-direct, -reject, =node]
+    filter:
+      - type: main
+      - list: world
+        link: =world
+      - list: stream
+    icon:
+      emoji: 🚩
+      sf: arrow.left.arrow.right.system
   - id: rcn
     node:
       type: static
       name: R-CN
       list: [-main, -direct, =node]
     filter:
-      - { type: gen, list: r-cn }
-      - { type: ipgeo, list: cn }
+      - list: r-cn
+        link: =rcn
+      - type: ipgeo
+        val: cn
     icon:
       emoji: 🚩
       sf: arrow.forward.system
@@ -68,8 +73,10 @@ route:
       name: R-JP
       list: [-main, -direct, =node]
     filter:
-      - { type: gen, list: r-jp }
-      - { type: ipgeo, list: jp }
+      - list: r-jp
+        link: =rjp
+      - type: ipgeo
+        val: jp
     icon:
       emoji: 🚩
       sf: arrow.forward.system
@@ -79,8 +86,10 @@ route:
       name: R-TW
       list: [-main, -direct, =node]
     filter:
-      - { type: gen, list: r-tw }
-      - { type: ipgeo, list: tw }
+      - list: r-tw
+        link: =rtw
+      - type: ipgeo
+        val: tw
     icon:
       emoji: 🚩
       sf: arrow.forward.system
@@ -90,7 +99,8 @@ route:
       name: R-US
       list: [-main, -direct, =node]
     filter:
-      - { type: gen, list: r-us }
+      - list: r-us
+        link: =rus
     icon:
       emoji: 🚩
       sf: arrow.forward.system

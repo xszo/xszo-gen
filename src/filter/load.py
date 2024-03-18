@@ -1,3 +1,39 @@
+import yaml
+
+from . import ren
+
+
+class GetVar:
+    res = {}
+
+    def get(self) -> dict:
+        for ls in ren.PATH_VAR.iterdir():
+            if ls == ren.PATH_VAR_LIST:
+                continue
+
+            with open(
+                ls,
+                "tr",
+                encoding="utf-8",
+            ) as file:
+                raw = yaml.safe_load(file)
+            if "domain" in raw:
+
+                def conv(item):
+                    if item[0] == "-":
+                        return item[1:]
+                    else:
+                        return "." + item
+
+                tmp_res = [conv(item) for item in raw["domain"]]
+            else:
+                continue
+
+            self.res[ls.name.split(".")[0]] = tmp_res
+
+        return self.res
+
+
 class Mixer:
     res = {}
 

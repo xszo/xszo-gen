@@ -78,8 +78,8 @@ class dump:
             raw["rules"] = [
                 "RULE-SET, " + x[3] + ", " + self.__map_node[x[2]]
                 for x in self.__src["filter"]["pre"]["clash"]
-                if x[0] == 1
-            ] + [conv(item) for item in self.__src["filter"]["list"]]
+                if x[0] in set([1, 2])
+            ] + [conv(item) for item in self.__src["filter"]["misc"]]
         else:
             raw["rules"] = [conv(item) for item in self.__src["filter"]["list"]]
         raw["rules"].append("MATCH, " + self.__map_node[self.__src["filter"]["main"]])
@@ -87,13 +87,13 @@ class dump:
         if "pre" in self.__src["filter"]:
             raw["rule-providers"] = {}
             for item in self.__src["filter"]["pre"]["clash"]:
-                if item[0] == 1:
+                if item[0] in set([1, 2]):
                     raw["rule-providers"][item[3]] = {
                         "behavior": "domain",
                         "type": "http",
                         "interval": self.__src["misc"]["interval"],
                         "url": item[1],
-                        "path": "./filter/" + item[3],
+                        "path": "./filter/" + item[3] + ".yml",
                     }
 
         yaml.safe_dump(raw, out)

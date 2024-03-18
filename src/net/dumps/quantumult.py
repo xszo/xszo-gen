@@ -65,7 +65,7 @@ class dump:
                 [
                     (
                         item[1]
-                        + ", tag="
+                        + ", tag=F"
                         + item[3]
                         + ", force-policy="
                         + self.__map_node[item[2]]
@@ -74,7 +74,7 @@ class dump:
                         + ", opt-parser=true, enabled=true"
                     )
                     for item in self.__src["filter"]["pre"]["surge"]
-                    if item[0] == 1
+                    if item[0] in set([1, 2])
                 ]
             )
 
@@ -111,4 +111,7 @@ class dump:
                 case _:
                     return None
 
-        out.writelines([conv(item) for item in self.__src["filter"]["list"]])
+        if "pre" in self.__src["filter"]:
+            out.writelines([conv(item) for item in self.__src["filter"]["misc"]])
+        else:
+            out.writelines([conv(item) for item in self.__src["filter"]["list"]])

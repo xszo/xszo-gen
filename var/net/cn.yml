@@ -1,8 +1,8 @@
 id: cn
 tar:
   - quantumult
-  - clash
   - surge
+  - clash
   - shadowrocket
   - loon
 misc:
@@ -16,31 +16,41 @@ route:
   - id: direct
     node: { id: direct }
     filter:
-      - { type: gen, list: direct }
-      - { type: gen, list: system }
+      - list: direct
+        link: =direct
+      - list: system
+        link: =system
   - id: main
     node: { name: Node, type: test, list: .* }
     filter:
-      - { type: main }
-      - { type: gen, list: world }
-      - { type: gen, list: stream }
+      - type: main
+      - list: world
+        link: =world
+      - list: stream
   - id: rcn
     node: { id: direct }
     filter:
-      - { type: gen, list: r-cn }
-      - { type: ipgeo, list: cn }
+      - list: r-cn
+        link: =rcn
+      - type: ipgeo
+        val: cn
   - id: rjp
     node: { name: JP, type: test, list: =jp }
     filter:
-      - { type: gen, list: r-jp }
-      - { type: ipgeo, list: jp }
+      - list: r-jp
+        link: =rjp
+      - type: ipgeo
+        val: jp
   - id: rtw
     node: { name: TW, type: test, list: =tw }
     filter:
-      - { type: gen, list: r-tw }
-      - { type: ipgeo, list: tw }
+      - list: r-tw
+        link: =rtw
+      - type: ipgeo
+        val: tw
   - id: rus
     node: { name: US, type: test, list: =us }
     filter:
-      - { type: gen, list: r-us }
+      - list: r-us
+        link: =rus
 node: []

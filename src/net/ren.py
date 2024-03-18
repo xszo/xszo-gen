@@ -2,6 +2,7 @@ from pathlib import Path
 
 import yaml
 
+PATH_TMP = Path("tmp/net/")
 PATH_SRC = Path("src/net/")
 PATH_VAR = Path("var/net/")
 PATH_VAR_BASE = Path("var/base.yml")
