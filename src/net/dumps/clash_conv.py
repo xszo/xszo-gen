@@ -59,41 +59,33 @@ class dump:
         else:
             raw["dns"]["nameserver"] = deepcopy(raw["dns"]["default-nameserver"])
 
-        def conv(x: tuple) -> str:
+        def conv_f(x: tuple) -> str:
             match x[0]:
                 case 1:
-                    return "DOMAIN," + x[1] + "," + self.__map_node[x[2]]
-                case 2:
-                    return "DOMAIN-SUFFIX," + x[1] + "," + self.__map_node[x[2]]
-                case 9:
                     return "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
-                case 10:
+                case 2:
                     return "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
-                case 17:
+                case 9:
                     return "GEOIP," + x[1] + "," + self.__map_node[x[2]]
                 case _:
                     return None
 
-        if "pre" in self.__src["filter"]:
-            raw["rules"] = [
-                "RULE-SET, " + x[3] + ", " + self.__map_node[x[2]]
-                for x in self.__src["filter"]["pre"]["clash"]
-                if x[0] in set([1, 2])
-            ] + [conv(item) for item in self.__src["filter"]["misc"]]
-        else:
-            raw["rules"] = [conv(item) for item in self.__src["filter"]["list"]]
+        raw["rules"] = [
+            "RULE-SET, " + x[3] + ", " + self.__map_node[x[2]]
+            for x in self.__src["filter"]["pre"]["clash"]
+            if x[0] in set([1, 2])
+        ] + [conv_f(item) for item in self.__src["filter"]["misc"]]
         raw["rules"].append("MATCH, " + self.__map_node[self.__src["filter"]["main"]])
 
-        if "pre" in self.__src["filter"]:
-            raw["rule-providers"] = {}
-            for item in self.__src["filter"]["pre"]["clash"]:
-                if item[0] in set([1, 2]):
-                    raw["rule-providers"][item[3]] = {
-                        "behavior": "domain",
-                        "type": "http",
-                        "interval": self.__src["misc"]["interval"],
-                        "url": item[1],
-                        "path": "./filter/" + item[3] + ".yml",
-                    }
+        raw["rule-providers"] = {}
+        for item in self.__src["filter"]["pre"]["clash"]:
+            if item[0] in set([1, 2]):
+                raw["rule-providers"][item[3]] = {
+                    "behavior": "domain",
+                    "type": "http",
+                    "interval": self.__src["misc"]["interval"],
+                    "url": item[1],
+                    "path": "./filter/" + item[3] + ".yml",
+                }
 
         yaml.safe_dump(raw, out)

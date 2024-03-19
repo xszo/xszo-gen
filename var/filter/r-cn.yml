@@ -1,2 +1,5 @@
 domain:
   - cn
+
+ipgeo:
+  - cn

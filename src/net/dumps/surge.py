@@ -84,29 +84,22 @@ class dump:
         def conv_f(item: tuple) -> str:
             match item[0]:
                 case 1:
-                    return "DOMAIN," + item[1] + "," + self.__map_node[item[2]]
-                case 2:
-                    return "DOMAIN-SUFFIX," + item[1] + "," + self.__map_node[item[2]]
-                case 9:
                     return "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
-                case 10:
+                case 2:
                     return "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
-                case 17:
+                case 9:
                     return "GEOIP," + item[1] + "," + self.__map_node[item[2]]
                 case _:
                     return None
 
-        if "pre" in self.__src["filter"]:
-            raw.extend(
-                [
-                    "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
-                    for item in self.__src["filter"]["pre"]["surge"]
-                    if item[0] in set([1, 2])
-                ]
-                + [conv_f(item) for item in self.__src["filter"]["misc"]]
-            )
-        else:
-            raw.extend([conv_f(item) for item in self.__src["filter"]["list"]])
+        raw.extend(
+            [
+                "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
+                for item in self.__src["filter"]["pre"]["surge"]
+                if item[0] in set([1, 2])
+            ]
+            + [conv_f(item) for item in self.__src["filter"]["misc"]]
+        )
         raw.append(
             "FINAL, " + self.__map_node[self.__src["filter"]["main"]] + ", dns-failed"
         )

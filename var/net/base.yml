@@ -22,16 +22,14 @@ route:
     node: { id: direct }
     # package filter
     filter:
-      - list: direct
-        link: =direct
+      - use: direct
   - id: system
     node:
       type: static
       name: SYSTEM
       list: [-main, -direct, =node]
     filter:
-      - list: system
-        link: =system
+      - use: system
     icon:
       emoji: 🚩
       sf: arrow.left.and.right.system
@@ -42,9 +40,7 @@ route:
       list: [-direct, -reject, =node]
     filter:
       - type: main
-      - link: =world
-      - list: world
-      - list: stream
+      - use: world
     icon:
       emoji: 🚩
       sf: arrow.left.arrow.right.system
@@ -54,10 +50,7 @@ route:
       name: R-CN
       list: [-main, -direct, =node]
     filter:
-      - list: r-cn
-        link: =rcn
-      - type: ipgeo
-        val: cn
+      - use: rcn
     icon:
       emoji: 🚩
       sf: arrow.forward.system
@@ -67,10 +60,7 @@ route:
       name: R-JP
       list: [-main, -direct, =node]
     filter:
-      - list: r-jp
-        link: =rjp
-      - type: ipgeo
-        val: jp
+      - use: rjp
     icon:
       emoji: 🚩
       sf: arrow.forward.system
@@ -80,10 +70,7 @@ route:
       name: R-TW
       list: [-main, -direct, =node]
     filter:
-      - list: r-tw
-        link: =rtw
-      - type: ipgeo
-        val: tw
+      - use: rtw
     icon:
       emoji: 🚩
       sf: arrow.forward.system
@@ -93,8 +80,7 @@ route:
       name: R-US
       list: [-main, -direct, =node]
     filter:
-      - list: r-us
-        link: =rus
+      - use: rus
     icon:
       emoji: 🚩
       sf: arrow.forward.system

@@ -13,13 +13,13 @@ route:
   - id: adz
     node: { id: main }
     filter:
-      - link: =adz
+      - use: adz
   - id: ad
     node: { id: reject }
     filter:
-      - link: =ad
+      - use: ad
   - "="
   - id: fww
     node: { id: main }
     filter:
-      - link: =fww
+      - use: fww

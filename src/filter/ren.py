@@ -3,8 +3,7 @@ from pathlib import Path
 PATH_TMP = Path("tmp/filter/")
 PATH_VAR = Path("var/filter/")
 PATH_VAR_LIST = Path("var/filter/list.yml")
-PATH_OUT_CLASH = Path("out/clash/")
-PATH_OUT_SURGE = Path("out/surge/")
+PATH_OUT = Path("out/")
 
 REX_COM = "^\\s*($|#|\\/\\/|!)"
 

@@ -3,6 +3,8 @@ from pathlib import Path
 import yaml
 
 PATH_TMP = Path("tmp/net/")
+PATH_TMP_FILTER = Path("tmp/filter/")
+PATH_TMP_FILTER_LIST = Path("tmp/filter/list.yml")
 PATH_SRC = Path("src/net/")
 PATH_VAR = Path("var/net/")
 PATH_VAR_BASE = Path("var/base.yml")

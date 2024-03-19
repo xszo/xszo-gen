@@ -60,23 +60,22 @@ class dump:
             + str(self.__src["misc"]["interval"])
             + ", opt-parser=false, enabled=true"
         )
-        if "pre" in self.__src["filter"]:
-            raw.extend(
-                [
-                    (
-                        item[1]
-                        + ", tag=F"
-                        + item[3]
-                        + ", force-policy="
-                        + self.__map_node[item[2]]
-                        + ", update-interval="
-                        + str(self.__src["misc"]["interval"])
-                        + ", opt-parser=true, enabled=true"
-                    )
-                    for item in self.__src["filter"]["pre"]["surge"]
-                    if item[0] in set([1, 2])
-                ]
-            )
+        raw.extend(
+            [
+                (
+                    item[1]
+                    + ", tag=F"
+                    + item[3]
+                    + ", force-policy="
+                    + self.__map_node[item[2]]
+                    + ", update-interval="
+                    + str(self.__src["misc"]["interval"])
+                    + ", opt-parser=true, enabled=true"
+                )
+                for item in self.__src["filter"]["pre"]["surge"]
+                if item[0] in set([1, 2])
+            ]
+        )
 
         raw.append("\n[rewrite_local]")
         raw.append("\n[rewrite_remote]")
@@ -97,21 +96,12 @@ class dump:
         def conv(item: tuple) -> str:
             match item[0]:
                 case 1:
-                    return "host," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                case 2:
-                    return (
-                        "host-suffix," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                    )
-                case 9:
                     return "ip-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                case 10:
+                case 2:
                     return "ip6-cidr," + item[1] + "," + self.__map_node[item[2]] + "\n"
-                case 17:
+                case 9:
                     return "geoip," + item[1] + "," + self.__map_node[item[2]] + "\n"
                 case _:
                     return None
 
-        if "pre" in self.__src["filter"]:
-            out.writelines([conv(item) for item in self.__src["filter"]["misc"]])
-        else:
-            out.writelines([conv(item) for item in self.__src["filter"]["list"]])
+        out.writelines([conv(item) for item in self.__src["filter"]["misc"]])
