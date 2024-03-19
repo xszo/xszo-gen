@@ -8,4 +8,6 @@ while getopts "ai" opt; do
     pipenv install;
   fi; done;
 
-pipenv run python -c "from src import ash; ash.run();" "$@";
+pipenv run python\
+  -c "from src import ash; ash.run();"\
+  "$@";

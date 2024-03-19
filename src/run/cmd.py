@@ -7,9 +7,17 @@ from os import system
 def fmt() -> None:
     system(
         """
-    npx prettier . --write
-    python3 -m black .
-    python3 -m isort . --profile black
+    npx prettier . --write;
+    python3 -m black .;
+    python3 -m isort . --profile black;
+    """
+    )
+
+
+def ini_dev() -> None:
+    system(
+        """
+    pipenv install --dev;
     """
     )
 
@@ -20,9 +28,9 @@ def ini_git() -> None:
         """
     git submodule update --init --recursive --remote;
     if ! git worktree list | grep -q out; then
-        if [ -e out ]; then rm -rf out; fi
+        if [ -e out ]; then rm -rf out; fi;
         git worktree add out;
-        fi
+        fi;
     wait;
 
     git switch main;

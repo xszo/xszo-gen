@@ -89,5 +89,5 @@ class Mixer:
         for k1, v1 in self.res.items():
             res[k1] = {}
             for k2, v2 in v1.items():
-                res[k1][k2] = tuple(v2)
+                res[k1][k2] = tuple(sorted(v2))
         return res

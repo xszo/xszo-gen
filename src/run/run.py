@@ -6,11 +6,12 @@ from .out import copy
 # get cli args
 _arg = ArgumentParser()
 
+_arg.add_argument("-i", action="store_true", help="init repo & env")
+_arg.add_argument("-d", action="store_true", help="init also dev")
+_arg.add_argument("-g", action="store_true", help="generate out")
+_arg.add_argument("-n", action="store_true", help="clear & generate out")
+_arg.add_argument("-o", action="store_true", help="generate & push out")
 _arg.add_argument("-c", action="store_true", help="code clean")
-_arg.add_argument("-i", action="store_true", help="init git repo & init python env")
-_arg.add_argument("-g", action="store_true", help="run scripts & generate out")
-_arg.add_argument("-n", action="store_true", help="clear out & run scripts")
-_arg.add_argument("-o", action="store_true", help="push out to branch etc")
 _arg.add_argument("-a", action="store_true", help="run actions")
 
 args = _arg.parse_args()
@@ -24,6 +25,8 @@ def run(gen: callable) -> None:
 
     if args.i:
         cmd.ini_git()
+        if args.d:
+            cmd.ini_dev()
     if args.g:
         g()
     if args.n:
