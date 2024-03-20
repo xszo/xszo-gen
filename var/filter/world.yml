@@ -133,9 +133,14 @@ domain:
   # Social
   - line.me
   - line.naver.jp
+  - line-apps.com
+  - line-scdn.net
   - discord.com
   - discord.gg
+  - discordapp.com
+  - discordapp.net
   - mastodon.social
+  - bsky.app
   - signal.org
 
   # Media

@@ -1,7 +1,7 @@
 # xszo/etc
 
 Configuration at `etc` on  
-  <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>.
+  <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>
 
 [![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/xszo/etc/badge)](https://www.jsdelivr.com/package/gh/xszo/etc)
@@ -11,20 +11,20 @@ Configuration at `etc` on
 `git switch main;  ./run -i;`
 
 Code at `main` in `run` `src/` `var/` on  
-  <https://github.com/xszo/etc/tree/main>.
+  <https://github.com/xszo/etc/tree/main>
 
 Documents at `main` in `doc/` on  
-  <https://github.com/xszo/etc/wiki>.
+  <https://github.com/xszo/etc/wiki>
 
 ## External
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
-  <https://github.com/xszo/etc/wiki>
+  <https://github.com/xszo/etc.wiki>
 - out/(clash|surge)/filter-ad\*.yml  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>
-- out/(clash|surge)/filter-(world|ad|cn).yml  
+- out/(clash|surge)/filter-(ww|ad|cn).yml  
   <https://github.com/v2fly/domain-list-community>
-- out/(clash|surge)/filter-world.yml  
+- out/(clash|surge)/filter-ww.yml  
   <https://github.com/gfwlist/gfwlist>
 - out/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>

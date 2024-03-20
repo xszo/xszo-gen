@@ -6,11 +6,14 @@ domain:
   - abema-tv.com
   - abema.io
   - abematv.akamaized.net
+  - linear-abematv.akamaized.net
+  - vod-abematv.akamaized.net
 
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
   # Social
   - misskey.io
+  - misskeyusercontent.com
 
   # Media
   - pixiv.net

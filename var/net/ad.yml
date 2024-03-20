@@ -19,7 +19,7 @@ route:
     filter:
       - use: ad
   - "="
-  - id: fww
+  - id: ww
     node: { id: main }
     filter:
-      - use: fww
+      - use: ww

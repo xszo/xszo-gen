@@ -44,43 +44,43 @@ route:
     icon:
       emoji: 🚩
       sf: arrow.left.arrow.right.system
-  - id: rcn
+  - id: cn
     node:
       type: static
       name: R-CN
       list: [-main, -direct, =node]
     filter:
-      - use: rcn
+      - use: cn
     icon:
       emoji: 🚩
       sf: arrow.forward.system
-  - id: rjp
+  - id: jp
     node:
       type: static
       name: R-JP
       list: [-main, -direct, =node]
     filter:
-      - use: rjp
+      - use: jp
     icon:
       emoji: 🚩
       sf: arrow.forward.system
-  - id: rtw
+  - id: tw
     node:
       type: static
       name: R-TW
       list: [-main, -direct, =node]
     filter:
-      - use: rtw
+      - use: tw
     icon:
       emoji: 🚩
       sf: arrow.forward.system
-  - id: rus
+  - id: us
     node:
       type: static
       name: R-US
       list: [-main, -direct, =node]
     filter:
-      - use: rus
+      - use: us
     icon:
       emoji: 🚩
       sf: arrow.forward.system

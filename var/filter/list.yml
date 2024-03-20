@@ -4,14 +4,13 @@ list:
   - direct direct
   - system system
   - world world stream
-  - rcn r-cn vlccn
-  - rjp r-jp
-  - rtw r-tw
-  - rus r-us
-
+  - cn r-cn vlccn
+  - jp r-jp
+  - tw r-tw
+  - us r-us
+  - ww vlcww gfw
   - adz adguardfix
   - ad -adz adguard vlcad
-  - fww vlcww gfw
 
 # V2fly domain List Community
 # vlc{id}

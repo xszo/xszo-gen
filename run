@@ -1,13 +1,20 @@
 #!/bin/sh
 
 while getopts "ai" opt; do
-  if [ $opt = "a" ] || [ $opt = "i" ]; then
-    if ! which pipenv; then
-      pip install pipenv;
-    fi;
-    pipenv install;
-  fi; done;
+  case $opt in
+    a) OptA=true;;
+    i) OptI=true;;
+  esac; done;
 
-pipenv run python\
-  -c "from src import ash; ash.run();"\
-  "$@";
+if [ $OptA ] || [ $OptI ]; then
+  if ! which pipenv; then
+    pip install pipenv;
+  fi;
+  if [ $OptI ]; then
+    pipenv install --dev;
+  else
+    pipenv install;
+  fi;
+fi;
+
+pipenv run python src/run.py "$@";

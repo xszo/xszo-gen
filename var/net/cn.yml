@@ -23,20 +23,20 @@ route:
     filter:
       - type: main
       - use: world
-  - id: rcn
+  - id: cn
     node: { id: direct }
     filter:
-      - use: rcn
-  - id: rjp
+      - use: cn
+  - id: jp
     node: { name: JP, type: test, list: =jp }
     filter:
-      - use: rjp
-  - id: rtw
+      - use: jp
+  - id: tw
     node: { name: TW, type: test, list: =tw }
     filter:
-      - use: rtw
-  - id: rus
+      - use: tw
+  - id: us
     node: { name: US, type: test, list: =us }
     filter:
-      - use: rus
+      - use: us
 node: []

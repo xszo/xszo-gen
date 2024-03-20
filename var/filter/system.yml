@@ -6,7 +6,7 @@ domain:
 
   # Other
   - synology.com
-  - qnap.com
+  # - qnap.com
 
 ipcidr:
   - 17.0.0.0/8 # apple
