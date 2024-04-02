@@ -9,8 +9,8 @@ list:
   - tw r-tw
   - us r-us
   - ww vlcww gfw
-  - adz adguardfix
-  - ad -adz adguard vlcad
+  - adz adguardz
+  - adx -adz adguardx vlcadx
 
 # V2fly domain List Community
 # vlc{id}
@@ -18,7 +18,7 @@ vlc:
   # id list
   - cn geolocation-cn
   - ww geolocation-!cn
-  - ad category-ads
+  - adx category-ads
 
 # Parse Online list
 # {reg}
@@ -30,13 +30,13 @@ get:
     # use regular expression to convert
     reg:
       # into sublist
-      adguard:
+      adguardx:
         # match pattern, expand pattern
         - ^\=bs\\=dn\\=ed\  .\1
         - ^\=bs\\=dl\\=ed\  .\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
-      adguardfix:
+      adguardz:
         - ^@@\=bs\\=dn\\=ed\  .\1
         - ^@@\=bs\\=dl\\=ed\  .\1*
         - ^@@\=bn\\=dn\\=ed\  \1

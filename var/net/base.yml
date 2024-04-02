@@ -91,6 +91,8 @@ node:
   - { name: Node1, type: static, list: .* }
   - { name: Node2, type: static, list: .* }
   - { name: Node3, type: static, list: .* }
+  - { name: NodeS, type: test, list: .* }
+  - { name: NodeX, type: test, list: "\\[NodeX\\]$" }
   - { name: CN, type: test, list: =cn }
   - { name: DE, type: test, list: =de }
   - { name: GB, type: test, list: =gb }
@@ -100,7 +102,6 @@ node:
   - { name: SG, type: test, list: =sg }
   - { name: TW, type: test, list: =tw }
   - { name: US, type: test, list: =us }
-  - { name: Node, type: test, list: .* }
   - name: N-JMS
     type: test
     list: ^JMS-\d+@c\d+s\d\d?\.\w+\.[a-z]+:\d+$

@@ -14,10 +14,10 @@ route:
     node: { id: main }
     filter:
       - use: adz
-  - id: ad
+  - id: adx
     node: { id: reject }
     filter:
-      - use: ad
+      - use: adx
   - "="
   - id: ww
     node: { id: main }

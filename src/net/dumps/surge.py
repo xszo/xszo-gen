@@ -60,7 +60,7 @@ class dump:
             if item["type"] == "static":
                 line += " = select"
             elif item["type"] == "test":
-                line += " = url-test, hidden=true"
+                line += " = url-test"
             else:
                 return None
             if "list" in item:
