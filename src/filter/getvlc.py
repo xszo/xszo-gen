@@ -50,6 +50,7 @@ class GetVlc:
                     # comment
                     if re.match(self.__rex_com, item):
                         continue
+                    item = item.lower()
                     # include
                     if line := re.match(self.__rex_incl[0], item):
                         tmp.extend(self.__incl(line.expand(self.__rex_incl[1])))

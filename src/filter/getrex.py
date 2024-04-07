@@ -51,6 +51,7 @@ class GetRex:
             for item in raw.splitlines():
                 if re.match(self.__rex_com, item):
                     continue
+                item = item.lower()
                 for pat in rex:
                     # find 1 and rewrite 2
                     if line := re.match(pat[0], item):

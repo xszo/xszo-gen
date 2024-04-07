@@ -1,9 +1,12 @@
 cn: (?<![A-Za-z])(CH?N|Chin(a|ese)|Shanghai)(?![A-Za-z])|中(國|国|\b|[\W\dA-Za-z])
 de: (?<![A-Za-z])(DEU?|Deutsch(land)?|Germany?|Berlin)(?![A-Za-z])|德(國|国|\b|[\W\dA-Za-z])
+fr: (?<![A-Za-z])(FRA?|Fr(ance|ench)|Paris)(?![A-Za-z])|法(國|国|\b|[\W\dA-Za-z])
 gb: (?<![A-Za-z\d]|\d\s)(GBR?|Brit(ain|ish)|UK|United\s?Kingdom|London)(?![A-Za-z])|英(國|国|\b|[\W\dA-Za-z])
 hk: (?<![A-Za-z])(HKG?|Hong\s?Kong)(?![A-Za-z])|(香?港)(\b|[\W\dA-Za-z])
-jp: (?<![A-Za-z])(JPN?|Japan(ese)?|Tokyo|Osaka)(?![A-Za-z])|(?<!尼)日(本|\b|[\W\dA-Za-z])
+jp: (?<![A-Za-z])(JPN?|Japan(ese)?|Tokyo|Osaka)(?![A-Za-z])|(?<!尼)日(本國?|\b|[\W\dA-Za-z])
 kr: (?<![A-Za-z])(KO?R|Korean?|Seoul)(?![A-Za-z])|(韓|韩)(國|国|\b|[\W\dA-Za-z])
 sg: (?<![A-Za-z])(SGP?|Singapore)(?![A-Za-z])|新(加坡|\b|[\W\dA-Za-z])
 tw: (?<![A-Za-z])(TWN?|Taiwan(ese)?|Taipei)(?![A-Za-z])|台(灣|湾|\b|[\W\dA-Za-z])
 us: (?<![A-Za-z])(USA?|United\s?States|American?|LA)(?![A-Za-z])|美(國|国|\b|[\W\dA-Za-z])
+
+njms: \bJMS-\d+@c\d+s\d\d?\.\w+\.[a-z]+:\d+\b

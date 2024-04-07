@@ -31,7 +31,7 @@ route:
     filter:
       - use: system
     icon:
-      emoji: 🚩
+      emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
   - id: main
     node:
@@ -42,7 +42,7 @@ route:
       - type: main
       - use: world
     icon:
-      emoji: 🚩
+      emoji: 🏳️‍🌈
       sf: arrow.left.arrow.right.system
   - id: cn
     node:
@@ -52,7 +52,7 @@ route:
     filter:
       - use: cn
     icon:
-      emoji: 🚩
+      emoji: 🏳️‍🌈
       sf: arrow.forward.system
   - id: jp
     node:
@@ -62,7 +62,7 @@ route:
     filter:
       - use: jp
     icon:
-      emoji: 🚩
+      emoji: 🏳️‍🌈
       sf: arrow.forward.system
   - id: tw
     node:
@@ -72,7 +72,7 @@ route:
     filter:
       - use: tw
     icon:
-      emoji: 🚩
+      emoji: 🏳️‍🌈
       sf: arrow.forward.system
   - id: us
     node:
@@ -82,7 +82,7 @@ route:
     filter:
       - use: us
     icon:
-      emoji: 🚩
+      emoji: 🏳️‍🌈
       sf: arrow.forward.system
 node:
   # type, static manual set dest, test set based on lag test
@@ -91,10 +91,11 @@ node:
   - { name: Node1, type: static, list: .* }
   - { name: Node2, type: static, list: .* }
   - { name: Node3, type: static, list: .* }
+  - { name: NodeX, type: test, list: "\\[X\\]$" }
   - { name: NodeS, type: test, list: .* }
-  - { name: NodeX, type: test, list: "\\[NodeX\\]$" }
   - { name: CN, type: test, list: =cn }
   - { name: DE, type: test, list: =de }
+  - { name: FR, type: test, list: =fr }
   - { name: GB, type: test, list: =gb }
   - { name: HK, type: test, list: =hk }
   - { name: JP, type: test, list: =jp }
@@ -102,6 +103,3 @@ node:
   - { name: SG, type: test, list: =sg }
   - { name: TW, type: test, list: =tw }
   - { name: US, type: test, list: =us }
-  - name: N-JMS
-    type: test
-    list: ^JMS-\d+@c\d+s\d\d?\.\w+\.[a-z]+:\d+$
