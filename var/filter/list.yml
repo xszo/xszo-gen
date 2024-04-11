@@ -3,7 +3,7 @@ list:
   # id, list below
   - direct direct
   - system system
-  - world world stream
+  - world global stream
   - cn r-cn vlccn
   - jp r-jp
   - tw r-tw

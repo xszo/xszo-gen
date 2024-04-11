@@ -32,7 +32,7 @@ class dump:
             "\n",
             "[General]",
             "loglevel = warning",
-            # "ipv6 = true",
+            "ipv6 = true",
             # "ipv6-vif = auto",
             "udp-priority = true",
             "udp-policy-not-supported-behaviour = REJECT",
@@ -50,7 +50,7 @@ class dump:
                 line += item + ", "
             raw.extend(["hijack-dns = *:53", line[:-2]])
         if "doh" in self.__src["misc"]:
-            # raw.append("encrypted-dns-follow-outbound-mode = true")
+            raw.append("encrypted-dns-follow-outbound-mode = true")
             raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
 
         raw.append("\n[Proxy Group]")
