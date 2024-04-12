@@ -20,11 +20,11 @@ Documents at `main` in `doc/` on
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
   <https://github.com/xszo/etc.wiki>
-- out/(clash|surge)/filter-ad\*.yml  
+- out/(surge|clash)/filter-ad\*.txt  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>
-- out/(clash|surge)/filter-(ww|ad|cn).yml  
+- out/(surge|clash)/filter-(ad\*|ww|cn).txt  
   <https://github.com/v2fly/domain-list-community>
-- out/(clash|surge)/filter-ww.yml  
+- out/(surge|clash)/filter-ww.txt  
   <https://github.com/gfwlist/gfwlist>
 - out/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>

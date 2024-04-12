@@ -65,7 +65,7 @@ class Mixer:
             if len(unit := unit.split(" ")) < 2:
                 continue
 
-            tmp = unit[0]
+            name = unit[0]
             tmp_excl = []
 
             for item in unit[1:]:
@@ -74,15 +74,17 @@ class Mixer:
                 else:
                     for k in keys:
                         if item in self.__raw[k]:
-                            if tmp in self.res[k]:
-                                self.res[k][tmp].update(self.__raw[k][item])
+                            if name in self.res[k]:
+                                self.res[k][name].update(self.__raw[k][item])
                             else:
-                                self.res[k][tmp] = self.__raw[k][item]
+                                self.res[k][name] = self.__raw[k][item]
+
+            self.res["domain"][name] = self.__mini_domain(self.res["domain"][name])
 
             for item in tmp_excl:
                 for k in keys:
                     if item in self.__raw[k]:
-                        self.res[k][tmp].difference(self.__raw[k][item])
+                        self.res[k][name].difference(self.__raw[k][item])
 
     def get(self) -> dict:
         res = {}
@@ -90,4 +92,15 @@ class Mixer:
             res[k1] = {}
             for k2, v2 in v1.items():
                 res[k1][k2] = tuple(sorted(v2))
+        return res
+
+    def __mini_domain(self, raw: set | list) -> set:
+        res = set()
+        for i in range(1, 5):
+            suffix = set(x for x in raw if x[0] == "." and x.count(".") == i)
+            res.update(suffix)
+            raw = set(
+                x for x in raw if not ("." + ".".join(x.split(".")[-i:])) in suffix
+            )
+        res.update(raw)
         return res

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while getopts "ai" opt; do
+while getopts "acghino" opt; do
   case $opt in
     a) OptA=true;;
     i) OptI=true;;
