@@ -7,18 +7,22 @@ domain:
   - abema.io
   - abematv.akamaized.net
   - linear-abematv.akamaized.net
+  - ds-linear-abematv.akamaized.net
   - vod-abematv.akamaized.net
+  - ds-vod-abematv.akamaized.net
+  - chesterstream.akamaized.net
 
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
   # Social
   - misskey.io
-  - misskeyusercontent.com
+  # - misskeyusercontent.com
 
   # Media
   - pixiv.net
   - pximg.net
   - fanbox.cc
+  - booth.pm
   - dmm.com
   - dmm-extension.com
   - dlsite.com

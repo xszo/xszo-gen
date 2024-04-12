@@ -13,10 +13,10 @@ misc:
     - "[2400:3200:baba::1]"
   doh: https://dns.alidns.com/dns-query
 route:
-  - id: direct
+  - id: specfi
     node: { id: direct }
     filter:
-      - use: direct
+      - use: specfi
       - use: system
   - id: main
     node: { name: Node, type: test, list: .* }

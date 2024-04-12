@@ -17,12 +17,12 @@ misc:
   doh: https://cloudflare-dns.com/dns-query
 # routing info
 route:
-  - id: direct
+  - id: specfi
     # user selector
     node: { id: direct }
     # package filter
     filter:
-      - use: direct
+      - use: specfi
   - id: system
     node:
       type: static

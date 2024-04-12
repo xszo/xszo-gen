@@ -2,8 +2,8 @@ base: base.yml
 # profile list
 list:
   - profile.yml
-  - cn.yml
   - ad.yml
+  - cn.yml
 # data for proxy section
 proxy:
   - ""
