@@ -1,8 +1,6 @@
 from argparse import ArgumentParser
 from os import system
 
-from .out import copy
-
 # get cli args
 _arg = ArgumentParser()
 
@@ -23,10 +21,7 @@ def run(gen: callable) -> None:
         system(
             """
         git submodule update --init --recursive --remote;
-        if ! git worktree list | grep -q out; then
-            if [ -e out ]; then rm -rf out; fi;
-            git worktree add out;
-            fi;
+        git clone https://github.com/xszo/etc out;
         wait;
         git switch main;
         cd doc;
@@ -42,16 +37,15 @@ def run(gen: callable) -> None:
             """
         cd out;
         git switch -f etc;
-        rm -rf *;
+        rm -rf network surge clash;
         cd ..;
         """
         )
     # generate
     if arg.a or arg.g or arg.n or arg.o:
         gen()
-        copy()
     # push out to branch
-    if arg.a or arg.o:
+    if arg.o:
         system(
             """
         cd out;

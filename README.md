@@ -1,6 +1,6 @@
-# xszo/etc
+# xszo/xszo-gen
 
-Configuration at `etc` on  
+Configuration at `xszo/etc` on  
   <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>
 
 [![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
@@ -11,24 +11,24 @@ Configuration at `etc` on
 `git switch main;  ./run -i;`
 
 Code at `main` in `run` `src/` `var/` on  
-  <https://github.com/xszo/etc/tree/main>
+  <https://github.com/xszo/xszo-gen/tree/main>
 
 Documents at `main` in `doc/` on  
-  <https://github.com/xszo/etc/wiki>
+  <https://github.com/xszo/xszo-gen/wiki>
 
 ## External
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
-  <https://github.com/xszo/etc.wiki>
-- out/(surge|clash)/filter-ad\*.txt  
+  <https://github.com/xszo/xszo-gen.wiki>
+- ~/(surge|clash)/filter-ad\*.txt  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>
-- out/(surge|clash)/filter-(ad\*|ww|cn).txt  
+- ~/(surge|clash)/filter-(ad\*|ww|cn).txt  
   <https://github.com/v2fly/domain-list-community>
-- out/(surge|clash)/filter-ww.txt  
+- ~/(surge|clash)/filter-ww.txt  
   <https://github.com/gfwlist/gfwlist>
-- out/network/quantumult-parser.js  
+- ~/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>
-- out/network/loon-parser.js  
+- ~/network/loon-parser.js  
   <https://github.com/sub-store-org/Sub-Store>
 
 ## LICENSE
