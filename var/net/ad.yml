@@ -19,7 +19,7 @@ route:
     filter:
       - use: adx
   - "="
-  - id: ww
+  - id: wall
     node: { id: main }
     filter:
-      - use: ww
+      - use: wall

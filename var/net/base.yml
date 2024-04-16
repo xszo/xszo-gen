@@ -40,7 +40,7 @@ route:
       list: [-direct, -reject, =node]
     filter:
       - type: main
-      - use: world
+      - use: ww
     icon:
       emoji: 🏳️‍🌈
       sf: arrow.left.arrow.right.system

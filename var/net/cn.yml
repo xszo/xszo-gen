@@ -19,10 +19,10 @@ route:
       - use: specfi
       - use: system
   - id: main
-    node: { name: Node, type: test, list: .* }
+    node: { name: Node, type: test, list: . }
     filter:
       - type: main
-      - use: world
+      - use: ww
   - id: cn
     node: { id: direct }
     filter:

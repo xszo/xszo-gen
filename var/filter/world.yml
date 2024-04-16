@@ -18,6 +18,7 @@ domain:
   - googletagmanager.com
 
   - google-analytics.com
+  - crashlytics.com
   - googlesyndication.com
   - app-measurement.com # firebase
   - doubleclick.net

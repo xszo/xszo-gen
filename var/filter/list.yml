@@ -3,12 +3,12 @@ list:
   # id, list below
   - specfi specfi
   - system system
-  - world world media
+  - ww world media
   - cn r-cn vlccn
   - jp r-jp
   - tw r-tw
   - us r-us
-  - ww vlcww gfw
+  - wall vlcww gfw
   - adz adguardz
   - adx -adz adguardx vlcadx
 

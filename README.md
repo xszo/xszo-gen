@@ -1,6 +1,6 @@
 # xszo/xszo-gen
 
-Configuration at `xszo/etc` on  
+Release at [`xszo/etc`](https://github.com/xszo/etc) on  
   <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>
 
 [![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
@@ -20,15 +20,15 @@ Documents at `main` in `doc/` on
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
   <https://github.com/xszo/xszo-gen.wiki>
-- ~/(surge|clash)/filter-ad\*.txt  
+- #/(surge|clash)/filter-ad\*.txt  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>
-- ~/(surge|clash)/filter-(ad\*|ww|cn).txt  
+- #/(surge|clash)/filter-(ad\*|wall|cn).txt  
   <https://github.com/v2fly/domain-list-community>
-- ~/(surge|clash)/filter-ww.txt  
+- #/(surge|clash)/filter-wall.txt  
   <https://github.com/gfwlist/gfwlist>
-- ~/network/quantumult-parser.js  
+- #/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>
-- ~/network/loon-parser.js  
+- #/network/loon-parser.js  
   <https://github.com/sub-store-org/Sub-Store>
 
 ## LICENSE
