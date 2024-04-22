@@ -8,7 +8,6 @@ _arg.add_argument("-a", action="store_true", help="run actions")
 _arg.add_argument("-i", action="store_true", help="init repo & env")
 _arg.add_argument("-g", action="store_true", help="generate out")
 _arg.add_argument("-n", action="store_true", help="clear & generate out")
-_arg.add_argument("-o", action="store_true", help="generate & push out")
 _arg.add_argument("-c", action="store_true", help="code clean")
 
 arg = _arg.parse_args()
@@ -32,7 +31,7 @@ def run(gen: callable) -> None:
         """
         )
     # clear out dir
-    if arg.n or arg.o:
+    if arg.n:
         system(
             """
         cd out;
@@ -42,20 +41,8 @@ def run(gen: callable) -> None:
         """
         )
     # generate
-    if arg.a or arg.g or arg.n or arg.o:
+    if arg.a or arg.g or arg.n:
         gen()
-    # push out to branch
-    if arg.o:
-        system(
-            """
-        cd out;
-        git switch etc;
-        git add -A;
-        git commit --amend --reset-author -qm run;
-        git push -qf;
-        cd ..;
-        """
-        )
 
     if arg.c:
         system(

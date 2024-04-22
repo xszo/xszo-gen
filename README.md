@@ -3,8 +3,8 @@
 Release at [`xszo/etc`](https://github.com/xszo/etc) on  
   <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>
 
-[![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/xszo/etc/badge)](https://www.jsdelivr.com/package/gh/xszo/etc)
+[![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
 
 ## About
 

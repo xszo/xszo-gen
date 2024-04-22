@@ -1,0 +1,17 @@
+[tool.poetry]
+package-mode = false
+readme = "README.md"
+license = "GPL-3.0-or-later"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+PyYAML = "^6.0.1"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+black = "^24.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

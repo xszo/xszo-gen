@@ -1,20 +1,16 @@
 #!/bin/sh
 
-while getopts "acghino" opt; do
+while getopts "acghin" opt; do
   case $opt in
     a) OptA=true;;
     i) OptI=true;;
   esac; done;
 
 if [ $OptA ] || [ $OptI ]; then
-  if ! which pipenv; then
-    pip install pipenv;
+  if ! which poetry; then
+    pip install poetry;
   fi;
-  if [ $OptI ]; then
-    pipenv install --dev;
-  else
-    pipenv install;
-  fi;
+  poetry install --sync;
 fi;
 
-pipenv run python src/run.py "$@";
+poetry run python src/run.py "$@";
