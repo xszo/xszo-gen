@@ -5,9 +5,9 @@ from os import system
 _arg = ArgumentParser()
 
 _arg.add_argument("-a", action="store_true", help="run actions")
-_arg.add_argument("-i", action="store_true", help="init repo & env")
-_arg.add_argument("-g", action="store_true", help="generate out")
-_arg.add_argument("-n", action="store_true", help="clear & generate out")
+_arg.add_argument("-i", action="store_true", help="initialize")
+_arg.add_argument("-g", action="store_true", help="generate")
+
 _arg.add_argument("-c", action="store_true", help="code clean")
 
 arg = _arg.parse_args()
@@ -19,36 +19,27 @@ def run(gen: callable) -> None:
     if arg.i:
         system(
             """
-        git submodule update --init --recursive --remote;
-        git clone https://github.com/xszo/etc out;
-        wait;
-        git switch main;
-        cd doc;
-        git switch master;
-        cd ../out;
-        git switch etc;
-        cd ..;
-        """
-        )
-    # clear out dir
-    if arg.n:
-        system(
-            """
-        cd out;
-        git switch -f etc;
-        rm -rf network surge clash;
-        cd ..;
-        """
+git submodule update --init --recursive --remote;
+git clone https://github.com/xszo/etc out;
+wait;
+git switch main;
+cd doc;
+git switch master;
+cd ../out;
+git switch -f etc;
+git pull -r;
+cd ..;
+"""
         )
     # generate
-    if arg.a or arg.g or arg.n:
+    if arg.a or arg.g:
         gen()
 
     if arg.c:
         system(
             """
-        npx prettier . --write;
-        python3 -m black .;
-        python3 -m isort . --profile black;
-        """
+npx prettier . --write;
+python -m black .;
+python -m isort . --profile black;
+"""
         )

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while getopts "acghin" opt; do
+while getopts "ai" opt; do
   case $opt in
     a) OptA=true;;
     i) OptI=true;;
@@ -8,7 +8,7 @@ while getopts "acghin" opt; do
 
 if [ $OptA ] || [ $OptI ]; then
   if ! which poetry; then
-    pip install poetry;
+    pipx install poetry;
   fi;
   poetry install --sync;
 fi;

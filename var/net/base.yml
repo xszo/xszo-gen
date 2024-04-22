@@ -87,12 +87,12 @@ route:
 node:
   # type, static manual set dest, test set based on lag test
   # list, include proxy, = ref pattern.region
-  - { name: Node0, type: static, list: .* }
-  - { name: Node1, type: static, list: .* }
-  - { name: Node2, type: static, list: .* }
-  - { name: Node3, type: static, list: .* }
+  - { name: Node0, type: static, list: "." }
+  - { name: Node1, type: static, list: "." }
+  - { name: Node2, type: static, list: "." }
+  - { name: Node3, type: static, list: "." }
   - { name: NodeX, type: test, list: "\\[X\\]$" }
-  - { name: NodeS, type: test, list: .* }
+  - { name: NodeS, type: test, list: "." }
   - { name: CN, type: test, list: =cn }
   - { name: DE, type: test, list: =de }
   - { name: FR, type: test, list: =fr }

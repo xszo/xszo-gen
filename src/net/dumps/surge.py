@@ -32,6 +32,7 @@ class dump:
             "\n",
             "[General]",
             "loglevel = warning",
+            "auto-suspend = true",
             "ipv6 = true",
             # "ipv6-vif = auto",
             "udp-priority = true",
