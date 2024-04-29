@@ -39,7 +39,7 @@ class dump:
             "udp-policy-not-supported-behaviour = REJECT",
             "allow-wifi-access = false",
             "exclude-simple-hostnames = true",
-            "show-error-page-for-reject = true",
+            "show-error-page-for-reject = false",
             "internet-test-url = " + self.__src["misc"]["test"],
             "proxy-test-url = " + self.__src["misc"]["test"],
             "proxy-test-udp = " + self.__src["misc"]["t-dns"],
@@ -51,8 +51,12 @@ class dump:
                 line += item + ", "
             raw.extend(["hijack-dns = *:53", line[:-2]])
         if "doh" in self.__src["misc"]:
-            raw.append("encrypted-dns-follow-outbound-mode = true")
-            raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
+            raw.extend(
+                [
+                    "encrypted-dns-follow-outbound-mode = true",
+                    "encrypted-dns-server = " + self.__src["misc"]["doh"],
+                ]
+            )
 
         raw.append("\n[Proxy Group]")
 
@@ -61,7 +65,7 @@ class dump:
             if item["type"] == "static":
                 line += " = select"
             elif item["type"] == "test":
-                line += " = url-test"
+                line += " = smart"
             else:
                 return None
             if "list" in item:
