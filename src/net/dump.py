@@ -54,17 +54,9 @@ class Dump:
             dp.profile(
                 out,
                 {
-                    "filter": ren.URI_NET + "quantumult-filter" + alia + ".txt",
                     "parse": ren.URI_NET + "quantumult-parser.js",
                 },
             )
-
-        with open(
-            ren.PATH_OUT / ("quantumult-filter" + alia + ".txt"),
-            "tw",
-            encoding="utf-8",
-        ) as out:
-            dp.filter(out)
 
         if not "qp" in self.__tmp_set:
             self.__tmp_set.add("qp")

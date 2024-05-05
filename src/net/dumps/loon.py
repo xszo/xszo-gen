@@ -56,19 +56,6 @@ class dump:
             raw.append(line)
 
         raw.append("\n[Rule]")
-
-        def conv_f(item: tuple) -> str:
-            match item[0]:
-                case 1:
-                    return "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
-                case 2:
-                    return "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
-                case 9:
-                    return "GEOIP," + item[1] + "," + self.__map_node[item[2]]
-                case _:
-                    return None
-
-        raw.extend([conv_f(item) for item in self.__src["filter"]["misc"]])
         raw.append("FINAL, " + self.__map_node[self.__src["filter"]["main"]])
 
         raw.append("\n[Remote Proxy]")
@@ -96,14 +83,26 @@ class dump:
         raw.extend(
             [
                 (
-                    item[1]
-                    + ", tag="
-                    + item[3]
+                    item[2]
+                    + ", tag=DN"
+                    + item[1]
                     + ", policy="
-                    + self.__map_node[item[2]]
+                    + self.__map_node[item[3]]
                     + ", parser-enabled=true, enabled=true"
                 )
-                for item in self.__src["filter"]["pre"]["surge"]
+                for item in self.__src["filter"]["dn"]["surge"]
+                if item[0] in set([1, 2])
+            ]
+            + [
+                (
+                    item[2]
+                    + ", tag=IP"
+                    + item[1]
+                    + ", policy="
+                    + self.__map_node[item[3]]
+                    + ", parser-enabled=true, enabled=true"
+                )
+                for item in self.__src["filter"]["ip"]["surge"]
                 if item[0] in set([1, 2])
             ]
         )

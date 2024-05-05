@@ -4,7 +4,7 @@ from . import ren
 
 
 class GetVar:
-    res = {"domain": {}, "ip4": {}, "ip6": {}, "ipgeo": {}}
+    res = {"domain": {}, "ip4": {}, "ip6": {}, "ipasn": {}, "ipgeo": {}}
 
     def get(self) -> dict:
         for ls in ren.PATH_VAR.iterdir():
@@ -40,6 +40,9 @@ class GetVar:
 
             if "ipgeo" in raw:
                 self.res["ipgeo"][loc] = [item.upper() for item in raw["ipgeo"]]
+
+            if "ipasn" in raw:
+                self.res["ipasn"][loc] = [str(item) for item in raw["ipasn"]]
 
         return self.res
 

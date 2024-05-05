@@ -145,14 +145,8 @@ class Load:
         with open(ren.PATH_TMP_FILTER_LIST, "tr", encoding="utf-8") as file:
             ref = yaml.safe_load(file)
 
-        with open(ren.PATH_TMP_FILTER / ref["ipcidr"], "tr", encoding="utf-8") as file:
-            ipcidr = yaml.safe_load(file)
-        with open(ren.PATH_TMP_FILTER / ref["misc"], "tr", encoding="utf-8") as file:
-            misc = yaml.safe_load(file)
-
-        tmp_domain = {"surge": [], "clash": []}
-        tmp_ipcidr = []
-        tmp_misc = []
+        tmp_dn = {"surge": [], "clash": []}
+        tmp_ip = {"surge": [], "clash": []}
 
         for item in self.res["filter"]:
             if item["type"] == "main":
@@ -160,48 +154,46 @@ class Load:
 
             elif item["type"] == "use":
                 loc = item["use"]
-                if loc in ref["list"]["domain"]:
-                    tmp_domain["surge"].append(
+                if loc in ref["list"]["dn"]:
+                    tmp_dn["surge"].append(
                         (
                             1,
-                            ren.URI + ref["domain"]["surge-" + loc],
-                            item["node"],
                             loc,
+                            ren.URI + ref["dn"]["surge-" + loc],
+                            item["node"],
                         )
                     )
-                    tmp_domain["clash"].append(
+                    tmp_dn["clash"].append(
                         (
                             1,
-                            ren.URI + ref["domain"]["clash-" + loc],
-                            item["node"],
                             loc,
+                            ren.URI + ref["dn"]["clash-" + loc],
+                            item["node"],
                         )
                     )
-                if loc in ref["list"]["ipcidr"]:
-                    tmp_ipcidr.extend((x[0], x[1], item["node"]) for x in ipcidr[loc])
-                if loc in misc:
-                    if "ipgeo" in misc[loc]:
-                        tmp_misc.extend(
-                            [(9, x, item["node"]) for x in misc[loc]["ipgeo"]]
+                if loc in ref["list"]["ip"]:
+                    tmp_ip["surge"].append(
+                        (
+                            1,
+                            loc,
+                            ren.URI + ref["ip"]["surge-" + loc],
+                            item["node"],
                         )
+                    )
+                    tmp_ip["clash"].append(
+                        (
+                            1,
+                            loc,
+                            ren.URI + ref["ip"]["clash-" + loc],
+                            item["node"],
+                        )
+                    )
 
             elif item["type"] == "link":
-                tmp_domain["surge"].append((2, item["link"], item["node"], item["id"]))
-                tmp_domain["clash"].append((2, item["link"], item["node"], item["id"]))
+                tmp_dn["surge"].append((2, item["id"], item["link"], item["node"]))
+                tmp_dn["clash"].append((2, item["id"], item["link"], item["node"]))
 
-        res = {"pre": tmp_domain, "misc": [], "main": tmp_main}
-        res["misc"].extend(
-            sorted(
-                sorted(
-                    sorted(tmp_ipcidr, key=lambda v: v[1]),
-                    key=lambda v: int((v[1].split("/"))[-1]),
-                    reverse=True,
-                ),
-                key=lambda v: v[0],
-            )
-        )
-        res["misc"].extend(tmp_misc)
-
+        res = {"dn": tmp_dn, "ip": tmp_ip, "main": tmp_main}
         self.res["filter"] = res
 
     def __load_proxy(self) -> None:

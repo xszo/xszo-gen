@@ -38,24 +38,17 @@ class dump:
 
         raw.append("\n[Rule]")
 
-        def conv_f(item: tuple) -> str:
-            match item[0]:
-                case 1:
-                    return "IP-CIDR," + item[1] + "," + self.__map_node[item[2]]
-                case 2:
-                    return "IP-CIDR6," + item[1] + "," + self.__map_node[item[2]]
-                case 9:
-                    return "GEOIP," + item[1] + "," + self.__map_node[item[2]]
-                case _:
-                    return None
-
         raw.extend(
             [
-                "DOMAIN-SET, " + item[1] + ", " + self.__map_node[item[2]]
-                for item in self.__src["filter"]["pre"]["surge"]
+                "DOMAIN-SET, " + item[2] + ", " + self.__map_node[item[3]]
+                for item in self.__src["filter"]["dn"]["surge"]
                 if item[0] in set([1, 2])
             ]
-            + [conv_f(item) for item in self.__src["filter"]["misc"]]
+            + [
+                "RULE-SET, " + item[2] + ", " + self.__map_node[item[3]]
+                for item in self.__src["filter"]["ip"]["surge"]
+                if item[0] == 1
+            ]
         )
         raw.append("FINAL, " + self.__map_node[self.__src["filter"]["main"]])
 

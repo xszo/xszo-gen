@@ -10,22 +10,23 @@ class Dump:
         (ren.PATH_OUT / "surge").mkdir(parents=True, exist_ok=True)
         (ren.PATH_OUT / "clash").mkdir(parents=True, exist_ok=True)
 
-    def __ref(self) -> None:
-        keys = tuple(self.__raw["domain"].keys())
+    def __ref(self, als: dict) -> None:
         ref = {
             "list": {
-                "domain": keys,
-                "ipcidr": tuple(
-                    set(list(self.__raw["ip4"].keys()) + list(self.__raw["ip6"].keys()))
-                ),
+                "dn": als["domain"],
+                "ip": als["ip"],
             },
-            "domain": {},
-            "ipcidr": "ipcidr.yml",
-            "misc": "misc.yml",
+            "dn": {},
+            "ip": {},
+            "misc": {},
         }
-        for k in keys:
-            ref["domain"]["surge-" + k] = "surge/filter-" + k + ".txt"
-            ref["domain"]["clash-" + k] = "clash/filter-" + k + ".yml"
+
+        for k in ref["list"]["dn"]:
+            ref["dn"]["surge-" + k] = "surge/filter-dn+" + k + ".txt"
+            ref["dn"]["clash-" + k] = "clash/filter-dn+" + k + ".yml"
+        for k in ref["list"]["ip"]:
+            ref["ip"]["surge-" + k] = "surge/filter-ip+" + k + ".txt"
+            ref["ip"]["clash-" + k] = "clash/filter-ip+" + k + ".yml"
 
         with open(ren.PATH_TMP / "list.yml", "tw", encoding="utf-8") as file:
             yaml.safe_dump(ref, file)
@@ -34,7 +35,7 @@ class Dump:
         for key, val in self.__raw["domain"].items():
             # dump clash
             with open(
-                ren.PATH_OUT / "clash" / ("filter-" + key + ".yml"),
+                ren.PATH_OUT / "clash" / ("filter-dn+" + key + ".yml"),
                 "tw",
                 encoding="utf-8",
             ) as file:
@@ -43,37 +44,53 @@ class Dump:
                 )
             # dump surge
             with open(
-                ren.PATH_OUT / "surge" / ("filter-" + key + ".txt"),
+                ren.PATH_OUT / "surge" / ("filter-dn+" + key + ".txt"),
                 "tw",
                 encoding="utf-8",
             ) as file:
                 file.writelines([x + "\n" for x in val])
 
-    def __ipcidr(self) -> None:
+        return self.__raw["domain"].keys()
+
+    def __ip(self) -> None:
+        types = ["ip4", "ip6", "ipasn", "ipgeo"]
+
         raw = {}
-        for key, val in self.__raw["ip4"].items():
-            raw[key] = [(1, item) for item in val]
-        for key, val in self.__raw["ip6"].items():
-            if not key in raw:
-                raw[key] = []
-            raw[key].extend([(2, item) for item in val])
+        for key in types:
+            for k, v in self.__raw[key].items():
+                if not k in raw:
+                    raw[k] = {}
+                raw[k][key] = v
 
-        with open(ren.PATH_TMP / "ipcidr.yml", "tw", encoding="utf-8") as file:
-            yaml.safe_dump(raw, file)
+        for key, val in raw.items():
+            line = []
+            if "ip4" in val:
+                line.extend(["IP-CIDR," + x for x in val["ip4"]])
+            if "ip6" in val:
+                line.extend(["IP-CIDR6," + x for x in val["ip6"]])
+            if "ipasn" in val:
+                line.extend(["IP-ASN," + x for x in val["ipasn"]])
+            if "ipgeo" in val:
+                line.extend(["GEOIP," + x for x in val["ipgeo"]])
 
-    def __misc(self) -> None:
-        raw = {}
-        for key, val in self.__raw["ipgeo"].items():
-            raw[key] = {}
-            raw[key]["ipgeo"] = val
+            with open(
+                ren.PATH_OUT / "surge" / ("filter-ip+" + key + ".txt"),
+                "tw",
+                encoding="utf-8",
+            ) as file:
+                file.writelines([x + "\n" for x in line])
+            with open(
+                ren.PATH_OUT / "clash" / ("filter-ip+" + key + ".yml"),
+                "tw",
+                encoding="utf-8",
+            ) as file:
+                yaml.safe_dump(
+                    {"payload": line},
+                    file,
+                )
 
-        with open(ren.PATH_TMP / "misc.yml", "tw", encoding="utf-8") as file:
-            yaml.safe_dump(raw, file)
+        return raw.keys()
 
     def dump(self, araw: dict) -> None:
         self.__raw = araw
-
-        self.__ref()
-        self.__domain()
-        self.__ipcidr()
-        self.__misc()
+        self.__ref({"domain": tuple(self.__domain()), "ip": tuple(self.__ip())})

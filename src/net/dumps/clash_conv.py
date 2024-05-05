@@ -59,33 +59,35 @@ class dump:
         else:
             raw["dns"]["nameserver"] = deepcopy(raw["dns"]["default-nameserver"])
 
-        def conv_f(x: tuple) -> str:
-            match x[0]:
-                case 1:
-                    return "IP-CIDR," + x[1] + "," + self.__map_node[x[2]]
-                case 2:
-                    return "IP-CIDR6," + x[1] + "," + self.__map_node[x[2]]
-                case 9:
-                    return "GEOIP," + x[1] + "," + self.__map_node[x[2]]
-                case _:
-                    return None
-
         raw["rules"] = [
-            "RULE-SET, " + x[3] + ", " + self.__map_node[x[2]]
-            for x in self.__src["filter"]["pre"]["clash"]
+            "RULE-SET, dn" + x[1] + ", " + self.__map_node[x[3]]
+            for x in self.__src["filter"]["dn"]["clash"]
             if x[0] in set([1, 2])
-        ] + [conv_f(item) for item in self.__src["filter"]["misc"]]
+        ] + [
+            "RULE-SET, ip" + x[1] + ", " + self.__map_node[x[3]]
+            for x in self.__src["filter"]["ip"]["clash"]
+            if x[0] == 1
+        ]
         raw["rules"].append("MATCH, " + self.__map_node[self.__src["filter"]["main"]])
 
         raw["rule-providers"] = {}
-        for item in self.__src["filter"]["pre"]["clash"]:
+        for item in self.__src["filter"]["dn"]["clash"]:
             if item[0] in set([1, 2]):
-                raw["rule-providers"][item[3]] = {
+                raw["rule-providers"]["dn" + item[1]] = {
                     "behavior": "domain",
                     "type": "http",
                     "interval": self.__src["misc"]["interval"],
-                    "url": item[1],
-                    "path": "./filter/" + item[3] + ".yml",
+                    "url": item[2],
+                    "path": "./filter/dn" + item[1] + ".yml",
+                }
+        for item in self.__src["filter"]["ip"]["clash"]:
+            if item[0] == 1:
+                raw["rule-providers"]["ip" + item[1]] = {
+                    "behavior": "classical",
+                    "type": "http",
+                    "interval": self.__src["misc"]["interval"],
+                    "url": item[2],
+                    "path": "./filter/ip" + item[3] + ".yml",
                 }
 
         yaml.safe_dump(raw, out)
