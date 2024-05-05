@@ -103,7 +103,7 @@ class dump:
                     + ", parser-enabled=true, enabled=true"
                 )
                 for item in self.__src["filter"]["ip"]["surge"]
-                if item[0] in set([1, 2])
+                if item[0] == 1
             ]
         )
 

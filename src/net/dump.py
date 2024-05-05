@@ -3,7 +3,6 @@ from shutil import copyfile
 import requests
 
 from . import ren
-from .dumps.clash import dump as clash
 from .dumps.clash_conv import dump as clash_conv
 from .dumps.loon import dump as loon
 from .dumps.quantumult import dump as quantumult
@@ -66,15 +65,6 @@ class Dump:
             )
 
     def __clash(self, alia: str) -> None:
-        dp = clash(self.__raw)
-
-        with open(
-            ren.PATH_OUT_CLASH / ("profile" + alia + ".yml"),
-            "tw",
-            encoding="utf-8",
-        ) as out:
-            dp.config(out)
-
         dp = clash_conv(self.__raw)
 
         with open(

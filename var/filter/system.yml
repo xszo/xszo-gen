@@ -1,11 +1,13 @@
 domain:
   # Apple
   - me.com
-  # remove due to cdn
+  - icloud.com
 
   # Other
   - synology.com
-  # - qnap.com
+
+ipcidr:
+  - 17.0.0.0/8 # apple
 
 ipasn:
   - 714 # apple

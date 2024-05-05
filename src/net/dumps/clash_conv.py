@@ -87,7 +87,7 @@ class dump:
                     "type": "http",
                     "interval": self.__src["misc"]["interval"],
                     "url": item[2],
-                    "path": "./filter/ip" + item[3] + ".yml",
+                    "path": "./filter/ip" + item[1] + ".yml",
                 }
 
         yaml.safe_dump(raw, out)
