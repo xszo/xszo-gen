@@ -50,8 +50,12 @@ class dump:
                 line += item + ", "
             raw.extend(["hijack-dns = *:53", line[:-2]])
         if "doh" in self.__src["misc"]:
-            # raw.append("encrypted-dns-follow-outbound-mode = true")
-            raw.append("encrypted-dns-server = " + self.__src["misc"]["doh"])
+            raw.extend(
+                [
+                    "encrypted-dns-follow-outbound-mode = true",
+                    "encrypted-dns-server = " + self.__src["misc"]["doh"],
+                ]
+            )
 
         raw.append("\n[Proxy Group]")
 
@@ -83,12 +87,20 @@ class dump:
 
         raw.extend(
             [
-                "DOMAIN-SET, " + item[2] + ", " + self.__map_node[item[3]]
+                "DOMAIN-SET, "
+                + item[2]
+                + ", "
+                + self.__map_node[item[3]]
+                + ", extended-matching"
                 for item in self.__src["filter"]["dn"]["surge"]
                 if item[0] in set([1, 2])
             ]
             + [
-                "RULE-SET, " + item[2] + ", " + self.__map_node[item[3]]
+                "RULE-SET, "
+                + item[2]
+                + ", "
+                + self.__map_node[item[3]]
+                + ", extended-matching"
                 for item in self.__src["filter"]["ip"]["surge"]
                 if item[0] == 1
             ]

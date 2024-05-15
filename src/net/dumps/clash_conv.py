@@ -76,18 +76,18 @@ class dump:
                 raw["rule-providers"]["dn" + item[1]] = {
                     "behavior": "domain",
                     "type": "http",
+                    "format": "yaml",
                     "interval": self.__src["misc"]["interval"],
                     "url": item[2],
-                    "path": "./filter/dn" + item[1] + ".yml",
                 }
         for item in self.__src["filter"]["ip"]["clash"]:
             if item[0] == 1:
                 raw["rule-providers"]["ip" + item[1]] = {
                     "behavior": "classical",
                     "type": "http",
+                    "format": "yaml",
                     "interval": self.__src["misc"]["interval"],
                     "url": item[2],
-                    "path": "./filter/ip" + item[1] + ".yml",
                 }
 
         yaml.safe_dump(raw, out)
