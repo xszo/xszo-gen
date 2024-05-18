@@ -8,9 +8,9 @@ list:
   - jp r-jp
   - tw r-tw
   - us r-us
-  - wall vlcww gfw
-  - adz adguardz
-  - adx -adz adguardx vlcadx
+
+  - xcn -ww -cn -jp -tw -us vlcww -vlcsys gfw
+  - xad adguardx -adguardz vlcadx
 
 # V2fly domain List Community
 # vlc{id}
@@ -19,6 +19,7 @@ vlc:
   - cn geolocation-cn
   - ww geolocation-!cn
   - adx category-ads
+  - sys apple
 
 # Parse Online list
 # {reg}
@@ -50,11 +51,6 @@ get:
         - ^\=bs\\=dl\\=ed\  .\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
-      gfwcn:
-        - ^@@\=bs\\=dn\\=ed\  .\1
-        - ^@@\=bs\\=dl\\=ed\  .\1*
-        - ^@@\=bn\\=dn\\=ed\  \1
-        - ^@@\=bn\\=dl\\=ed\  \1*
 
 # variables refered with '\=name\'
 var:

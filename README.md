@@ -1,10 +1,10 @@
 # xszo/xszo-gen
 
-Release at [`xszo/etc`](https://github.com/xszo/etc) on  
+Release at `xszo/etc` on  
   <https://cdn.jsdelivr.net/gh/xszo/etc@etc/>
 
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/xszo/etc/badge)](https://www.jsdelivr.com/package/gh/xszo/etc)
-[![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc/tree/etc)
+[![actions](https://github.com/xszo/etc/actions/workflows/etc.yml/badge.svg)](https://github.com/xszo/etc)
 
 ## About
 
@@ -20,11 +20,11 @@ Documents at `main` in `doc/` on
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
   <https://github.com/xszo/xszo-gen.wiki>
-- #/(surge|clash)/filter-ad\*.txt  
+- #/(surge|clash)/filter+xad.txt  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>
-- #/(surge|clash)/filter-(ad\*|wall|cn).txt  
+- #/(surge|clash)/filter+(xad|xcn|cn).txt  
   <https://github.com/v2fly/domain-list-community>
-- #/(surge|clash)/filter-wall.txt  
+- #/(surge|clash)/filter+xcn.txt  
   <https://github.com/gfwlist/gfwlist>
 - #/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>

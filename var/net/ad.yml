@@ -3,16 +3,12 @@ tar:
   - surge
   - clash
 route:
-  - id: adz
-    node: { id: main }
-    filter:
-      - use: adz
-  - id: adx
+  - id: xad
     node: { id: reject }
     filter:
-      - use: adx
+      - use: xad
   - "="
-  - id: wall
+  - id: xcn
     node: { id: main }
     filter:
-      - use: wall
+      - use: xcn
