@@ -51,6 +51,7 @@ class Mixer:
     res = {}
 
     __raw = {}
+    __dn_lv = range(1, 5)
 
     def __init__(self, araw: dict) -> None:
         for k1, v1 in araw.items():
@@ -67,10 +68,9 @@ class Mixer:
             # format list desc
             if len(unit := unit.split(" ")) < 2:
                 continue
-
             name = unit[0]
-            tmp_excl = []
 
+            tmp_excl = []
             for item in unit[1:]:
                 if item[0] == "-":
                     tmp_excl.append(item[1:])
@@ -81,13 +81,26 @@ class Mixer:
                                 self.res[k][name].update(self.__raw[k][item])
                             else:
                                 self.res[k][name] = self.__raw[k][item]
+            self.res["domain"][name] = self.__dn_mini(self.res["domain"][name])
 
-            self.res["domain"][name] = self.__mini_domain(self.res["domain"][name])
-
+            tmp_exdn = set()
             for item in tmp_excl:
                 for k in keys:
-                    if item in self.__raw[k]:
-                        self.res[k][name].difference(self.__raw[k][item])
+                    if name in self.res[k]:
+                        if item in self.__raw[k]:
+                            if k == "domain":
+                                tmp_exdn.update(self.__raw[k][item])
+                            else:
+                                self.res[k][name].difference(self.__raw[k][item])
+                        elif item in self.res[k]:
+                            if k == "domain":
+                                tmp_exdn.update(self.res[k][item])
+                            else:
+                                self.res[k][name].difference(self.res[k][item])
+            if len(tmp_exdn) > 0:
+                self.res["domain"][name] = self.__dn_rm(
+                    self.res["domain"][name], tmp_exdn
+                )
 
     def get(self) -> dict:
         res = {}
@@ -97,9 +110,9 @@ class Mixer:
                 res[k1][k2] = tuple(sorted(v2))
         return res
 
-    def __mini_domain(self, raw: set | list) -> set:
+    def __dn_mini(self, raw: set | list) -> set:
         res = set()
-        for i in range(1, 5):
+        for i in self.__dn_lv:
             suffix = set(x for x in raw if x[0] == "." and x.count(".") == i)
             res.update(suffix)
             raw = set(
@@ -107,3 +120,12 @@ class Mixer:
             )
         res.update(raw)
         return res
+
+    def __dn_rm(self, raw: set, rm: set):
+        for i in self.__dn_lv:
+            suffix = set(x for x in rm if x[0] == "." and x.count(".") == i)
+            raw.difference(suffix)
+            raw = set(
+                x for x in raw if not ("." + ".".join(x.split(".")[-i:])) in suffix
+            )
+        return raw

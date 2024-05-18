@@ -6,11 +6,16 @@ while getopts "ai" opt; do
     i) OptI=true;;
   esac; done;
 
-if [ $OptA ] || [ $OptI ]; then
+if [ $OptA ]; then
+  poetry install;
+fi;
+
+if [ $OptI ]; then
   if ! which poetry; then
     pipx install poetry;
   fi;
   poetry install --sync;
+  poetry update;
 fi;
 
 poetry run python src/run.py "$@";
