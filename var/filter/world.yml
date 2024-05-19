@@ -19,6 +19,7 @@ domain:
   - googletagmanager.com
 
   - google-analytics.com
+  - app-analytics-services.com
   - crashlytics.com
   - googlesyndication.com
   - app-measurement.com # firebase

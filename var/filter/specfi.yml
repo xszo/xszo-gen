@@ -2,11 +2,7 @@
 domain:
   - lan
   - local
-  # Time
-  - time.apple.com
-  - time.google.com
-  - time.windows.com
-  - ntp.org
+  - internal
 
 # '' gen IP-CIDR,''    [''] gen IP6-CIDR,''
 ipcidr:

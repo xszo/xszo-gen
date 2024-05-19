@@ -9,7 +9,7 @@ list:
   - tw r-tw
   - us r-us
 
-  - xcn -ww -cn -jp -tw -us vlcww -vlcsys gfw
+  - xcn -ww -cn -jp -tw -us vlcww gfw
   - xad adguardx -adguardz vlcadx
 
 # V2fly domain List Community
@@ -19,7 +19,6 @@ vlc:
   - cn geolocation-cn
   - ww geolocation-!cn
   - adx category-ads
-  - sys apple
 
 # Parse Online list
 # {reg}
