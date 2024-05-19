@@ -1,9 +1,11 @@
 domain:
+  # Time
+  - ntp.org
+  - time.apple.com
+  - time.google.com
+  - time.windows.com
   # Apple
   - me.com
-
+  - push.apple.com
   # Other
   - synology.com
-
-ipasn:
-  - 714 # apple
