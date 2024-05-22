@@ -5,7 +5,7 @@ domain:
   - abema.tv
   - abema-tv.com
   - abema.io
-  - -*abematv.akamaized.net
+  - "*abematv.akamaized.net"
   - abematv.akamaized.net
   - linear-abematv.akamaized.net
   - ds-linear-abematv.akamaized.net

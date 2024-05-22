@@ -4,7 +4,7 @@ domain:
 
   # Google
   - google.com
-  # - g.co
+  - g.co
   - gmail.com
   - gstatic.com
   - ggpht.com # avatar
@@ -31,7 +31,7 @@ domain:
   - ytimg.com
   - googlevideo.com
   - youtu.be
-  # - yt.be
+  - yt.be
 
   # Microsoft
   - live.com
@@ -42,16 +42,19 @@ domain:
   - onenote.com
   - onedrive.com
   - bing.com
+  - bingapis.com
   - msn.com
   - skype.com
   - linkedin.com
   - openai.com
+  - chatgpt.com
 
   - ms # some
   - microsoft.com
   - microsoftonline.com
   - msauth.net
   - msftauth.net
+  - microsoftapp.net
 
   - windows.com
   - windows.net
@@ -61,10 +64,11 @@ domain:
 
   # MS Azure
   # - azure
-  # - azure.com
-  # - azure.net
-  # - azureedge.net
-  # - azurewebsites.net
+  - azure.com
+  - azure.net
+  - azurefd.net
+  - azureedge.net
+  - azurewebsites.net
   - trafficmanager.net
   - cloudapp.net
   - unity3d.com
@@ -144,9 +148,16 @@ domain:
   - discordapp.net
   - mastodon.social
   - bsky.app
+  - bsky.social
   - signal.org
+  - telegram.org
 
   # Media
   - spotify.com
   - spotifycdn.com
   - trakt.tv
+
+  # Game
+  - steampowered.com
+  - steamcommunity.com
+  - steamstatic.com
