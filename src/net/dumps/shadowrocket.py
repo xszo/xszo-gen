@@ -40,7 +40,7 @@ class dump:
 
         raw.extend(
             [
-                "DOMAIN-SET, " + item[2] + ", " + self.__map_node[item[3]]
+                "RULE-SET, " + item[2] + ", " + self.__map_node[item[3]]
                 for item in self.__src["filter"]["dn"]["surge"]
                 if item[0] in set([1, 2])
             ]

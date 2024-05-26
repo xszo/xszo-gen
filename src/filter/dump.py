@@ -42,13 +42,22 @@ class Dump:
                 yaml.safe_dump(
                     {"payload": ["+" + x if x[0] == "." else x for x in val]}, file
                 )
+
             # dump surge
+            raw = []
+            for item in val:
+                if item[0] == ".":
+                    raw.append("DOMAIN-SUFFIX," + item[1:] + "\n")
+                elif "*" in item or "?" in item:
+                    raw.append("DOMAIN-WILDCARD," + item + "\n")
+                else:
+                    raw.append("DOMAIN," + item + "\n")
             with open(
                 ren.PATH_OUT / "surge" / ("filter-dn+" + key + ".txt"),
                 "tw",
                 encoding="utf-8",
             ) as file:
-                file.writelines([x + "\n" for x in val])
+                file.writelines(raw)
 
         return self.__raw["domain"].keys()
 
