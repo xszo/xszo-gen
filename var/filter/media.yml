@@ -6,4 +6,9 @@ domain:
   - nflxso.net
 
   # Disney
+  - disneyplus.com
   - dssott.com
+
+  # Amazon
+  - amazonvideo.com
+  - primevideo.com

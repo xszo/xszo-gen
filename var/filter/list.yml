@@ -9,8 +9,8 @@ list:
   - tw r-tw
   - us r-us
 
-  - xcn -ww -cn -jp -tw -us vlcww gfw
-  - xad adguardx -adguardz vlcadx
+  - xcn vlcww gfw
+  - xad adguard vlcxad
 
 # V2fly domain List Community
 # vlc{id}
@@ -18,34 +18,27 @@ vlc:
   # id list
   - cn geolocation-cn
   - ww geolocation-!cn
-  - adx category-ads
+  - xad category-ads
 
 # Parse Online list
 # {reg}
 get:
-  - # link to source file
-    uri: https://filters.adtidy.org/ios/filters/15.txt
+  - uri: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
     # use preprocessor
-    pre: []
-    # use regular expression to convert
+    pre: [b64]
+    # use regular expression to convert into sublist
     reg:
-      # into sublist
-      adguardx:
+      gfw:
         # match pattern, expand pattern
         - ^\=bs\\=dn\\=ed\  .\1
         - ^\=bs\\=dl\\=ed\  .\1*
         - ^\=bn\\=dn\\=ed\  \1
         - ^\=bn\\=dl\\=ed\  \1*
-      adguardz:
-        - ^@@\=bs\\=dn\\=ed\  .\1
-        - ^@@\=bs\\=dl\\=ed\  .\1*
-        - ^@@\=bn\\=dn\\=ed\  \1
-        - ^@@\=bn\\=dl\\=ed\  \1*
 
-  - uri: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
-    pre: [b64]
+  - uri: https://filters.adtidy.org/ios/filters/15.txt
+    pre: []
     reg:
-      gfw:
+      adguard:
         - ^\=bs\\=dn\\=ed\  .\1
         - ^\=bs\\=dl\\=ed\  .\1*
         - ^\=bn\\=dn\\=ed\  \1

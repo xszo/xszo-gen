@@ -87,16 +87,20 @@ class Mixer:
             for item in tmp_excl:
                 for k in keys:
                     if name in self.res[k]:
-                        if item in self.__raw[k]:
+                        if item in self.res[k]:
                             if k == "domain":
-                                tmp_exdn.update(self.__raw[k][item])
+                                tmp_exdn.update(self.res["domain"][item])
                             else:
-                                self.res[k][name].difference(self.__raw[k][item])
-                        elif item in self.res[k]:
+                                self.res[k][name] = self.res[k][name].difference(
+                                    self.res[k][item]
+                                )
+                        elif item in self.__raw[k]:
                             if k == "domain":
-                                tmp_exdn.update(self.res[k][item])
+                                tmp_exdn.update(self.__raw["domain"][item])
                             else:
-                                self.res[k][name].difference(self.res[k][item])
+                                self.res[k][name] = self.res[k][name].difference(
+                                    self.__raw[k][item]
+                                )
             if len(tmp_exdn) > 0:
                 self.res["domain"][name] = self.__dn_rm(
                     self.res["domain"][name], tmp_exdn
@@ -123,8 +127,10 @@ class Mixer:
 
     def __dn_rm(self, raw: set, rm: set):
         for i in self.__dn_lv:
+            raw = raw.difference(
+                set("." + ".".join(x.split(".")[-i:]) for x in rm if x.count(".") >= i)
+            )
             suffix = set(x for x in rm if x[0] == "." and x.count(".") == i)
-            raw.difference(suffix)
             raw = set(
                 x for x in raw if not ("." + ".".join(x.split(".")[-i:])) in suffix
             )

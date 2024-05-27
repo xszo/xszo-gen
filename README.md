@@ -2,6 +2,7 @@
 
 Release on
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/xszo/etc/badge)](https://www.jsdelivr.com/package/gh/xszo/etc)
+.
 
 ## About
 
