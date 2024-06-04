@@ -4,8 +4,10 @@ domain:
   - time.apple.com
   - time.google.com
   - time.windows.com
-  # Apple
-  - me.com
-  - push.apple.com
   # Other
   - synology.com
+
+ipasn:
+  - 714
+ipcidr:
+  - 17.0.0.0/8

@@ -18,18 +18,14 @@ route:
       - use: ww
   - id: cn
     node: { id: direct }
-    filter:
-      - use: cn
+    filter: [use: cn]
   - id: jp
     node: { name: JP, type: test, list: =jp }
-    filter:
-      - use: jp
+    filter: [use: jp]
   - id: tw
     node: { name: TW, type: test, list: =tw }
-    filter:
-      - use: tw
+    filter: [use: tw]
   - id: us
     node: { name: US, type: test, list: =us }
-    filter:
-      - use: us
+    filter: [use: us]
 node: []
