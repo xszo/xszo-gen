@@ -2,7 +2,9 @@ domain:
   - cn
   - xn--fiqs8s
   - hk
+  - mo
 
 ipgeo:
   - cn
   - hk
+  - mo
