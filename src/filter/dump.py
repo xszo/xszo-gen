@@ -23,10 +23,10 @@ class Dump:
 
         for k in ref["list"]["dn"]:
             ref["dn"]["surge-" + k] = "surge/filter-dn+" + k + ".txt"
-            ref["dn"]["clash-" + k] = "clash/filter-dn+" + k + ".yml"
+            ref["dn"]["clash-" + k] = "clash/filter-dn+" + k + ".txt"
         for k in ref["list"]["ip"]:
             ref["ip"]["surge-" + k] = "surge/filter-ip+" + k + ".txt"
-            ref["ip"]["clash-" + k] = "clash/filter-ip+" + k + ".yml"
+            ref["ip"]["clash-" + k] = "surge/filter-ip+" + k + ".txt"
 
         with open(ren.PATH_TMP / "list.yml", "tw", encoding="utf-8") as file:
             yaml.safe_dump(ref, file)
@@ -35,12 +35,12 @@ class Dump:
         for key, val in self.__raw["domain"].items():
             # dump clash
             with open(
-                ren.PATH_OUT / "clash" / ("filter-dn+" + key + ".yml"),
+                ren.PATH_OUT / "clash" / ("filter-dn+" + key + ".txt"),
                 "tw",
                 encoding="utf-8",
             ) as file:
-                yaml.safe_dump(
-                    {"payload": ["+" + x if x[0] == "." else x for x in val]}, file
+                file.writelines(
+                    ["+" + x + "\n" if x[0] == "." else x + "\n" for x in val]
                 )
 
             # dump surge
@@ -88,15 +88,6 @@ class Dump:
                 encoding="utf-8",
             ) as file:
                 file.writelines([x + "\n" for x in line])
-            with open(
-                ren.PATH_OUT / "clash" / ("filter-ip+" + key + ".yml"),
-                "tw",
-                encoding="utf-8",
-            ) as file:
-                yaml.safe_dump(
-                    {"payload": line},
-                    file,
-                )
 
         return raw.keys()
 

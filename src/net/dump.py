@@ -3,7 +3,7 @@ from shutil import copyfile
 import requests
 
 from . import ren
-from .dumps.clash_conv import dump as clash_conv
+from .dumps import clash_conv
 from .dumps.loon import dump as loon
 from .dumps.quantumult import dump as quantumult
 from .dumps.shadowrocket import dump as shadowrocket
@@ -65,21 +65,21 @@ class Dump:
             )
 
     def __clash(self, alia: str) -> None:
-        dp = clash_conv(self.__raw)
+        clash_conv.init(self.__raw)
 
         with open(
             ren.PATH_OUT_CLASH / ("conv" + alia + ".conf"),
             "tw",
             encoding="utf-8",
         ) as out:
-            dp.config(out, {"yml": ren.URI_CLASH + "conv-base" + alia + ".yml"})
+            clash_conv.config(out, {"yml": ren.URI_CLASH + "conv-base" + alia + ".yml"})
 
         with open(
             ren.PATH_OUT_CLASH / ("conv-base" + alia + ".yml"),
             "tw",
             encoding="utf-8",
         ) as out:
-            dp.base(out)
+            clash_conv.base(out)
 
     def __surge(self, alia: str) -> None:
         dp = surge(self.__raw)
