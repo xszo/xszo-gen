@@ -3,9 +3,8 @@ from shutil import copyfile
 import requests
 
 from . import ren
-from .dumps import clash_conv
+from .dumps import clash_conv, quantumult
 from .dumps.loon import dump as loon
-from .dumps.quantumult import dump as quantumult
 from .dumps.shadowrocket import dump as shadowrocket
 from .dumps.surge import dump as surge
 
@@ -43,14 +42,14 @@ class Dump:
             file.write(requests.get(lnk, timeout=8).text)
 
     def __quantumult(self, alia: str) -> None:
-        dp = quantumult(self.__raw)
+        quantumult.init(self.__raw)
 
         with open(
             ren.PATH_OUT / ("quantumult" + alia + ".conf"),
             "tw",
             encoding="utf-8",
         ) as out:
-            dp.profile(
+            quantumult.profile(
                 out,
                 {
                     "parse": ren.URI_NET + "quantumult-parser.js",
