@@ -2,12 +2,14 @@ domain:
   # Time
   - ntp.org
   - time.apple.com
+  - time.cloudflare.com
   - time.google.com
+  - time.nist.gov
   - time.windows.com
   # Other
   - synology.com
 
 ipasn:
-  - 714
+  - 714 # apple
 ipcidr:
-  - 17.0.0.0/8
+  - 17.0.0.0/8 # apple

@@ -8,24 +8,11 @@ tar:
 route:
   - id: specfi
     node: { id: direct }
-    filter:
-      - use: specfi
-      - use: system
-  - id: main
-    node: { name: Node, type: test, list: . }
-    filter:
-      - type: main
-      - use: ww
+    filter: [use: specfi]
   - id: cn
     node: { id: direct }
     filter: [use: cn]
-  - id: jp
-    node: { name: JP, type: test, list: =jp }
-    filter: [use: jp]
-  - id: tw
-    node: { name: TW, type: test, list: =tw }
-    filter: [use: tw]
-  - id: us
-    node: { name: US, type: test, list: =us }
-    filter: [use: us]
+  - id: main
+    node: { name: Node, type: test, list: . }
+    filter: [use: xcn, type: main]
 node: []
