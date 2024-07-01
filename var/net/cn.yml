@@ -1,10 +1,9 @@
 id: cn
 tar:
-  - quantumult
   - surge
   - clash
+  - quantumult
   - shadowrocket
-  - loon
 route:
   - id: specfi
     node: { id: direct }

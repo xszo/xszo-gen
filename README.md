@@ -26,8 +26,6 @@ Documents at `main` in `doc/` on
   <https://github.com/gfwlist/gfwlist>
 - #/network/quantumult-parser.js  
   <https://github.com/KOP-XIAO/QuantumultX>
-- #/network/loon-parser.js  
-  <https://github.com/sub-store-org/Sub-Store>
 
 ## LICENSE
 
