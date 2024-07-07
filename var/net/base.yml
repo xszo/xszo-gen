@@ -22,18 +22,13 @@ misc:
   doh: https://dns.alidns.com/dns-query
 # routing info
 route:
-  - id: lan
-    # user selector
-    node: { id: direct }
-    # package filter
-    filter: [use: lan]
-  - id: system
+  - id: ss
     node:
       type: static
       name: SYSTEM
       list: [-main, -direct, =node]
     filter:
-      - use: system
+      - use: ss
     icon:
       emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system

@@ -59,8 +59,8 @@ domain:
   - windows.com
   - windows.net
   - windowsupdate.com
-  # - msftncsi.com
-  # - msftconnecttest.com
+  - msftncsi.com
+  - msftconnecttest.com
 
   # MS Azure
   # - azure
@@ -81,10 +81,10 @@ domain:
   - ghcr.io
   - githubusercontent.com
   - visualstudio.com
-  # - vscode.dev
-  # - vscode-cdn.net # web
-  # - exp-tas.com
-  # - vsassets.io
+  - vscode.dev
+  - vscode-cdn.net # web
+  - exp-tas.com
+  - vsassets.io
 
   # Cloudflare
   - cloudflare.com
@@ -92,12 +92,12 @@ domain:
   - pages.dev
 
   # Facebook
-  # - meta.com
+  - meta.com
   - facebook.com
-  # - facebook.net
-  # - fb.com
+  - facebook.net
+  - fb.com
   - fbcdn.net
-  # - messenger.com
+  - messenger.com
   - instagram.com
   - cdninstagram.com
   - threads.net
@@ -109,13 +109,13 @@ domain:
   # Wiki
   - wikipedia.org
   - wikimedia.org
-  # - wikibooks.org
-  # - wiktionary.org
+  - wikibooks.org
+  - wiktionary.org
 
   # StackExchange
   - stackexchange.com
-  # - sstatic.net
-  # - stackauth.com
+  - sstatic.net
+  - stackauth.com
   - stackoverflow.com
 
   # Netflix
@@ -171,6 +171,23 @@ domain:
   - spotify.com
   - spotifycdn.com
   - trakt.tv
+
+  # Content
+  - 123456.al
+  - aca.best
+  - acemby.org
+  - emby.eu.org
+  - emby.wtf
+  - embyplus.org
+  - happyav.eu.org
+  - jmsooo.com
+  - magpie.cyou
+  - misty.cx
+  - mjjemby.org
+  - odysseyplus.site
+  - pilipiliultra.com
+  - pornemby.club
+  - zox.show
 
   # Game
   - steampowered.com
