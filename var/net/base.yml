@@ -22,12 +22,11 @@ misc:
   doh: https://dns.alidns.com/dns-query
 # routing info
 route:
-  - id: specfi
+  - id: lan
     # user selector
     node: { id: direct }
     # package filter
-    filter:
-      - use: specfi
+    filter: [use: lan]
   - id: system
     node:
       type: static

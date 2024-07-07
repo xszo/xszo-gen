@@ -118,6 +118,20 @@ domain:
   # - stackauth.com
   - stackoverflow.com
 
+  # Netflix
+  - fast.com
+  - netflix.com
+  - nflxvideo.net
+  - nflxso.net
+
+  # Disney
+  - disneyplus.com
+  - dssott.com
+
+  # Amazon
+  - amazonvideo.com
+  - primevideo.com
+
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
   # System

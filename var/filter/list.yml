@@ -1,24 +1,25 @@
 # output list
 list:
   # id, list below
-  - specfi specfi
+  - lan lan
   - system system
-  - ww world media
   - cn r-cn vlccn
-  - jp r-jp
-  - tw r-tw
+  - jp r-jp vlcjp
+  - tw r-tw vlctw
   - us r-us
-
-  - xcn vlcww gfw
-  - xad adguard vlcxad
+  - ww world -cn -jp -tw -us vlcww -vlcsys gfw
+  - reject adguard vlcad
 
 # V2fly domain List Community
 # vlc{id}
 vlc:
   # id list
-  - cn geolocation-cn
   - ww geolocation-!cn
-  - xad category-ads
+  - cn geolocation-cn
+  - jp abema niconico pixiv dmm dlsite
+  - tw bahamut pikpak
+  - sys apple akamai
+  - ad category-ads
 
 # Parse Online list
 # {reg}

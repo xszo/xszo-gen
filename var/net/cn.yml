@@ -5,13 +5,26 @@ tar:
   - quantumult
   - shadowrocket
 route:
-  - id: specfi
+  - id: system
     node: { id: direct }
-    filter: [use: specfi]
+    filter:
+      - use: lan
+      - use: system
+  - id: main
+    node: { name: Node, type: test, list: . }
+    filter:
+      - type: main
+      - use: ww
   - id: cn
     node: { id: direct }
     filter: [use: cn]
-  - id: main
-    node: { name: Node, type: test, list: . }
-    filter: [use: xcn, type: main]
+  - id: jp
+    node: { name: JP, type: test, list: =jp }
+    filter: [use: jp]
+  - id: tw
+    node: { name: TW, type: test, list: =tw }
+    filter: [use: tw]
+  - id: us
+    node: { name: US, type: test, list: =us }
+    filter: [use: us]
 node: []
