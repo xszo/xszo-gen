@@ -1,34 +1,8 @@
 domain:
   - jp
 
-  # Abema
-  - abema.tv
-  - abema-tv.com
-  - abema.io
-  - abematv.akamaized.net
-  - linear-abematv.akamaized.net
-  - ds-linear-abematv.akamaized.net
-  - vod-abematv.akamaized.net
-  - ds-vod-abematv.akamaized.net
-
-  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-  # Social
-  - misskey.io
-
   # Media
-  - pixiv.net
-  - pximg.net
-  - fanbox.cc
-  - booth.pm
-  - dmm.com
-  - dmm-extension.com
-  - dmmapis.com
-  - dmmrex.com
-  - dlsite.com
-  - syosetu.com
-
-  # Game
+  - misskey.io
   - colorfulpalette.org
 
 ipgeo:

@@ -17,7 +17,7 @@ vlc:
   - ww geolocation-!cn
   - cn geolocation-cn
   - jp abema niconico pixiv dmm dlsite
-  - tw bahamut pikpak
+  - tw bahamut pikpak 18comic
   - us ehentai
 
   - no apple akamai
@@ -33,10 +33,8 @@ get:
     reg:
       gfw:
         # match pattern, expand pattern
-        - ^\=bs\\=dn\\=ed\  .\1
-        - ^\=bs\\=dl\\=ed\  .\1*
-        - ^\=bn\\=dn\\=ed\  \1
-        - ^\=bn\\=dl\\=ed\  \1*
+        - ^\=bs\\=dm\\=ed\  .\1
+        - ^\=bn\\=dm\\=ed\  \1
 
   - uri: https://filters.adtidy.org/ios/filters/15.txt
     pre: []
@@ -51,6 +49,7 @@ get:
 var:
   bs: (?:\|\||\.)
   bn: (?:\|?|\|?[a-z]*://)
+  ed: (?:$|\^|\$|/|%2F)
   dn: ((?:[a-z0-9\*](?:[a-z0-9\-\*]*[a-z0-9\*])?\.)+(?:[a-z]+|xn--[a-z0-9]+))
   dl: ((?:[a-z0-9\*](?:[a-z0-9\-\*]*[a-z0-9\*])?\.)+)\*?
-  ed: (?:$|\^|\$|/|%2F)
+  dm: ((?:[a-z0-9](?:[a-z0-9\-]*[a-z0-9])?\.)+(?:[a-z]+|xn--[a-z0-9]+)?)

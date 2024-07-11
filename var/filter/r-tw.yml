@@ -1,25 +1,18 @@
 domain:
   - tw
 
-  # Media
-  - bahamut.akamaized.net
-
   # Content
-  - lightnovel.us
+  - bilinovel.com
   - esjzone.cc
   - esjzone.me
+  - hanime1.me
+  - lightnovel.us
+  - linovelib.com
   - masiro.me
   - voidlord.com
-  - yamibo.com
-  - linovelib.com
-  - bilinovel.com
   - wenku8.net
-
   - wnacg.com
-  - hanime1.me
-
-  # Game
-  - gamon.net
+  - yamibo.com
 
 ipgeo:
   - tw
