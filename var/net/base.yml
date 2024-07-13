@@ -90,8 +90,6 @@ node:
   - { name: Node1, type: static, list: "." }
   - { name: Node2, type: static, list: "." }
   - { name: Node3, type: static, list: "." }
-  - { name: NodeX, type: test, list: "\\[X\\]" }
-  - { name: NodeS, type: test, list: "." }
   - { name: CN, type: test, list: =cn }
   - { name: DE, type: test, list: =de }
   - { name: FR, type: test, list: =fr }
@@ -102,3 +100,5 @@ node:
   - { name: SG, type: test, list: =sg }
   - { name: TW, type: test, list: =tw }
   - { name: US, type: test, list: =us }
+  - { name: NodeX, type: test, list: "\\[X\\]" }
+  - { name: NodeS, type: test, list: "." }

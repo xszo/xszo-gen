@@ -1,4 +1,7 @@
 domain:
+  - lan
+  - local
+  - internal
   # Time
   - ntp.org
   - -time.apple.com
@@ -10,11 +13,9 @@ domain:
   - -time.google.com
   - -time.nist.gov
   - -time.windows.com
-  # Other
-  - synology.com
 
-ipasn:
-  - 714 # apple
-  - 6185 # apple
 ipcidr:
-  - 17.0.0.0/8 # apple
+  - 10.0.0.0/8
+  - 172.16.0.0/12
+  - 192.168.0.0/16
+  - "[fc00::/7]"

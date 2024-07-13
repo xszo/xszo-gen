@@ -15,3 +15,9 @@ domain:
   - pilipiliultra.com
   - pornemby.club
   - zox.show
+
+ipasn:
+  - 714 # apple
+  - 6185 # apple
+ipcidr:
+  - 17.0.0.0/8 # apple

@@ -1,7 +1,7 @@
 # output list
 list:
   # id, list below
-  - ss lan system
+  - ss system
   - reject adguard vlcad
 
   - cn r-cn vlccn
