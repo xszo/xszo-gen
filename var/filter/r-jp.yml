@@ -3,6 +3,7 @@ domain:
 
   # Media
   - misskey.io
+  - pawoo.net
   - colorfulpalette.org
 
 ipgeo:

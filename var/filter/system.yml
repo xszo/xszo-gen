@@ -2,6 +2,7 @@ domain:
   - lan
   - local
   - internal
+
   # Time
   - ntp.org
   - -time.apple.com
