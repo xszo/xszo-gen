@@ -8,7 +8,7 @@ list:
   - jp r-jp vlcjp
   - tw r-tw vlctw
   - us r-us vlcus
-  - ww world -cn -jp -tw -us vlcww -vlcno gfw
+  - ww world -cn -jp -tw -us vlcww gfw
 
 # V2fly domain List Community
 # vlc{id}
@@ -20,7 +20,6 @@ vlc:
   - tw bahamut pikpak 18comic
   - us ehentai
 
-  - no apple akamai
   - ad category-ads
 
 # Parse Online list
