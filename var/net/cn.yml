@@ -9,7 +9,7 @@ route:
     node: { id: direct }
     filter: [use: ss]
   - id: main
-    node: { name: Node, type: test, list: . }
+    node: { name: Node, type: test, list: =xx }
     filter: [type: main, use: ww]
   - id: cn
     node: { id: direct }

@@ -2,7 +2,7 @@
 list:
   # id, list below
   - ss system
-  - reject adguard vlcad
+  - xx adguard vlcxx
 
   - cn r-cn vlccn
   - jp r-jp vlcjp
@@ -20,7 +20,7 @@ vlc:
   - tw bahamut pikpak 18comic
   - us ehentai
 
-  - ad category-ads
+  - xx category-ads
 
 # Parse Online list
 # {reg}

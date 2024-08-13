@@ -18,9 +18,9 @@ Documents at `main` in `doc/` on
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
   <https://github.com/xszo/xszo-gen.wiki>
-- #/(surge|clash)/filter+reject.txt  
+- #/(surge|clash)/filter+xx.txt  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>
-- #/(surge|clash)/filter+(reject|ww|cn|jp|tw|us).txt  
+- #/(surge|clash)/filter+(xx|ww|cn|jp|tw|us).txt  
   <https://github.com/v2fly/domain-list-community>
 - #/(surge|clash)/filter+ww.txt  
   <https://github.com/gfwlist/gfwlist>

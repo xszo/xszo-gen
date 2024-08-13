@@ -8,3 +8,4 @@ kr: (?<![A-Za-z])(?:KO?R|Korean?|Seoul)(?![A-Za-z])|韓國|韩国|韩(?![\u4E00-
 sg: (?<![A-Za-z])(?:SGP?|Singapore)(?![A-Za-z])|新加坡|獅城|狮城|新(?![\u4E00-\u9FFF])
 tw: (?<![A-Za-z])(?:TWN?|Taiwan|Taiwanese|Taipei)(?![A-Za-z])|台灣|台湾|台(?![\u4E00-\u9FFF])
 us: (?<![A-Za-z])(?:USA?|United\s?States|American?|LA)(?![A-Za-z])|美國|美国|美(?![\u4E00-\u9FFF])
+xx: ^
