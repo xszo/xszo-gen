@@ -8,9 +8,6 @@ route:
   - id: system
     node: { id: direct }
     filter: [use: system]
-  - id: main
-    node: { name: Node, type: test, list: =xx }
-    filter: [type: main, use: world, use: region]
   - id: cn
     node: { id: direct }
     filter: [use: cn]
@@ -23,4 +20,7 @@ route:
   - id: us
     node: { name: US, type: test, list: =us }
     filter: [use: us]
+  - id: main
+    node: { name: Node, type: test, list: =xx }
+    filter: [type: main, use: world, use: stream]
 node: []

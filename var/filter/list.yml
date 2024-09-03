@@ -2,22 +2,18 @@
 list:
   # id, list below
   - system system
-  - region vlcregion
   - cn r-cn vlccn
   - jp r-jp vlcjp
   - tw r-tw vlctw
   - us r-us vlcus
-  - world -region -cn -jp -tw -us world vlcworld gfw
+  - stream -cn -jp -tw -us vlcstream
+  - world -stream -cn -jp -tw -us world vlcworld gfw
   - block adguard vlcblock
 
 # V2fly domain List Community
 # vlc{id}
 vlc:
   # id list
-  region:
-    - dazn
-    - disney
-    - primevideo
   cn:
     - geolocation-cn
   jp:
@@ -29,9 +25,16 @@ vlc:
   tw:
     - 18comic
     - bahamut
+    - hinet
     - pikpak
   us:
     - ehentai
+  stream:
+    - dazn
+    - disney
+    - hulu
+    - netflix
+    - primevideo
   world:
     - geolocation-!cn
   block:

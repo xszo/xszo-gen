@@ -18,7 +18,7 @@ Documents at `main` in `doc/` on
 
 - doc/    _GNU GPL 3.0_ & _CC BY-SA 4.0_  
   <https://github.com/xszo/xszo-gen.wiki>
-- #/(surge|clash)/filter+(cn|jp|tw|us|stream|world|block).txt  
+- #/(surge|clash)/filter+(cn|jp|tw|us|world|region|block).txt  
   <https://github.com/v2fly/domain-list-community>
 - #/(surge|clash)/filter+block.txt  
   <https://github.com/AdguardTeam/AdGuardSDNSFilter>

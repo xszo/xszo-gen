@@ -30,6 +30,62 @@ route:
     filter:
       - use: system
     icon:
+      sort: 1
+      emoji: 🏳️‍🌈
+      sf: arrow.left.and.right.system
+  - id: cn
+    node:
+      type: static
+      name: R-CN
+      list: [-main, -direct, =node]
+    filter:
+      - use: cn
+    icon:
+      sort: 3
+      emoji: 🏳️‍🌈
+      sf: arrow.forward.system
+  - id: jp
+    node:
+      type: static
+      name: R-JP
+      list: [-main, -direct, =node]
+    filter:
+      - use: jp
+    icon:
+      sort: 3
+      emoji: 🏳️‍🌈
+      sf: arrow.forward.system
+  - id: tw
+    node:
+      type: static
+      name: R-TW
+      list: [-main, -direct, =node]
+    filter:
+      - use: tw
+    icon:
+      sort: 3
+      emoji: 🏳️‍🌈
+      sf: arrow.forward.system
+  - id: us
+    node:
+      type: static
+      name: R-US
+      list: [-main, -direct, =node]
+    filter:
+      - use: us
+    icon:
+      sort: 3
+      emoji: 🏳️‍🌈
+      sf: arrow.forward.system
+  - id: stream
+    node:
+      type: static
+      name: Stream
+      list: [-main, -direct, =node]
+    filter:
+      - use: stream
+    icon:
+      sort: 2
       emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
   - id: main
@@ -41,65 +97,12 @@ route:
       - type: main
       - use: world
     icon:
+      sort: 0
       emoji: 🏳️‍🌈
       sf: arrow.left.arrow.right.system
-  - id: region
-    node:
-      type: static
-      name: Region
-      list: [-main, -direct, =node]
-    filter:
-      - use: region
-    icon:
-      emoji: 🏳️‍🌈
-      sf: arrow.left.and.right.system
-  - id: cn
-    node:
-      type: static
-      name: R-CN
-      list: [-main, -direct, =node]
-    filter:
-      - use: cn
-    icon:
-      emoji: 🏳️‍🌈
-      sf: arrow.forward.system
-  - id: jp
-    node:
-      type: static
-      name: R-JP
-      list: [-main, -direct, =node]
-    filter:
-      - use: jp
-    icon:
-      emoji: 🏳️‍🌈
-      sf: arrow.forward.system
-  - id: tw
-    node:
-      type: static
-      name: R-TW
-      list: [-main, -direct, =node]
-    filter:
-      - use: tw
-    icon:
-      emoji: 🏳️‍🌈
-      sf: arrow.forward.system
-  - id: us
-    node:
-      type: static
-      name: R-US
-      list: [-main, -direct, =node]
-    filter:
-      - use: us
-    icon:
-      emoji: 🏳️‍🌈
-      sf: arrow.forward.system
 node:
   # type, static manual set dest, test set based on lag test
   # list, include proxy, = ref pattern.region
-  - { name: Node0, type: static, list: =xx }
-  - { name: Node1, type: static, list: =xx }
-  - { name: Node2, type: static, list: =xx }
-  - { name: Node3, type: static, list: =xx }
   - { name: CN, type: test, list: =cn }
   - { name: DE, type: test, list: =de }
   - { name: FR, type: test, list: =fr }
@@ -110,7 +113,12 @@ node:
   - { name: SG, type: test, list: =sg }
   - { name: TW, type: test, list: =tw }
   - { name: US, type: test, list: =us }
-  - { name: NodeS, type: test, list: =xx }
+  - { name: Node, type: test, list: =xx }
+  - { name: Node0, type: static, list: =xx }
+  - { name: Node1, type: static, list: =xx }
+  - { name: Node2, type: static, list: =xx }
+  - { name: Node3, type: static, list: =xx }
   - { name: NodeX, type: test, list: "^(?!.*\\[.\\])" }
   - { name: NodeA, type: test, list: "\\[A\\]" }
   - { name: NodeB, type: test, list: "\\[B\\]" }
+  - { name: NodeC, type: test, list: "\\[C\\]" }

@@ -79,9 +79,10 @@ class Load:
 
     # convert route list to node and filter
     def __load_route(self) -> None:
-        tmp_node = []
+        tmp_node = [[], [], [], []]
         tmp_filter = []
         for item in self.res["route"]:
+            sortn = 0
             # node
             if "id" in item["node"]:
                 # refer existing node
@@ -97,7 +98,11 @@ class Load:
                 }
                 if "icon" in item:
                     lo_node["icon"] = item["icon"]
-                tmp_node.append(lo_node)
+                    if "sort" in item["icon"]:
+                        sortn = item["icon"]["sort"]
+                while sortn > len(tmp_node):
+                    tmp_node.extend([[], [], [], []])
+                tmp_node[sortn].append(lo_node)
             # filter
             for idx, line in enumerate(item["filter"]):
                 lo_filter = {
@@ -115,8 +120,11 @@ class Load:
                     lo_filter["link"] = line["link"]
                 tmp_filter.append(lo_filter)
         # append
-        tmp_node.extend(self.res["node"])
-        self.res["node"] = tmp_node
+        tmp_nodels = []
+        for item in tmp_node:
+            tmp_nodels.extend(item)
+        tmp_nodels.extend(self.res["node"])
+        self.res["node"] = tmp_nodels
         self.res["filter"] = tmp_filter
         del self.res["route"]
 
