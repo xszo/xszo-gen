@@ -22,27 +22,37 @@ misc:
   doh: https://dns.alidns.com/dns-query
 # routing info
 route:
-  - id: ss
+  - id: system
     node:
       type: static
-      name: SYSTEM
+      name: System
       list: [-main, -direct, =node]
     filter:
-      - use: ss
+      - use: system
     icon:
       emoji: 🏳️‍🌈
       sf: arrow.left.and.right.system
   - id: main
     node:
       type: static
-      name: DEFAULT
+      name: Default
       list: [-direct, -reject, =node]
     filter:
       - type: main
-      - use: ww
+      - use: world
     icon:
       emoji: 🏳️‍🌈
       sf: arrow.left.arrow.right.system
+  - id: region
+    node:
+      type: static
+      name: Region
+      list: [-main, -direct, =node]
+    filter:
+      - use: region
+    icon:
+      emoji: 🏳️‍🌈
+      sf: arrow.left.and.right.system
   - id: cn
     node:
       type: static

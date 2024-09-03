@@ -1,26 +1,41 @@
 # output list
 list:
   # id, list below
-  - ss system
-  - xx adguard vlcxx
-
+  - system system
+  - region vlcregion
   - cn r-cn vlccn
   - jp r-jp vlcjp
   - tw r-tw vlctw
   - us r-us vlcus
-  - ww world -cn -jp -tw -us vlcww gfw
+  - world -region -cn -jp -tw -us world vlcworld gfw
+  - block adguard vlcblock
 
 # V2fly domain List Community
 # vlc{id}
 vlc:
   # id list
-  - ww geolocation-!cn
-  - cn geolocation-cn
-  - jp abema niconico pixiv dmm dlsite
-  - tw bahamut pikpak 18comic
-  - us ehentai
-
-  - xx category-ads
+  region:
+    - dazn
+    - disney
+    - primevideo
+  cn:
+    - geolocation-cn
+  jp:
+    - abema
+    - dlsite
+    - dmm
+    - niconico
+    - pixiv
+  tw:
+    - 18comic
+    - bahamut
+    - pikpak
+  us:
+    - ehentai
+  world:
+    - geolocation-!cn
+  block:
+    - category-ads
 
 # Parse Online list
 # {reg}

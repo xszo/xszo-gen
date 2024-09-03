@@ -5,12 +5,12 @@ tar:
   - quantumult
   - shadowrocket
 route:
-  - id: ss
+  - id: system
     node: { id: direct }
-    filter: [use: ss]
+    filter: [use: system]
   - id: main
     node: { name: Node, type: test, list: =xx }
-    filter: [type: main, use: ww]
+    filter: [type: main, use: world, use: region]
   - id: cn
     node: { id: direct }
     filter: [use: cn]
