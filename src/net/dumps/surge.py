@@ -60,7 +60,7 @@ class dump:
             if item["type"] == "static":
                 line += " = select"
             elif item["type"] == "test":
-                line += ' = smart, hidden=true, policy-priority="\\[\\w\\]:8;"'
+                line += " = smart, hidden=true"
             else:
                 return None
             if "list" in item:

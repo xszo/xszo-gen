@@ -6,9 +6,18 @@ list:
   - jp r-jp vlcjp
   - tw r-tw vlctw
   - us r-us vlcus
-  - stream -cn -jp -tw -us vlcstream
-  - world -stream -cn -jp -tw -us world vlcworld gfw
-  - block adguard vlcblock
+  - >-
+    stream
+    -cn -jp -tw -us
+    vlcstream
+  - >-
+    world
+    -stream -cn -jp -tw -us
+    world vlcworld gfw
+
+  - >-
+    block
+    adguard vlcblock
 
 # V2fly domain List Community
 # vlc{id}
@@ -25,20 +34,19 @@ vlc:
   tw:
     - 18comic
     - bahamut
-    - hinet
-    - pikpak
   us:
     - ehentai
+    - hbo
   stream:
     - dazn
     - disney
-    - hulu
     - netflix
     - primevideo
   world:
     - geolocation-!cn
   block:
-    - category-ads
+    - category-ads-all
+    - category-httpdns-cn
 
 # Parse Online list
 # {reg}

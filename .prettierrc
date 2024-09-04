@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc.json",
+  "overrides": [
+    {
+      "files": [".prettierrc", ".github/*.yml"],
+      "options": { "parser": "json" }
+    }
+  ]
+}
