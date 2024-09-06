@@ -60,7 +60,7 @@ class dump:
             if item["type"] == "static":
                 line += " = select"
             elif item["type"] == "test":
-                line += " = smart, hidden=true"
+                line += ' = smart, hidden=true, policy-priority="\\[B\\]:8;"'
             else:
                 return None
             if "list" in item:
@@ -87,7 +87,7 @@ class dump:
                 + item[2]
                 + ", "
                 + self.__map_node[item[3]]
-                + ", no-resolve, extended-matching"
+                + ", no-resolve"
                 for item in self.__src["filter"]["dn"]["surge"]
                 if item[0] in set([1, 2])
             ]
