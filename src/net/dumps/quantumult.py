@@ -66,7 +66,7 @@ def filter(src: dict, raw: dict) -> None:
     )
 
 
-def init(araw: dict) -> None:
+def load(araw: dict) -> None:
     global __src, map_node
     __src = araw
     for item in __src["node"]:

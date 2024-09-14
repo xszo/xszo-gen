@@ -1,10 +1,8 @@
 #!/bin/sh
+if ! [ -x "$(command -v poetry)" ]; then
+  pip install poetry; fi;
 while getopts "ai" opt; do case $opt in
-  a)
-    poetry install --only main;;
-  i)
-    if ! [ -x "$(command -v poetry)" ]; then
-      pip install poetry; fi;
-    poetry update --sync;;
+  a) poetry install --only main;;
+  i) poetry update --sync;;
 esac; done;
-poetry run python src/run.py "$@";
+poetry run python -m src.run "$@";

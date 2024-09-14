@@ -134,7 +134,7 @@ def rule(src: dict, raw: dict) -> None:
             }
 
 
-def init(araw: dict) -> None:
+def load(araw: dict) -> None:
     global __src, map_node
     __src = deepcopy(araw)
     for item in __src["node"]:

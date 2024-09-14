@@ -31,7 +31,7 @@ def node(src: dict, raw: dict) -> None:
     raw.extend([conv(item) for item in src["node"]])
 
 
-def init(araw: dict) -> None:
+def load(araw: dict) -> None:
     global __src, map_node
     __src = deepcopy(araw)
     for item in __src["node"]:

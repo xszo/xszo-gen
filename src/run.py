@@ -1,6 +1,6 @@
-from filter.run import run as _filter
-from net.run import run as _net
-from run.run import run as _run
+from .filter.run import run as _filter
+from .net.run import run as _net
+from .sh.run import run as _run
 
 
 def _gen() -> None:
