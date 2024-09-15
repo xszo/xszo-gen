@@ -7,7 +7,6 @@ res = {"domain": {}, "ip4": {}, "ip6": {}, "ipasn": {}, "ipgeo": {}}
 
 
 def get() -> dict:
-    global res
     for ls in ren.PATH_VAR.iterdir():
         if ls == ren.PATH_VAR_LIST:
             continue

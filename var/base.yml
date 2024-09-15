@@ -1,6 +1,3 @@
-# remote uri base
 uri: https://cdn.jsdelivr.net/gh/xszo/etc/
-# project icon
 ico: https://avatars.githubusercontent.com/u/97667708
-# update interval of remote files
 int: 86400

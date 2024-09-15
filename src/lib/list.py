@@ -1,11 +1,11 @@
-def insert_tp(ls1: list, ls2: list) -> list:
+def insert_t(ls: list, tpl: list) -> list:
     res = []
-    for item in ls2:
+    for item in tpl:
         if isinstance(item, str):
             if item == "=":
-                res.extend(ls1)
+                res.extend(ls)
             if item[0] == "-":
-                res.append(ls1[int(item[1:])])
+                res.append(ls[int(item[1:])])
         else:
             res.append(item)
     return res

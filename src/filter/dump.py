@@ -1,21 +1,22 @@
 import yaml
 
+from ..lib import var
 from . import ren
 
 # Var
-__raw = {}
+__src = {}
 
 # Init
-(ren.PATH_OUT / "surge").mkdir(parents=True, exist_ok=True)
-(ren.PATH_OUT / "clash").mkdir(parents=True, exist_ok=True)
+(ren.PATH_OUT_SURGE).mkdir(parents=True, exist_ok=True)
+(ren.PATH_OUT_CLASH).mkdir(parents=True, exist_ok=True)
 
 
 def __ref(als: dict) -> None:
     ref = {
         # avaliability
         "list": {
-            "dn": als["domain"],
-            "ip": als["ip"],
+            "dn": set(als["domain"]),
+            "ip": set(als["ip"]),
         },
         # data
         "dn": {},
@@ -31,15 +32,14 @@ def __ref(als: dict) -> None:
         ref["ip"]["surge-" + k] = "surge/filter-ip+" + k + ".txt"
         ref["ip"]["clash-" + k] = "surge/filter-ip+" + k + ".txt"
     # pass via file
-    with open(ren.PATH_TMP / "list.yml", "tw", encoding="utf-8") as file:
-        yaml.safe_dump(ref, file)
+    var.let(ren.PATH_TMP_REF, ref)
 
 
 def __dn() -> None:
-    for key, val in __raw["domain"].items():
+    for key, val in __src["domain"].items():
         # dump clash
         with open(
-            ren.PATH_OUT / "clash" / ("filter-dn+" + key + ".txt"),
+            ren.PATH_OUT_CLASH / ("filter-dn+" + key + ".txt"),
             "tw",
             encoding="utf-8",
         ) as file:
@@ -54,22 +54,20 @@ def __dn() -> None:
             else:
                 raw.append("DOMAIN," + item + "\n")
         with open(
-            ren.PATH_OUT / "surge" / ("filter-dn+" + key + ".txt"),
+            ren.PATH_OUT_SURGE / ("filter-dn+" + key + ".txt"),
             "tw",
             encoding="utf-8",
         ) as file:
             file.writelines(raw)
     # return avaliable lists
-    return __raw["domain"].keys()
+    return __src["domain"].keys()
 
 
 def __ip() -> None:
-    # possible types
-    types = ["ip4", "ip6", "ipasn", "ipgeo"]
     # convert input format
     raw = {}
-    for key in types:
-        for k, v in __raw[key].items():
+    for key in ["ip4", "ip6", "ipasn", "ipgeo"]:
+        for k, v in __src[key].items():
             if not k in raw:
                 raw[k] = {}
             raw[k][key] = v
@@ -86,7 +84,7 @@ def __ip() -> None:
             line.extend(["GEOIP," + x for x in val["ipgeo"]])
         # write output
         with open(
-            ren.PATH_OUT / "surge" / ("filter-ip+" + key + ".txt"),
+            ren.PATH_OUT_SURGE / ("filter-ip+" + key + ".txt"),
             "tw",
             encoding="utf-8",
         ) as file:
@@ -95,7 +93,7 @@ def __ip() -> None:
     return raw.keys()
 
 
-def dump(araw: dict) -> None:
-    global __raw
-    __raw = araw
+def dump(lsrc: dict) -> None:
+    global __src
+    __src = lsrc
     __ref({"domain": tuple(__dn()), "ip": tuple(__ip())})

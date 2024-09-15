@@ -29,7 +29,6 @@ def __incl(loc: str) -> list:
 
 
 def get(dat: list) -> dict:
-    global res
     no = {}
     for name, val in dat.items():
         # parse lists

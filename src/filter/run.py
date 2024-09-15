@@ -12,7 +12,7 @@ def run() -> None:
     val["domain"].update(getrex.get(data["get"]))
     val["domain"].update(getvlc.get(data["vlc"]))
 
-    remix.load(val)
+    remix.let(val)
     remix.mix(data["list"])
     val = remix.get()
 

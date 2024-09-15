@@ -1,10 +1,10 @@
+res = {}
 __src = {}
+__var = {"map-node": {"direct": "direct", "proxy": "proxy", "reject": "reject"}}
 
-map_node = {"direct": "direct", "proxy": "proxy", "reject": "reject"}
 
-
-def node(src: dict, raw: dict) -> None:
-    raw.append("\n[policy]")
+def __node(src: dict, res: dict) -> None:
+    res.append("\n[policy]")
 
     def conv(item: dict) -> str:
         if item["type"] == "static":
@@ -17,7 +17,7 @@ def node(src: dict, raw: dict) -> None:
         if "list" in item:
             for val in item["list"]:
                 if val[0] == "-":
-                    line += ", " + map_node[val[1:]]
+                    line += ", " + __var["map-node"][val[1:]]
                 else:
                     line += ", " + val
         elif "regx" in item:
@@ -26,22 +26,22 @@ def node(src: dict, raw: dict) -> None:
             line += ", img-url=" + item["icon"]["sf"]
         return line
 
-    raw.extend([conv(item) for item in src["node"]])
+    res.extend([conv(item) for item in src["node"]])
 
 
-def filter(src: dict, raw: dict) -> None:
-    raw.append("\n[filter_local]")
-    raw.append("final, " + map_node[src["filter"]["main"]])
+def __filter(src: dict, res: dict) -> None:
+    res.append("\n[filter_local]")
+    res.append("final, " + __var["map-node"][src["filter"]["main"]])
 
-    raw.append("\n[filter_remote]")
-    raw.extend(
+    res.append("\n[filter_remote]")
+    res.extend(
         [
             (
                 item[2]
                 + ", tag=DN"
                 + item[1]
                 + ", force-policy="
-                + map_node[item[3]]
+                + __var["map-node"][item[3]]
                 + ", update-interval="
                 + str(src["misc"]["interval"])
                 + ", opt-parser=true, enabled=true"
@@ -55,7 +55,7 @@ def filter(src: dict, raw: dict) -> None:
                 + ", tag=IP"
                 + item[1]
                 + ", force-policy="
-                + map_node[item[3]]
+                + __var["map-node"][item[3]]
                 + ", update-interval="
                 + str(src["misc"]["interval"])
                 + ", opt-parser=true, enabled=true"
@@ -66,16 +66,17 @@ def filter(src: dict, raw: dict) -> None:
     )
 
 
-def load(araw: dict) -> None:
-    global __src, map_node
-    __src = araw
+def let(lsrc: dict) -> None:
+    global __src
+    __src = lsrc
     for item in __src["node"]:
         if "id" in item:
-            map_node[item["id"]] = item["name"]
+            __var["map-node"][item["id"]] = item["name"]
 
 
 def profile(out, loc: dict) -> None:
-    raw = [
+    global res
+    res = [
         "[general]",
         "profile_img_url = " + __src["misc"]["icon"],
         "resource_parser_url = " + loc["parse"],
@@ -83,28 +84,28 @@ def profile(out, loc: dict) -> None:
         "server_check_url = " + __src["misc"]["test"],
     ]
 
-    raw.append("\n[dns]")
+    res.append("\n[dns]")
     if "dns" in __src["misc"]:
         for item in __src["misc"]["dns"]:
-            raw.append("server = " + item)
+            res.append("server = " + item)
     if "doh" in __src["misc"]:
-        raw.append("doh-server = " + __src["misc"]["doh"])
+        res.append("doh-server = " + __src["misc"]["doh"])
 
-    raw.append("\n[mitm]")
+    res.append("\n[mitm]")
 
-    node(__src, raw)
-    filter(__src, raw)
+    __node(__src, res)
+    __filter(__src, res)
 
-    raw.append("\n[rewrite_local]")
-    raw.append("\n[rewrite_remote]")
+    res.append("\n[rewrite_local]")
+    res.append("\n[rewrite_remote]")
 
-    raw.append("\n[server_local]")
-    raw.append("\n[server_remote]")
-    raw.extend(
+    res.append("\n[server_local]")
+    res.append("\n[server_remote]")
+    res.extend(
         [
             item + ", tag=Proxy, update-interval=86400, opt-parser=true, enabled=true"
             for item in __src["proxy"]["link"]
         ]
     )
 
-    out.writelines([x + "\n" for x in raw])
+    out.writelines([x + "\n" for x in res])

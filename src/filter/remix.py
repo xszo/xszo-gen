@@ -1,29 +1,31 @@
+from . import ren
+
 # Var
 res = {}
-__raw = {}
-__dn_lv = range(1, 5)
+__src = {}
 
 
-def load(araw: dict) -> None:
-    global __raw
-    for k1, v1 in araw.items():
-        __raw[k1] = {}
-        for k2, v2 in v1.items():
-            __raw[k1][k2] = set(v2)
+def let(lsrc: dict) -> None:
+    for ty, v1 in lsrc.items():
+        __src[ty] = {}
+        for key, v2 in v1.items():
+            __src[ty][key] = set(v2)
 
 
 def __dn_mini(raw: set | list) -> set:
-    dat = set()
-    for i in __dn_lv:
+    ret = set()
+    for i in ren.LEVEL_DN:
+        # add level
         suffix = set(x for x in raw if x[0] == "." and x.count(".") == i)
-        dat.update(suffix)
+        ret.update(suffix)
+        # remove children
         raw = set(x for x in raw if not ("." + ".".join(x.split(".")[-i:])) in suffix)
-    dat.update(raw)
-    return dat
+    ret.update(raw)
+    return ret
 
 
-def __dn_rm(raw: set, rm: set):
-    for i in __dn_lv:
+def __dn_rm(raw: set | list, rm: set | list):
+    for i in ren.LEVEL_DN:
         # remove parent
         raw.difference_update(
             set("." + ".".join(x.split(".")[-i:]) for x in rm if x.count(".") >= i)
@@ -35,9 +37,8 @@ def __dn_rm(raw: set, rm: set):
 
 
 def mix(dat: list) -> None:
-    global res
-    keys = __raw.keys()
-    for k in keys:
+    types = __src.keys()
+    for k in types:
         res[k] = {}
 
     for unit in dat:
@@ -45,42 +46,42 @@ def mix(dat: list) -> None:
         if len(unit := unit.split(" ")) < 2:
             continue
         name = unit[0]
-
+        # incl
         tmp_excl = []
         for item in unit[1:]:
             if item[0] == "-":
                 tmp_excl.append(item[1:])
             else:
-                for k in keys:
-                    if item in __raw[k]:
+                for k in types:
+                    if item in __src[k]:
                         if name in res[k]:
-                            res[k][name].update(__raw[k][item])
+                            res[k][name].update(__src[k][item])
                         else:
-                            res[k][name] = __raw[k][item]
+                            res[k][name] = __src[k][item]
         res["domain"][name] = __dn_mini(res["domain"][name])
-
+        # excl
         tmp_exdn = set()
         for item in tmp_excl:
-            for k in keys:
+            for k in types:
                 if name in res[k]:
                     if item in res[k]:
                         if k == "domain":
                             tmp_exdn.update(res["domain"][item])
                         else:
                             res[k][name].difference_update(res[k][item])
-                    elif item in __raw[k]:
+                    elif item in __src[k]:
                         if k == "domain":
-                            tmp_exdn.update(__raw["domain"][item])
+                            tmp_exdn.update(__src["domain"][item])
                         else:
-                            res[k][name].difference_update(__raw[k][item])
+                            res[k][name].difference_update(__src[k][item])
         if len(tmp_exdn) > 0:
             res["domain"][name] = __dn_rm(res["domain"][name], tmp_exdn)
 
 
 def get() -> dict:
     ret = {}
-    for k1, v1 in res.items():
-        ret[k1] = {}
-        for k2, v2 in v1.items():
-            ret[k1][k2] = tuple(sorted(v2))
+    for ty, v1 in res.items():
+        ret[ty] = {}
+        for key, v2 in v1.items():
+            ret[ty][key] = tuple(sorted(v2))
     return ret

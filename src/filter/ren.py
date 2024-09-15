@@ -1,10 +1,18 @@
 from pathlib import Path
 
-PATH_TMP = Path("tmp/filter/")
-PATH_VAR = Path("var/filter/")
-PATH_VAR_LIST = Path("var/filter/list.yml")
-PATH_OUT = Path("out/")
+from ..ren import PATH_OUT, PATH_TMP_FILTER, PATH_VAR_FILTER, URI
 
+NAME_SURGE = "surge"
+NAME_CLASH = "clash"
+
+PATH_TMP = PATH_TMP_FILTER
+PATH_TMP_REF = PATH_TMP / "ref.yml"
+PATH_VAR = PATH_VAR_FILTER
+PATH_VAR_LIST = PATH_VAR / "list.yml"
+PATH_OUT_SURGE = PATH_OUT / NAME_SURGE
+PATH_OUT_CLASH = PATH_OUT / NAME_CLASH
+
+LEVEL_DN = range(1, 5)
 REX_COM = "^\\s*($|#|//|!)"
 
 # getvlc.py

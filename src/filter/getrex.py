@@ -16,7 +16,6 @@ ren.PATH_TMP.mkdir(parents=True, exist_ok=True)
 
 
 def var(avar: dict) -> None:
-    global __rex_var
     # compile variable pattern
     for name, line in avar.items():
         __rex_var.append((re.compile("\\\\=" + name + "\\\\"), line))
@@ -24,7 +23,6 @@ def var(avar: dict) -> None:
 
 
 def get(dat: list) -> dict:
-    global res
     no = {}
     for unit in dat:
         # load patterns and out

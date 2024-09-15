@@ -1,26 +1,27 @@
 from shutil import copyfile
 
-import requests
-
+from ..lib import net
 from . import ren
 from .dumps import clash_conv, quantumult, shadowrocket, surge
 
-__raw = None
+# Var
+__src = {}
 __tmp_set = set()
 
+# Init
 ren.PATH_OUT.mkdir(parents=True, exist_ok=True)
 ren.PATH_OUT_SURGE.mkdir(parents=True, exist_ok=True)
 ren.PATH_OUT_CLASH.mkdir(parents=True, exist_ok=True)
 
 
-def dump(araw: dict) -> None:
-    global __raw
-    if not "ref" in araw:
+def dump(lsrc: dict) -> None:
+    global __src
+    if not "ref" in lsrc:
         return
-    var = araw.pop("ref")
+    var = lsrc.pop("ref")
     if var["id"] != "":
         var["id"] = "+" + var["id"]
-    __raw = araw
+    __src = lsrc
 
     if "quantumult" in var["tar"]:
         __quantumult(var["id"])
@@ -32,13 +33,8 @@ def dump(araw: dict) -> None:
         __shadowrocket(var["id"])
 
 
-def __rmt(loc: str, lnk: str) -> None:
-    with open(ren.PATH_OUT / loc, "tw", encoding="utf-8") as file:
-        file.write(requests.get(lnk, timeout=8).text)
-
-
 def __quantumult(alia: str) -> None:
-    quantumult.load(__raw)
+    quantumult.let(__src)
 
     with open(
         ren.PATH_OUT / ("quantumult" + alia + ".conf"),
@@ -52,17 +48,16 @@ def __quantumult(alia: str) -> None:
             },
         )
 
-    global __tmp_set
     if not "qp" in __tmp_set:
         __tmp_set.add("qp")
-        __rmt(
-            "quantumult-parser.js",
+        net.download(
             ren.EXT_QUANTUMULT_PARSER,
+            ren.PATH_OUT / "quantumult-parser.js",
         )
 
 
 def __clash(alia: str) -> None:
-    clash_conv.load(__raw)
+    clash_conv.let(__src)
 
     with open(
         ren.PATH_OUT_CLASH / ("conv" + alia + ".conf"),
@@ -80,7 +75,7 @@ def __clash(alia: str) -> None:
 
 
 def __surge(alia: str) -> None:
-    surge.load(__raw)
+    surge.let(__src)
 
     with open(
         ren.PATH_OUT_SURGE / ("base" + alia + ".conf"),
@@ -96,14 +91,13 @@ def __surge(alia: str) -> None:
     ) as out:
         surge.profile(out, {"base": "base" + alia + ".conf"})
 
-    global __tmp_set
     if not "sc" in __tmp_set:
         __tmp_set.add("sc")
         copyfile(ren.PATH_SRC / "dumps" / "conv.conf", ren.PATH_OUT / "conv.conf")
 
 
 def __shadowrocket(alia: str) -> None:
-    shadowrocket.load(__raw)
+    shadowrocket.let(__src)
 
     with open(
         ren.PATH_OUT / ("shadowrocket" + alia + ".conf"),

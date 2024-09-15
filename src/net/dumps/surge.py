@@ -1,13 +1,14 @@
+res = {}
 __src = {}
-__map_node = {"direct": "DIRECT", "reject": "REJECT"}
+__var = {"map-node": {"direct": "DIRECT", "reject": "REJECT"}}
 
 
-def load(araw: dict) -> None:
-    global __src, __map_node
-    __src = araw
+def let(lsrc: dict) -> None:
+    global __src
+    __src = lsrc
     for item in __src["node"]:
         if "id" in item:
-            __map_node[item["id"]] = item["name"]
+            __var["map-node"][item["id"]] = item["name"]
 
 
 def profile(out, loc: dict) -> None:
@@ -26,20 +27,19 @@ def profile(out, loc: dict) -> None:
 
 
 def base(out, loc: dict) -> None:
-    raw = [
+    global res
+    res = [
         "#!MANAGED-CONFIG "
         + loc["up"]
         + " interval="
         + str(__src["misc"]["interval"])
         + " strict=false",
         "\n",
+        #
         "[General]",
         "loglevel = warning",
-        "auto-suspend = true",
         "ipv6 = true",
-        "udp-priority = true",
         "udp-policy-not-supported-behaviour = REJECT",
-        "allow-wifi-access = false",
         "exclude-simple-hostnames = true",
         "internet-test-url = " + __src["misc"]["test"],
         "proxy-test-url = " + __src["misc"]["test"],
@@ -50,13 +50,13 @@ def base(out, loc: dict) -> None:
         line = "dns-server = "
         for item in __src["misc"]["dns"]:
             line += item + ", "
-        raw.extend(["hijack-dns = *:53", line[:-2]])
+        res.extend(["hijack-dns = *:53", line[:-2]])
     if "doh" in __src["misc"]:
-        raw.append(
+        res.append(
             "encrypted-dns-server = " + __src["misc"]["doh"],
         )
 
-    raw.append("\n[Proxy Group]")
+    res.append("\n[Proxy Group]")
 
     def conv_n(item: dict) -> str:
         line = item["name"]
@@ -69,7 +69,7 @@ def base(out, loc: dict) -> None:
         if "list" in item:
             for val in item["list"]:
                 if val[0] == "-":
-                    line += ", " + __map_node[val[1:]]
+                    line += ", " + __var["map-node"][val[1:]]
                 else:
                     line += ", " + val
         if "regx" in item:
@@ -78,22 +78,22 @@ def base(out, loc: dict) -> None:
             )
         return line
 
-    raw.extend([conv_n(item) for item in __src["node"]])
+    res.extend([conv_n(item) for item in __src["node"]])
 
-    raw.append("\n[Rule]")
+    res.append("\n[Rule]")
 
-    raw.extend(
+    res.extend(
         [
-            "RULE-SET, " + item[2] + ", " + __map_node[item[3]] + ", no-resolve"
+            "RULE-SET, " + item[2] + ", " + __var["map-node"][item[3]] + ", no-resolve"
             for item in __src["filter"]["dn"]["surge"]
             if item[0] in set([1, 2])
         ]
         + [
-            "RULE-SET, " + item[2] + ", " + __map_node[item[3]]
+            "RULE-SET, " + item[2] + ", " + __var["map-node"][item[3]]
             for item in __src["filter"]["ip"]["surge"]
             if item[0] == 1
         ]
     )
-    raw.append("FINAL, " + __map_node[__src["filter"]["main"]] + ", dns-failed")
+    res.append("FINAL, " + __var["map-node"][__src["filter"]["main"]] + ", dns-failed")
 
-    out.writelines([x + "\n" for x in raw])
+    out.writelines([x + "\n" for x in res])

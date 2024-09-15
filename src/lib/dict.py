@@ -1,9 +1,9 @@
-def merge(var1: dict, var2: dict) -> dict:
-    for key, val in var2.items():
-        if key in var1:
-            if isinstance(var1[key], dict):
-                merge(var1[key], val)
+def merge(res: dict, ins: dict) -> None:
+    for key, val in ins.items():
+        if key in res:
+            if isinstance(res[key], dict):
+                merge(res[key], val)
             else:
-                var1[key] = val
+                res[key] = val
         else:
-            var1[key] = val
+            res[key] = val
