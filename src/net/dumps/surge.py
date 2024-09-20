@@ -38,19 +38,16 @@ def base(out, loc: dict) -> None:
         #
         "[General]",
         "loglevel = warning",
-        "ipv6 = true",
-        "udp-policy-not-supported-behaviour = REJECT",
-        "exclude-simple-hostnames = true",
         "internet-test-url = " + __src["misc"]["test"],
         "proxy-test-url = " + __src["misc"]["test"],
         "proxy-test-udp = " + __src["misc"]["t-dns"],
     ]
 
     if "dns" in __src["misc"]:
-        line = "dns-server = "
-        for item in __src["misc"]["dns"]:
-            line += item + ", "
-        res.extend(["hijack-dns = *:53", line[:-2]])
+        line = "dns-server = " + __src["misc"]["dns"][0]
+        for item in __src["misc"]["dns"][1:]:
+            line += ", " + item
+        res.append(line)
     if "doh" in __src["misc"]:
         res.append(
             "encrypted-dns-server = " + __src["misc"]["doh"],

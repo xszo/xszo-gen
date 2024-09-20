@@ -4,5 +4,5 @@ if ! [ -x "$(command -v poetry)" ]; then
 while getopts "ai" opt; do case $opt in
   a) poetry install --only main;;
   i) poetry update --sync;;
-esac; done;
+  esac; done;
 poetry run python -m src.run "$@";

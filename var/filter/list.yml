@@ -1,23 +1,27 @@
 # output list
 list:
   # id, list below
-  - system system
+  - local local
   - cn r-cn vlccn
   - jp r-jp vlcjp
   - tw r-tw vlctw
   - us r-us vlcus
+  - >-
+    system
+    -cn -jp -tw -us
+    vlcsystem
   - >-
     stream
     -cn -jp -tw -us
     vlcstream
   - >-
     world
-    -stream -cn -jp -tw -us
-    world vlcworld gfw
+    -system -stream -cn -jp -tw -us
+    vlcworld gfw
 
   - >-
     block
-    adguard vlcblock
+    vlcblock adguard
 
 # V2fly domain List Community
 # vlc{id}
@@ -37,6 +41,8 @@ vlc:
   us:
     - ehentai
     - hbo
+  system:
+    - apple
   stream:
     - dazn
     - disney

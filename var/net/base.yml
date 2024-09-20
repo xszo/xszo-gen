@@ -22,6 +22,9 @@ misc:
   doh: https://dns.alidns.com/dns-query
 # routing info
 route:
+  - id: local
+    node: { id: direct }
+    filter: [use: local]
   - id: system
     node:
       type: static
@@ -29,6 +32,17 @@ route:
       list: [-main, -direct, =node]
     filter:
       - use: system
+    icon:
+      sort: 1
+      emoji: 🏳️‍🌈
+      sf: arrow.left.and.right.system
+  - id: stream
+    node:
+      type: static
+      name: Stream
+      list: [-main, -direct, =node]
+    filter:
+      - use: stream
     icon:
       sort: 1
       emoji: 🏳️‍🌈
@@ -77,17 +91,6 @@ route:
       sort: 3
       emoji: 🏳️‍🌈
       sf: arrow.forward.system
-  - id: stream
-    node:
-      type: static
-      name: Stream
-      list: [-main, -direct, =node]
-    filter:
-      - use: stream
-    icon:
-      sort: 2
-      emoji: 🏳️‍🌈
-      sf: arrow.left.and.right.system
   - id: main
     node:
       type: static
