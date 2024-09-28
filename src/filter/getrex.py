@@ -8,18 +8,22 @@ from . import ren
 
 # Var
 res = {}
-__rex_var = []
-__rex_com = re.compile(ren.REX_COM)
+__var = {
+    "rex-com": re.compile("^\\s*($|#|//|!)"),
+    "rex": [],
+}
+
 
 # Init
-ren.PATH_TMP.mkdir(parents=True, exist_ok=True)
+def init():
+    ren.PATH_TMP.mkdir(parents=True, exist_ok=True)
 
 
-def var(avar: dict) -> None:
+def letvar(avar: dict) -> None:
     # compile variable pattern
     for name, line in avar.items():
-        __rex_var.append((re.compile("\\\\=" + name + "\\\\"), line))
-    __rex_var.append((re.compile("\\\\=\\w*\\\\"), ""))
+        __var["rex"].append((re.compile("\\\\=" + name + "\\\\"), line))
+    __var["rex"].append((re.compile("\\\\=\\w*\\\\"), ""))
 
 
 def get(dat: list) -> dict:
@@ -31,7 +35,7 @@ def get(dat: list) -> dict:
             # each sublist
             for item in val:
                 # insert variables
-                for v in __rex_var:
+                for v in __var["rex"]:
                     item = re.sub(v[0], v[1], item)
                 # compile pattern
                 item = item.split("  ")
@@ -49,7 +53,7 @@ def get(dat: list) -> dict:
 
         # loop lines
         for item in raw.splitlines():
-            if re.match(__rex_com, item):
+            if re.match(__var["rex-com"], item):
                 continue
             item = item.lower()
             for pat in rex:

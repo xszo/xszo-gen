@@ -44,8 +44,8 @@ def base(out, loc: dict) -> None:
     ]
 
     if "dns" in __src["misc"]:
-        line = "dns-server = " + __src["misc"]["dns"][0]
-        for item in __src["misc"]["dns"][1:]:
+        line = "dns-server = system"
+        for item in __src["misc"]["dns"]:
             line += ", " + item
         res.append(line)
     if "doh" in __src["misc"]:
@@ -60,7 +60,7 @@ def base(out, loc: dict) -> None:
         if item["type"] == "static":
             line += " = select"
         elif item["type"] == "test":
-            line += ' = smart, hidden=true, policy-priority="\\[B\\]:8;"'
+            line += ' = smart, policy-priority="\\[B\\]:8;"'
         else:
             return None
         if "list" in item:

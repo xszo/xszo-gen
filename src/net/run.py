@@ -4,6 +4,7 @@ from . import dump, load, ren
 
 
 def run() -> None:
+    dump.init()
     # load runtime data
     with open(ren.PATH_VAR_LIST, "tr", encoding="utf-8") as file:
         data = yaml.safe_load(file)

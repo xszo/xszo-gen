@@ -30,6 +30,7 @@ vlc:
   cn:
     - geolocation-cn
   jp:
+    - 5ch
     - abema
     - dlsite
     - dmm

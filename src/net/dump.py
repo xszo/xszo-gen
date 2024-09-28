@@ -1,17 +1,17 @@
-from shutil import copyfile
-
 from ..lib import net
 from . import ren
-from .dumps import clash_conv, quantumult, shadowrocket, surge
+from .dumps import clash_conv, conv, quantumult, shadowrocket, surge
 
 # Var
 __src = {}
-__tmp_set = set()
+__var = {"reg-parser": set()}
+
 
 # Init
-ren.PATH_OUT.mkdir(parents=True, exist_ok=True)
-ren.PATH_OUT_SURGE.mkdir(parents=True, exist_ok=True)
-ren.PATH_OUT_CLASH.mkdir(parents=True, exist_ok=True)
+def init() -> None:
+    ren.PATH_OUT.mkdir(parents=True, exist_ok=True)
+    ren.PATH_OUT_SURGE.mkdir(parents=True, exist_ok=True)
+    ren.PATH_OUT_CLASH.mkdir(parents=True, exist_ok=True)
 
 
 def dump(lsrc: dict) -> None:
@@ -48,8 +48,8 @@ def __quantumult(alia: str) -> None:
             },
         )
 
-    if not "qp" in __tmp_set:
-        __tmp_set.add("qp")
+    if not "qp" in __var["reg-parser"]:
+        __var["reg-parser"].add("qp")
         net.download(
             ren.EXT_QUANTUMULT_PARSER,
             ren.PATH_OUT / "quantumult-parser.js",
@@ -91,9 +91,14 @@ def __surge(alia: str) -> None:
     ) as out:
         surge.profile(out, {"base": "base" + alia + ".conf"})
 
-    if not "sc" in __tmp_set:
-        __tmp_set.add("sc")
-        copyfile(ren.PATH_SRC / "dumps" / "conv.conf", ren.PATH_OUT / "conv.conf")
+    if not "sc" in __var["reg-parser"]:
+        __var["reg-parser"].add("sc")
+        with open(
+            ren.PATH_OUT / "conv.conf",
+            "tw",
+            encoding="utf-8",
+        ) as out:
+            conv.proxy(out)
 
 
 def __shadowrocket(alia: str) -> None:

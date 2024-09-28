@@ -1,14 +1,14 @@
-import yaml
-
 from ..lib import var
 from . import ren
 
 # Var
 __src = {}
 
+
 # Init
-(ren.PATH_OUT_SURGE).mkdir(parents=True, exist_ok=True)
-(ren.PATH_OUT_CLASH).mkdir(parents=True, exist_ok=True)
+def init():
+    ren.PATH_OUT_SURGE.mkdir(parents=True, exist_ok=True)
+    ren.PATH_OUT_CLASH.mkdir(parents=True, exist_ok=True)
 
 
 def __ref(als: dict) -> None:
@@ -32,7 +32,7 @@ def __ref(als: dict) -> None:
         ref["ip"]["surge-" + k] = "surge/filter-ip+" + k + ".txt"
         ref["ip"]["clash-" + k] = "surge/filter-ip+" + k + ".txt"
     # pass via file
-    var.let(ren.PATH_TMP_REF, ref)
+    var.let("filter-ref", ref)
 
 
 def __dn() -> None:

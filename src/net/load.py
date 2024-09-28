@@ -2,46 +2,42 @@ from copy import deepcopy
 
 import yaml
 
+from ..lib import var
 from . import ren
 
+# Var
 res = {}
-
-__var = {}
-__base = {}
-__tmp_var = {}
-
-# load var
+__src = {}
+__var = {"var": {}}
 with open(ren.PATH_VAR_REX, "tr", encoding="utf-8") as file:
     __var["rex"] = yaml.safe_load(file)
 
 
 # load base profile
 def base(araw: dict) -> None:
-    global __base, __tmp_var
-    __base = araw
-    __base["ref"] = {}
+    global __src
+    __src = araw
+    __src["ref"] = {}
     # load common
-    with open(ren.PATH_VAR_BASE, "tr", encoding="utf-8") as file:
-        raw = yaml.safe_load(file)
-    __base["misc"].update(
+    __src["misc"].update(
         {
-            "interval": raw["int"],
-            "icon": raw["ico"],
+            "interval": ren.INT,
+            "icon": ren.ICO,
         }
     )
     # load sections
-    if "id" in __base:
-        __base["ref"]["id"] = __base.pop("id")
-    if "var" in __base:
-        __tmp_var.update(__base.pop("var"))
+    if "id" in __src:
+        __src["ref"]["id"] = __src.pop("id")
+    if "var" in __src:
+        __var["var"].update(__src.pop("var"))
 
 
 # load data from file
 def load(araw: dict) -> None:
-    global res, __tmp_var
+    global res
     # load sections
     if "tar" in araw:
-        res = deepcopy(__base)
+        res = deepcopy(__src)
         res["ref"]["tar"] = araw.pop("tar")
     else:
         res = {}
@@ -50,14 +46,14 @@ def load(araw: dict) -> None:
     if "id" in araw:
         res["ref"]["id"] = araw["id"]
     if "var" in araw:
-        __tmp_var.update(araw["var"])
+        __var["var"].update(araw["var"])
     if "misc" in araw:
         res["misc"].update(araw["misc"])
     if "route" in araw:
         res["route"] = __insert(res["route"], araw["route"])
     if "node" in araw:
         res["node"] = __insert(res["node"], araw["node"])
-    __tmp_var["node"] = [x["name"] for x in res["node"]]
+    __var["var"]["node"] = [x["name"] for x in res["node"]]
     # load modules
     __load_route()
     __load_node()
@@ -82,7 +78,6 @@ def __insert(ls1: list, ls2: list) -> list:
 
 # convert route list to node and filter
 def __load_route() -> None:
-    global res
     tmp_node = [[], [], [], []]
     tmp_filter = []
     for item in res["route"]:
@@ -135,7 +130,6 @@ def __load_route() -> None:
 
 # ins inline var, format list val
 def __load_node() -> None:
-    global res
     for item in res["node"]:
         if isinstance(item["list"], list):
             # plain list
@@ -143,7 +137,7 @@ def __load_node() -> None:
             for sth in item["list"]:
                 # replace variable
                 if sth[0] == "=":
-                    tmp.extend(__tmp_var[sth[1:]])
+                    tmp.extend(__var["var"][sth[1:]])
                 else:
                     tmp.append(sth)
             item["list"] = tmp
@@ -157,10 +151,7 @@ def __load_node() -> None:
 
 # get filter content from file and optimize
 def __load_filter() -> None:
-    global res
-    with open(ren.PATH_TMP_FILTER_LIST, "tr", encoding="utf-8") as file:
-        ref = yaml.safe_load(file)
-
+    ref = var.get("filter-ref")
     tmp_dn = {"surge": [], "clash": []}
     tmp_ip = {"surge": [], "clash": []}
 
@@ -213,7 +204,6 @@ def __load_filter() -> None:
 
 
 def __load_proxy() -> None:
-    global res
     tmp_proxy = {"local": [], "link": []}
     for item in res["proxy"]:
         item = item.split(" ")

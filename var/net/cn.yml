@@ -4,6 +4,13 @@ tar:
   - clash
   - quantumult
   - shadowrocket
+misc:
+  dns:
+    - "223.5.5.5"
+    - "223.6.6.6"
+    - "[2400:3200::1]"
+    - "[2400:3200:baba::1]"
+  doh: https://dns.alidns.com/dns-query
 route:
   - id: local
     node: { id: direct }
@@ -22,5 +29,5 @@ route:
     filter: [use: us]
   - id: main
     node: { name: Node, type: test, list: =xx }
-    filter: [type: main, use: world, use: stream]
+    filter: [type: main, use: system, use: stream, use: world]
 node: []

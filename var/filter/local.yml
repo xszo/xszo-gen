@@ -6,7 +6,6 @@ domain:
   - -time.apple.com
   - -time.asia.apple.com
   - -time.euro.apple.com
-  - -time.google.com
   - -time.windows.com
 
 ipcidr:

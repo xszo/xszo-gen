@@ -1,14 +1,13 @@
-from pathlib import Path
-
-import yaml
+__var = {}
 
 
 def let(key, val) -> None:
-    with open(Path(key), "tw", encoding="utf-8") as __file:
-        yaml.safe_dump(val, __file)
+    __var[key] = val
 
 
 def get(key):
-    with open(Path(key), "tr", encoding="utf-8") as __file:
-        __res = yaml.safe_load(__file)
-    return __res
+    return __var[key]
+
+
+def pop(key):
+    return __var.pop(key)
