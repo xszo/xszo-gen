@@ -5,7 +5,7 @@ var: {}
 # misc options
 misc:
   # lag test http link
-  test: http://one.one.one.one/
+  test: http://1.1.1.1/
   t-dns: one.one.one.one@1.1.1.1
   # dns over udp on port 53
   dns:

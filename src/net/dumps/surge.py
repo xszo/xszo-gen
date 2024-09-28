@@ -81,7 +81,11 @@ def base(out, loc: dict) -> None:
 
     res.extend(
         [
-            "RULE-SET, " + item[2] + ", " + __var["map-node"][item[3]] + ", no-resolve"
+            "RULE-SET, "
+            + item[2]
+            + ", "
+            + __var["map-node"][item[3]]
+            + ", no-resolve, extended-matching"
             for item in __src["filter"]["dn"]["surge"]
             if item[0] in set([1, 2])
         ]
